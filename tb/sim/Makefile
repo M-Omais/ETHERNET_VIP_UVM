@@ -60,7 +60,7 @@ sim:
 # Clean all generated files
 clean:
 	@echo "Cleaning C++ artifacts..."
-	del /Q $(CPP_EXE) frame.obj frame.lib frame.exp frame.dll 2>nul
+	del /Q $(CPP_EXE) frame.obj frame.lib frame.exp 2>nul
 	@echo "Cleaning QuestaSim artifacts..."
 	rmdir /S /Q $(WORKDIR) 2>nul
 	del /Q w* *.log *.vcd *.wlf 2>nul

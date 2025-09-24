@@ -269,7 +269,11 @@ eth_axis_tx_inst (
     .busy()
 );
 
-udp_complete_64
+udp_complete_64 #(
+        .ARP_CACHE_ADDR_WIDTH(2),
+		.ARP_REQUEST_RETRY_COUNT(4),
+		.ARP_REQUEST_RETRY_INTERVAL(150),
+		.ARP_REQUEST_TIMEOUT(400))
 udp_complete_inst (
     .clk(clk),
     .rst(rst),

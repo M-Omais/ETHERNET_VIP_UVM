@@ -1,7 +1,7 @@
 # vlib work
 # vlog -sv +acc -lint package.sv +define+UVM_REPORT_DISABLE_FILE_LINE 
 # vlog -sv +acc -lint ../../rtl/*.v ../interfaces/*.sv ../top.sv +define+UVM_REPORT_DISABLE_FILE_LINE 
-vlog -sv "+acc" -lint "+define+UVM_REPORT_DISABLE_FILE_LINE" ../../rtl/*.v ../interfaces/*.sv ../top.sv
+vlog -sv "+acc" -lint "+define+UVM_REPORT_DISABLE_FILE_LINE" ../../rtl/*.v ../interfaces/*.sv ./package.sv ../top.sv
 vsim -sv_lib frame -classdebug -uvmcontrol=all -voptargs=+acc +UVM_NO_RELNOTES +UVM_NO_MSG=PHASESEQ +UVM_NO_MSG=PH_READY_TO_END  +UVM_TESTNAME=handshake_test work.top -do "run 0"
 # 	+UVM_NO_RELNOTES  +UVM_NO_MSG=PHASESEQ +UVM_NO_MSG=PH_READY_TO_END 
 add wave -position insertpoint sim:/top/dut/*
