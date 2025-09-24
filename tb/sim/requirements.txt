@@ -1,0 +1,13 @@
+cocotb==1.9.2
+cocotb-bus==0.2.1
+cocotb-test==0.2.6
+cocotbext-axi==0.1.24
+cocotbext-eth @ git+https://github.com/alexforencich/cocotbext-eth.git@afb7d2bd1018f83a1427aa769dabd202a3d8e0a8
+colorama==0.4.6
+find_libpython==0.4.1
+iniconfig==2.1.0
+packaging==25.0
+pluggy==1.6.0
+Pygments==2.19.2
+pytest==8.4.1
+scapy==2.6.1

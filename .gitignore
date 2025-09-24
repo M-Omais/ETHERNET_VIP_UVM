@@ -1,0 +1,7 @@
+tb/sim/work/
+tb/sim/__pycache__/
+tb/sim/venv/
+tb/sim/transcript
+tb/sim/*.dll
+tb/sim/*.wlf
+tb/sim/*.xml
