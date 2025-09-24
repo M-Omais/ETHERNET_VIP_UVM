@@ -6,7 +6,7 @@ Provides reusable, configurable testbench components to accelerate functional ve
 ---
 
 ## 📂 Project Structure
-
+```bash
 project_root/
 ├── docs/ # Documentation
 │ ├── architecture/ # Block diagrams, specifications
@@ -60,3 +60,4 @@ project_root/
 ├── test_plan.md # Overall test plan
 ├── coverage_plan.md # Coverage goals
 └── results/ # Verification results
+```
