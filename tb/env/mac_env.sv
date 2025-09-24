@@ -1,3 +1,4 @@
+// Env = container for agent(s), scoreboard, coverage
 class mac_env extends uvm_env;
 	`uvm_component_utils(mac_env)
 

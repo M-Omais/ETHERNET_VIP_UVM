@@ -17,7 +17,7 @@ CL = cl
 PYTHON = python
 VLIB = vlib
 VLOG = vlog
-VSIM = vsim -c
+VSIM = vsim -c 
 MTI_HOME ?= C:\questasim64_2024.1
 
 # Python paths (auto-detected)

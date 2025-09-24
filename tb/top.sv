@@ -105,7 +105,7 @@ module top;
 	    uvm_config_db#(virtual udp_if)::set(null, "*", "udp_vif", udp_vif);
 
 	    uvm_config_db#(uvm_active_passive_enum)::set(null, "uvm_test_top.env.xgmii_agent_inst", "is_active", UVM_ACTIVE); // or UVM_PASSIVE
-	    // uvm_config_db#(uvm_active_passive_enum)::set(null, "uvm_test_top.env.udp_agent_inst", "is_active", UVM_PASSIVE); // or UVM_PASSIVE
+	    uvm_config_db#(uvm_active_passive_enum)::set(null, "uvm_test_top.env.udp_agent_inst", "is_active", UVM_ACTIVE); // or UVM_PASSIVE
 
 		// Run the test
 		uvm_config_db#(int)            ::set(null, "", "recording_detail", 0);

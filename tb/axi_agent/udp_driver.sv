@@ -50,7 +50,7 @@ class udp_driver extends uvm_driver #(udp_seq_item);
       seq_item_port.get_next_item(item); //seq_item_port:TLM port in driver that connects to sequencer, to let driver pull transactions
 
       `uvm_info("DRIVER",$sformatf("Driving UDP packet: src_port=%0d dst_port=%0d len=%0d",
-                   item.udp_source_port, item.udp_dest_port, item.udp_length),UVM_LOW)
+                   item.s_udp_source_port, item.s_udp_dest_port, item.s_udp_length),UVM_LOW)
 
       drive_task(item);
       #1ns;
@@ -62,20 +62,20 @@ class udp_driver extends uvm_driver #(udp_seq_item);
   endtask
 
   // Drive UDP transaction onto interface
-  virtual task drive_task(udp_seq_item tr);
+  virtual task drive_task(udp_seq_item tr); 
 
     // Drive header first
     @(posedge vif.clk);
     vif.s_udp_hdr_valid      <= 1;
-    vif.s_udp_ip_dscp        <= tr.ip_dscp;
-    vif.s_udp_ip_ecn         <= tr.ip_ecn;
-    vif.s_udp_ip_ttl         <= tr.ip_ttl;
-    vif.s_udp_ip_source_ip   <= tr.ip_source_ip;
-    vif.s_udp_ip_dest_ip     <= tr.ip_dest_ip;
-    vif.s_udp_source_port    <= tr.udp_source_port;
-    vif.s_udp_dest_port      <= tr.udp_dest_port;
-    vif.s_udp_length         <= tr.udp_length;
-    vif.s_udp_checksum       <= tr.udp_checksum;
+    vif.s_udp_ip_dscp        <= tr.s_udp_ip_dscp;
+    vif.s_udp_ip_ecn         <= tr.s_udp_ip_ecn;
+    vif.s_udp_ip_ttl         <= tr.s_udp_ip_ttl;
+    vif.s_udp_ip_source_ip   <= tr.s_udp_ip_source_ip;
+    vif.s_udp_ip_dest_ip     <= tr.s_udp_ip_dest_ip;
+    vif.s_udp_source_port    <= tr.s_udp_source_port;
+    vif.s_udp_dest_port      <= tr.s_udp_dest_port;
+    vif.s_udp_length         <= tr.s_udp_length;
+    vif.s_udp_checksum       <= tr.s_udp_checksum;
 
     // Wait for DUT ready
     wait(vif.s_udp_hdr_ready);
@@ -83,14 +83,14 @@ class udp_driver extends uvm_driver #(udp_seq_item);
     vif.s_udp_hdr_valid <= 0;
 
     // Drive payload byte by byte
-    foreach (tr.payload_data[i]) begin
+    foreach (tr.s_udp_payload_data[i]) begin
       @(posedge vif.clk);
-      vif.s_udp_payload_axis_tdata  <= tr.payload_data[i];
+      vif.s_udp_payload_axis_tdata  <= tr.s_udp_payload_data[i];
       vif.s_udp_payload_axis_tvalid <= 1;
-      vif.s_udp_payload_axis_tuser  <= tr.payload_user;
-      vif.s_udp_payload_axis_tlast  <= (i == tr.payload_data.size()-1);
+      vif.s_udp_payload_axis_tuser  <= tr.s_udp_payload_user;
+      vif.s_udp_payload_axis_tlast  <= (i == tr.s_udp_payload_data.size()-1);
 
-      `uvm_info("DRIVER", $sformatf("Payload[%0d] = 0x%0h", i, tr.payload_data[i]), UVM_HIGH)
+      `uvm_info("DRIVER", $sformatf("Payload[%0d] = 0x%0h", i, tr.s_udp_payload_data[i]), UVM_HIGH)
 
       // Wait until DUT accepts (tready high)
       wait(vif.s_udp_payload_axis_tready);

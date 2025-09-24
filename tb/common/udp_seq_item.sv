@@ -4,48 +4,141 @@
 
 class udp_seq_item extends uvm_sequence_item;
 
-    // UDP header fields
-    rand bit [5:0]  ip_dscp;
-    rand bit [1:0]  ip_ecn;
-    rand bit [7:0]  ip_ttl;
-    rand bit [31:0] ip_source_ip;
-    rand bit [31:0] ip_dest_ip;
-    rand bit [15:0] udp_source_port;
-    rand bit [15:0] udp_dest_port;
-    rand bit [15:0] udp_length;
-    rand bit [15:0] udp_checksum;
+    // INPUT SIDE (s_udp_*) → fields used to drive stimulus into DUT
+    rand bit [5:0]  s_udp_ip_dscp;
+    rand bit [1:0]  s_udp_ip_ecn;
+    rand bit [7:0]  s_udp_ip_ttl;
+    rand bit [31:0] s_udp_ip_source_ip;
+    rand bit [31:0] s_udp_ip_dest_ip;
+    rand bit [15:0] s_udp_source_port;
+    rand bit [15:0] s_udp_dest_port;
+    rand bit [15:0] s_udp_length;
+    rand bit [15:0] s_udp_checksum;
+    
+    rand bit [7:0]  s_udp_payload_data[$];// Payload (we’ll send byte by byte for now)
+    rand bit        s_udp_payload_last;
+    rand bit        s_udp_payload_user;
 
-    // Payload (we’ll send byte by byte for now)
-    rand bit [7:0]  payload_data[$];
-    rand bit        payload_last;
-    rand bit        payload_user;
+
+
+    // OUTPUT SIDE (m_udp_*) → fields observed from DUT
+    bit        m_udp_hdr_valid;
+    bit        m_udp_hdr_ready;
+    bit [47:0] m_udp_eth_dest_mac;
+    bit [47:0] m_udp_eth_src_mac;
+    bit [15:0] m_udp_eth_type;
+
+    bit [3:0]  m_udp_ip_version;
+    bit [3:0]  m_udp_ip_ihl;
+    bit [5:0]  m_udp_ip_dscp;
+    bit [1:0]  m_udp_ip_ecn;
+    bit [15:0] m_udp_ip_length;
+    bit [15:0] m_udp_ip_identification;
+    bit [2:0]  m_udp_ip_flags;
+    bit [12:0] m_udp_ip_fragment_offset;
+    bit [7:0]  m_udp_ip_ttl;
+    bit [7:0]  m_udp_ip_protocol;
+    bit [15:0] m_udp_ip_header_checksum;
+    bit [31:0] m_udp_ip_source_ip;
+    bit [31:0] m_udp_ip_dest_ip;
+
+    bit [15:0] m_udp_source_port;
+    bit [15:0] m_udp_dest_port;
+    bit [15:0] m_udp_length;
+    bit [15:0] m_udp_checksum;
+
+    bit [63:0] m_udp_payload_data[$]; // collect packet payload words
+    bit [7:0]  m_udp_payload_keep[$];
+    bit        m_udp_payload_last;
+    bit        m_udp_payload_user;
+
 
     //In order to use the uvm_object methods ( copy, compare, pack, unpack, record, print, and etc ), all the fields are registered to uvm_field_* macros.
     `uvm_object_utils_begin(udp_seq_item)
-        `uvm_field_int(ip_dscp,         UVM_ALL_ON)
-        `uvm_field_int(ip_ecn,          UVM_ALL_ON)
-        `uvm_field_int(ip_ttl,          UVM_ALL_ON)
-        `uvm_field_int(ip_source_ip,    UVM_ALL_ON)
-        `uvm_field_int(ip_dest_ip,      UVM_ALL_ON)
-        `uvm_field_int(udp_source_port, UVM_ALL_ON)
-        `uvm_field_int(udp_dest_port,   UVM_ALL_ON)
-        `uvm_field_int(udp_length,      UVM_ALL_ON)
-        `uvm_field_int(udp_checksum,    UVM_ALL_ON)
-        `uvm_field_array_int(payload_data, UVM_ALL_ON)
-        `uvm_field_int(payload_last,    UVM_ALL_ON)
-        `uvm_field_int(payload_user,    UVM_ALL_ON)
+         // inputs
+        `uvm_field_int(s_udp_ip_dscp,         UVM_ALL_ON)
+        `uvm_field_int(s_udp_ip_ecn,          UVM_ALL_ON)
+        `uvm_field_int(s_udp_ip_ttl,          UVM_ALL_ON)
+        `uvm_field_int(s_udp_ip_source_ip,    UVM_ALL_ON)
+        `uvm_field_int(s_udp_ip_dest_ip,      UVM_ALL_ON)
+        `uvm_field_int(s_udp_source_port,     UVM_ALL_ON)
+        `uvm_field_int(s_udp_dest_port,       UVM_ALL_ON)
+        `uvm_field_int(s_udp_length,          UVM_ALL_ON)
+        `uvm_field_int(s_udp_checksum,        UVM_ALL_ON)
+        `uvm_field_array_int(s_udp_payload_data, UVM_ALL_ON)
+        `uvm_field_int(s_udp_payload_last,    UVM_ALL_ON)
+        `uvm_field_int(s_udp_payload_user,    UVM_ALL_ON)
+
+        // outputs
+        `uvm_field_int(m_udp_hdr_valid,       UVM_ALL_ON)
+        `uvm_field_int(m_udp_hdr_ready,       UVM_ALL_ON)
+        `uvm_field_int(m_udp_eth_dest_mac,    UVM_ALL_ON)
+        `uvm_field_int(m_udp_eth_src_mac,     UVM_ALL_ON)
+        `uvm_field_int(m_udp_eth_type,        UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_version,      UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_ihl,          UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_dscp,         UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_ecn,          UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_length,       UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_identification, UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_flags,        UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_fragment_offset, UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_ttl,          UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_protocol,     UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_header_checksum, UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_source_ip,    UVM_ALL_ON)
+        `uvm_field_int(m_udp_ip_dest_ip,      UVM_ALL_ON)
+        `uvm_field_int(m_udp_source_port,     UVM_ALL_ON)
+        `uvm_field_int(m_udp_dest_port,       UVM_ALL_ON)
+        `uvm_field_int(m_udp_length,          UVM_ALL_ON)
+        `uvm_field_int(m_udp_checksum,        UVM_ALL_ON)
+        `uvm_field_array_int(m_udp_payload_data, UVM_ALL_ON)
+        `uvm_field_array_int(m_udp_payload_keep, UVM_ALL_ON)
+        `uvm_field_int(m_udp_payload_last,    UVM_ALL_ON)
+        `uvm_field_int(m_udp_payload_user,    UVM_ALL_ON)
     `uvm_object_utils_end
+
 
     // Constructor
     function new(string name = "udp_seq_item");
         super.new(name);
     endfunction
 
-    // Pretty print for logs
-    function string convert2string();
-        return $sformatf({"--------------------------------------\n","UDP Packet:\n",
-        "  Src Port = %0d\n","  Dst Port = %0d\n","  Length   = %0d\n","  Src IP   = %0h\n","  Dst IP   = %0h\n","  Checksum = %0h\n","  Payload  = %p\n","--------------------------------------"},
-        udp_source_port,udp_dest_port,udp_length,ip_source_ip,ip_dest_ip,udp_checksum,payload_data);
+    // INPUT logs
+    function string convert2string_s_udp();
+    return $sformatf(
+        "\n==============================   \n    UDP INPUT (s_udp)   \n==============================   \n SrcPort : %0d \n DstPort : %0d \n Len : %0d \n SrcIP : %08h \n DstIP : %08h \n Chksum : %04h \n Payload : %p \n==============================",
+        s_udp_source_port,
+        s_udp_dest_port,
+        s_udp_length,
+        s_udp_ip_source_ip,
+        s_udp_ip_dest_ip,
+        s_udp_checksum,
+        s_udp_payload_data
+    );
     endfunction
+
+
+
+   // OUTPUT logs
+    function string convert2string_m_udp();
+    return $sformatf(
+        "\n==============================   \n    UDP OUTPUT (m_udp)   \n==============================   \n MAC Dst  : %012h \n MAC Src  : %012h \n EthType  : %04h \n------------------------------   \n SrcPort  : %0d \n DstPort  : %0d \n Len      : %0d \n SrcIP    : %08h \n DstIP    : %08h \n Chksum   : %04h \n------------------------------   \n Payload  : %p \n==============================",
+        m_udp_eth_dest_mac,
+        m_udp_eth_src_mac,
+        m_udp_eth_type,
+        m_udp_source_port,
+        m_udp_dest_port,
+        m_udp_length,
+        m_udp_ip_source_ip,
+        m_udp_ip_dest_ip,
+        m_udp_checksum,
+        m_udp_payload_data
+    );
+    endfunction
+
+
+
+
 
 endclass

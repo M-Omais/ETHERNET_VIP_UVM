@@ -57,45 +57,45 @@ class xgmii_driver extends uvm_driver#(sq_item);
 			dport = tr.dst_port;
 			payload_len = tr.payload.size();
 			payload_bytes = new[256];
-			// for (i = 0; i < 256; i++) begin
-			// 	payload_bytes[i] = i;
-			// end
-			// vif.rst_n = 0;
-			// @(posedge vif.clk);
-			// vif.rst_n = 1;
-			// for (i = 0; i < 10; i++) begin
-			// 	@(posedge vif.clk);
-			// end
+			for (i = 0; i < 256; i++) begin
+				payload_bytes[i] = i;
+			end
+			vif.rst_n = 0;
+			@(posedge vif.clk);
+			vif.rst_n = 1;
+			for (i = 0; i < 10; i++) begin
+				@(posedge vif.clk);
+			end
 			
-			// vif.rst_n = 0;
-			// @(posedge vif.clk);
-			// // Call the DPI function to generate the Ethernet frame
-			// ret = xgmii_eth_frame_c(mac_src, mac_dst, ip_src, ip_dst, sport, dport, payload_bytes, data_out, ctrl_out);
-			// if (ret < 2) begin
-			// 	`uvm_error(get_type_name(), "DPI function xgmii_eth_frame_c failed");
-			// end else begin
-			// 	`uvm_info(get_type_name(), "DPI function xgmii_eth_frame_c succeeded", UVM_LOW);
-			// end
-			// // Drive the interface signals based on the transaction item 'tr'
-			// for (i = 0; i < ret; i++) begin
-			// 		@(posedge vif.clk);
-			// 	// if (ctrl_out[i] !== 0) begin
-			// 		vif.data <= data_out[i]; 
-			// 		vif.ctrl <= ctrl_out[i]; 
-			// 		`uvm_info(get_type_name(), $sformatf("Driving data: %h, ctrl: %0h at index %0d", data_out[i], ctrl_out[i], i), UVM_HIGH);
-			// 		// Add any necessary timing control here
-			// 	// end
-			// end
-			// vif.data <= 64'h0707070707070707; 
-			// vif.ctrl <= 64'hFFFFFFFFFFFFFFFF; 
-			// // Add any necessary timing control here
-			// @(posedge vif.clk);
+			vif.rst_n = 0;
+			@(posedge vif.clk);
+			// Call the DPI function to generate the Ethernet frame
+			ret = xgmii_eth_frame_c(mac_src, mac_dst, ip_src, ip_dst, sport, dport, payload_bytes, data_out, ctrl_out);
+			if (ret < 2) begin
+				`uvm_error(get_type_name(), "DPI function xgmii_eth_frame_c failed");
+			end else begin
+				`uvm_info(get_type_name(), "DPI function xgmii_eth_frame_c succeeded", UVM_LOW);
+			end
+			// Drive the interface signals based on the transaction item 'tr'
+			for (i = 0; i < ret; i++) begin
+					@(posedge vif.clk);
+				// if (ctrl_out[i] !== 0) begin
+					vif.data <= data_out[i]; 
+					vif.ctrl <= ctrl_out[i]; 
+					`uvm_info(get_type_name(), $sformatf("Driving data: %h, ctrl: %0h at index %0d", data_out[i], ctrl_out[i], i), UVM_HIGH);
+					// Add any necessary timing control here
+				// end
+			end
+			vif.data <= 64'h0707070707070707; 
+			vif.ctrl <= 64'hFFFFFFFFFFFFFFFF; 
+			// Add any necessary timing control here
+			@(posedge vif.clk);
 			
-			// #5010;
-			// tr.src_addr = 48'h5a5152535455;
-			// tr.dst_addr = 48'h020000000000;
-			// tr.src_ip = 32'hc0a80164;
-			// tr.dst_ip = 32'hC0A80180;
+			#5010;
+			tr.src_addr = 48'h5a5152535455;
+			tr.dst_addr = 48'h020000000000;
+			tr.src_ip = 32'hc0a80164;
+			tr.dst_ip = 32'hC0A80180;
 			ret = xgmii_arp_frame_c(mac_src, mac_dst, ip_src, ip_dst, data_out, ctrl_out);
 			if (ret < 2) begin
 				`uvm_error(get_type_name(), "DPI function xgmii_arp_frame_c failed");
