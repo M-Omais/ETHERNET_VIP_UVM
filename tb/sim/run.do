@@ -12,4 +12,5 @@ add wave -position insertpoint sim:/top/dut/*
 # add wave -position insertpoint sim:/top/udp_vif/*
 # add wave -position insertpoint sim:/top/dut/s_eth*
 # add wave -position insertpoint sim:/top/dut/m_eth*
-run -all
+#run -all
+run 2ns
