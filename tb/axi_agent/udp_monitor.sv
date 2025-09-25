@@ -38,10 +38,10 @@ class udp_monitor extends uvm_monitor;
     udp_seq_item tr;
     forever begin
        // DUT Input observation (s_udp_*)
+       tr = udp_seq_item::type_id::create("tr");
+
       // Wait for header valid & ready handshake
       @(posedge vif.clk iff (vif.s_udp_hdr_valid && vif.s_udp_hdr_ready));
-
-      tr = udp_seq_item::type_id::create("tr");
 
       // Capture header fields
       tr.s_udp_ip_dscp      = vif.s_udp_ip_dscp;
@@ -61,6 +61,7 @@ class udp_monitor extends uvm_monitor;
         tr.s_udp_payload_data.push_back(vif.s_udp_payload_axis_tdata);
         tr.s_udp_payload_last = vif.s_udp_payload_axis_tlast;
         tr.s_udp_payload_user = vif.s_udp_payload_axis_tuser;
+        tr.s_udp_payload_keep.push_back(vif.s_udp_payload_axis_tkeep);
       end while (!vif.s_udp_payload_axis_tlast);
 
       
@@ -73,73 +74,73 @@ class udp_monitor extends uvm_monitor;
   endtask: monitor_s_udp
   
 
+  
   virtual task monitor_m_udp();
-    udp_seq_item tr;
-    forever begin
+      udp_seq_item tr;
+      forever begin
 
-       // DUT Output observation (m_udp_*)
-      // Wait for header valid & ready handshake
-      tr = udp_seq_item::type_id::create("tr");
-      // `uvm_info("MONITOR-ETH", $sformatf("ETH Output not captured: %s", tr.convert2string_eth()), UVM_LOW)
-      while (!vif.m_udp_hdr_valid) begin
-        @(negedge vif.clk);
-        `uvm_info("MONITOR-M-UDP", "WAITING", UVM_DEBUG)
-      end
+        // DUT Output observation (m_udp_*)
+        // Wait for header valid & ready handshake
+        tr = udp_seq_item::type_id::create("tr");
+        while (!vif.m_udp_hdr_valid ) begin
+          @(negedge vif.clk);
+          `uvm_info("MONITOR-M-UDP", "WAITING", UVM_DEBUG)
+        end
 
 
-      // Capture Output fields
-      tr.m_udp_hdr_valid          = vif.m_udp_hdr_valid;
-      tr.m_udp_hdr_ready          = vif.m_udp_hdr_ready;
-      tr.m_udp_eth_dest_mac       = vif.m_udp_eth_dest_mac;
-      tr.m_udp_eth_src_mac        = vif.m_udp_eth_src_mac;
-      tr.m_udp_eth_type           = vif.m_udp_eth_type;
+        // Capture Output fields
+        tr.m_udp_hdr_valid          = vif.m_udp_hdr_valid;
+        tr.m_udp_hdr_ready          = vif.m_udp_hdr_ready;
+        tr.m_udp_eth_dest_mac       = vif.m_udp_eth_dest_mac;
+        tr.m_udp_eth_src_mac        = vif.m_udp_eth_src_mac;
+        tr.m_udp_eth_type           = vif.m_udp_eth_type;
 
-      tr.m_udp_ip_version         = vif.m_udp_ip_version;
-      tr.m_udp_ip_ihl             = vif.m_udp_ip_ihl;
-      tr.m_udp_ip_dscp            = vif.m_udp_ip_dscp;
-      tr.m_udp_ip_ecn             = vif.m_udp_ip_ecn;
-      tr.m_udp_ip_length          = vif.m_udp_ip_length;
-      tr.m_udp_ip_identification  = vif.m_udp_ip_identification;
-      tr.m_udp_ip_flags           = vif.m_udp_ip_flags;
-      tr.m_udp_ip_fragment_offset = vif.m_udp_ip_fragment_offset;
-      tr.m_udp_ip_ttl             = vif.m_udp_ip_ttl;
-      tr.m_udp_ip_protocol        = vif.m_udp_ip_protocol;
-      tr.m_udp_ip_header_checksum = vif.m_udp_ip_header_checksum;
-      tr.m_udp_ip_source_ip       = vif.m_udp_ip_source_ip;
-      tr.m_udp_ip_dest_ip         = vif.m_udp_ip_dest_ip;
+        tr.m_udp_ip_version         = vif.m_udp_ip_version;
+        tr.m_udp_ip_ihl             = vif.m_udp_ip_ihl;
+        tr.m_udp_ip_dscp            = vif.m_udp_ip_dscp;
+        tr.m_udp_ip_ecn             = vif.m_udp_ip_ecn;
+        tr.m_udp_ip_length          = vif.m_udp_ip_length;
+        tr.m_udp_ip_identification  = vif.m_udp_ip_identification;
+        tr.m_udp_ip_flags           = vif.m_udp_ip_flags;
+        tr.m_udp_ip_fragment_offset = vif.m_udp_ip_fragment_offset;
+        tr.m_udp_ip_ttl             = vif.m_udp_ip_ttl;
+        tr.m_udp_ip_protocol        = vif.m_udp_ip_protocol;
+        tr.m_udp_ip_header_checksum = vif.m_udp_ip_header_checksum;
+        tr.m_udp_ip_source_ip       = vif.m_udp_ip_source_ip;
+        tr.m_udp_ip_dest_ip         = vif.m_udp_ip_dest_ip;
 
-      tr.m_udp_source_port        = vif.m_udp_source_port;
-      tr.m_udp_dest_port          = vif.m_udp_dest_port;
-      tr.m_udp_length             = vif.m_udp_length;
-      tr.m_udp_checksum           = vif.m_udp_checksum;
+        tr.m_udp_source_port        = vif.m_udp_source_port;
+        tr.m_udp_dest_port          = vif.m_udp_dest_port;
+        tr.m_udp_length             = vif.m_udp_length;
+        tr.m_udp_checksum           = vif.m_udp_checksum;
 
-      // Capture payload stream
-      tr.m_udp_payload_data.delete();
+        // Capture payload stream
+        tr.m_udp_payload_data.delete();
 
-      do begin
-        // Wait until payload valid is seen
-        while (!vif.m_udp_payload_axis_tvalid) begin
+        do begin
+          // Wait until payload valid is seen
+          while (!vif.m_udp_payload_axis_tvalid) begin
+            @(posedge vif.clk);
+            `uvm_info("MONITOR-M-UDP", "Waiting for UDP payload valid...", UVM_DEBUG)
+          end
+
+          // Sample payload data when valid & ready
+          if (vif.m_udp_payload_axis_tvalid) begin
+            tr.m_udp_payload_data.push_back(vif.m_udp_payload_axis_tdata);
+          end
+          //`uvm_info("MONITOR-M-UDP", $sformatf("PAYLOAD CAPTURE: valid=%0b ready=%0b last=%0b data=%h",vif.m_udp_payload_axis_tvalid, vif.m_udp_payload_axis_tready,vif.m_udp_payload_axis_tlast, vif.m_udp_payload_axis_tdata), UVM_MEDIUM)
           @(posedge vif.clk);
-          `uvm_info("MONITOR-M-UDP", "Waiting for UDP payload valid...", UVM_DEBUG)
-        end
-
-        // Sample payload data when valid & ready
-        if (vif.m_udp_payload_axis_tready) begin
-          tr.m_udp_payload_data.push_back(vif.m_udp_payload_axis_tdata);
-        end
-
-        @(posedge vif.clk);
-      end while (!vif.m_udp_payload_axis_tlast);
+        end while (!vif.m_udp_payload_axis_tlast);
 
 
-      tr.m_udp_payload_last = vif.m_udp_payload_axis_tlast;
-      tr.m_udp_payload_user = vif.m_udp_payload_axis_tuser;
+        tr.m_udp_payload_last = vif.m_udp_payload_axis_tlast;
+        tr.m_udp_payload_user = vif.m_udp_payload_axis_tuser;
 
-      // Send transaction to analysis port
-      ap_s_udp.write(tr);
-      // Ethernet output monitor
-      `uvm_info("MONITOR-M-UDP", $sformatf("ETH Output captured: %s", tr.convert2string_m_udp()), UVM_LOW)
-    end
-    endtask
+        // Send transaction to analysis port
+        ap_s_udp.write(tr);
+        // Ethernet output monitor
+        `uvm_info("MONITOR-M-UDP", $sformatf("ETH Output captured: %s", tr.convert2string_m_udp()), UVM_LOW)
+      end
+      endtask
 
 endclass
