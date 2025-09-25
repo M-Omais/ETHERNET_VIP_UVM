@@ -21,9 +21,9 @@ module top;
 	wire [1:0] sfp_2_led;
 	wire [1:0] sma_led;
 	wire [63:0] sfp_1_txd;
-	wire [7:0] sfp_1_txc;
+	wire [7:0]  sfp_1_txc;
 	wire [63:0] sfp_2_txd;
-	wire [7:0] sfp_2_txc;
+	wire [7:0]  sfp_2_txc;
 	
 	fpga_core dut(
 		.clk          	(clk),
@@ -52,7 +52,8 @@ module top;
 	    .s_udp_payload_axis_tvalid(udp_vif.s_udp_payload_axis_tvalid),
 	    .s_udp_payload_axis_tready(udp_vif.s_udp_payload_axis_tready),
 	    .s_udp_payload_axis_tlast(udp_vif.s_udp_payload_axis_tlast),
-	    .s_udp_payload_axis_tuser(udp_vif.s_udp_payload_axis_tuser),
+		.s_udp_payload_axis_tuser(udp_vif.s_udp_payload_axis_tuser),
+	    .s_udp_payload_axis_tkeep(udp_vif.s_udp_payload_axis_tkeep),
 
 	    // UDP output
 	    .m_udp_hdr_valid         (udp_vif.m_udp_hdr_valid),

@@ -42,6 +42,7 @@ class udp_driver extends uvm_driver #(udp_seq_item);
 
     vif.s_udp_payload_axis_tdata  <= '0;
     vif.s_udp_payload_axis_tvalid <= 0;
+    vif.s_udp_payload_axis_tkeep  <= 0;
     vif.s_udp_payload_axis_tlast  <= 0;
     vif.s_udp_payload_axis_tuser  <= 0;
 
@@ -88,6 +89,7 @@ class udp_driver extends uvm_driver #(udp_seq_item);
       vif.s_udp_payload_axis_tdata  <= tr.s_udp_payload_data[i];
       vif.s_udp_payload_axis_tvalid <= 1;
       vif.s_udp_payload_axis_tuser  <= tr.s_udp_payload_user;
+      vif.s_udp_payload_axis_tkeep  <= tr.s_udp_payload_keep[i];
       vif.s_udp_payload_axis_tlast  <= (i == tr.s_udp_payload_data.size()-1);
 
       `uvm_info("DRIVER", $sformatf("Payload[%0d] = 0x%0h", i, tr.s_udp_payload_data[i]), UVM_HIGH)
@@ -100,8 +102,9 @@ class udp_driver extends uvm_driver #(udp_seq_item);
     @(posedge vif.clk);
     vif.s_udp_payload_axis_tvalid <= 0;
     vif.s_udp_payload_axis_tlast  <= 0;
+    vif.s_udp_payload_axis_tkeep  <= 0;
     vif.s_udp_payload_axis_tuser  <= 0;
-    vif.s_udp_payload_axis_tdata  <= '0;
+    vif.s_udp_payload_axis_tdata  <='0;
 
   endtask : drive_task
 

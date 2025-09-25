@@ -20,10 +20,12 @@ interface udp_if (input bit clk, input bit rst);
     logic [15:0] s_udp_length;
     logic [15:0] s_udp_checksum;
     logic [7:0]  s_udp_payload_axis_tdata;
+    logic [7:0]  s_udp_payload_axis_tkeep;
     logic        s_udp_payload_axis_tvalid;
     logic        s_udp_payload_axis_tready;
     logic        s_udp_payload_axis_tlast;
     logic        s_udp_payload_axis_tuser;
+    
    
    /*
     * UDP output
