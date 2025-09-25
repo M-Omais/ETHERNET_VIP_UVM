@@ -82,7 +82,6 @@ class udp_monitor extends uvm_monitor;
         // DUT Output observation (m_udp_*)
         // Wait for header valid & ready handshake
         tr = udp_seq_item::type_id::create("tr");
-        // `uvm_info("MONITOR-ETH", $sformatf("ETH Output not captured: %s", tr.convert2string_eth()), UVM_LOW)
         while (!vif.m_udp_hdr_valid ) begin
           @(negedge vif.clk);
           `uvm_info("MONITOR-M-UDP", "WAITING", UVM_DEBUG)
