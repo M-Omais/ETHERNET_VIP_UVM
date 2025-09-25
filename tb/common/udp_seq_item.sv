@@ -18,6 +18,17 @@ class udp_seq_item extends uvm_sequence_item;
     rand bit [7:0]  s_udp_payload_data[$];// Payload (we’ll send byte by byte for now)
     rand bit        s_udp_payload_last;
     rand bit        s_udp_payload_user;
+    rand bit [7:0]  s_udp_payload_keep[$];
+
+    // Keep array sizes aligned
+    constraint payload_keep_size_c {
+        s_udp_payload_keep.size() == s_udp_payload_data.size();
+    }
+
+    // force every beat valid (all bytes used)
+    constraint payload_keep_full_c {
+        foreach (s_udp_payload_keep[i]) s_udp_payload_keep[i] == 8'hFF;
+    }
 
 
 
@@ -66,6 +77,7 @@ class udp_seq_item extends uvm_sequence_item;
         `uvm_field_int(s_udp_length,          UVM_ALL_ON)
         `uvm_field_int(s_udp_checksum,        UVM_ALL_ON)
         `uvm_field_array_int(s_udp_payload_data, UVM_ALL_ON)
+        `uvm_field_array_int(s_udp_payload_keep, UVM_ALL_ON)
         `uvm_field_int(s_udp_payload_last,    UVM_ALL_ON)
         `uvm_field_int(s_udp_payload_user,    UVM_ALL_ON)
 
@@ -119,22 +131,32 @@ class udp_seq_item extends uvm_sequence_item;
     endfunction
 
 
-
-   // OUTPUT logs
+    // OUTPUT logs
     function string convert2string_m_udp();
-    return $sformatf(
-        "\n==============================   \n    UDP OUTPUT (m_udp)   \n==============================   \n MAC Dst  : %012h \n MAC Src  : %012h \n EthType  : %04h \n------------------------------   \n SrcPort  : %0d \n DstPort  : %0d \n Len      : %0d \n SrcIP    : %08h \n DstIP    : %08h \n Chksum   : %04h \n------------------------------   \n Payload  : %p \n==============================",
-        m_udp_eth_dest_mac,
-        m_udp_eth_src_mac,
-        m_udp_eth_type,
-        m_udp_source_port,
-        m_udp_dest_port,
-        m_udp_length,
-        m_udp_ip_source_ip,
-        m_udp_ip_dest_ip,
-        m_udp_checksum,
-        m_udp_payload_data
-    );
+        string payload_str;
+        payload_str = (m_udp_payload_data.size() == 0) ? "<empty>" : "";
+
+        // Build payload string word-by-word
+        foreach (m_udp_payload_data[i]) begin
+            payload_str = {payload_str, $sformatf("%016h ", m_udp_payload_data[i])};
+            if (((i+1) % 4) == 0) 
+                payload_str = {payload_str, "\n                      "}; 
+            // break every 4 words, indent under "Payload:"
+        end
+
+        return $sformatf(
+            "\n==============================\n    UDP OUTPUT (m_udp)\n==============================\n MAC Dst   : 0x%012h\n MAC Src   : 0x%012h\n EthType   : 0x%04h\n------------------------------\n SrcPort   : %0d\n DstPort   : %0d\n Length    : %0d\n SrcIP     : 0x%08h\n DstIP     : 0x%08h\n Chksum    : 0x%04h\n------------------------------\n Payload   :          %s\n==============================",
+            m_udp_eth_dest_mac,
+            m_udp_eth_src_mac,
+            m_udp_eth_type,
+            m_udp_source_port,
+            m_udp_dest_port,
+            m_udp_length,
+            m_udp_ip_source_ip,
+            m_udp_ip_dest_ip,
+            m_udp_checksum,
+            payload_str
+        );
     endfunction
 
 
