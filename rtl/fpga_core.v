@@ -269,11 +269,11 @@ eth_axis_tx_inst (
     .busy()
 );
 
-udp_complete_64 #(
-        .ARP_CACHE_ADDR_WIDTH(2),
-		.ARP_REQUEST_RETRY_COUNT(4),
-		.ARP_REQUEST_RETRY_INTERVAL(150),
-		.ARP_REQUEST_TIMEOUT(400))
+udp_complete_64
+ #(
+    .ARP_CACHE_ADDR_WIDTH(2),
+	.ARP_REQUEST_RETRY_INTERVAL(150),
+	.ARP_REQUEST_TIMEOUT(400))
 udp_complete_inst (
     .clk(clk),
     .rst(rst),
@@ -289,6 +289,22 @@ udp_complete_inst (
     .s_eth_payload_axis_tready(rx_eth_payload_axis_tready),
     .s_eth_payload_axis_tlast(rx_eth_payload_axis_tlast),
     .s_eth_payload_axis_tuser(rx_eth_payload_axis_tuser),
+    // IP frame input
+    .s_ip_hdr_valid(0),
+    .m_ip_hdr_ready(1'b1),
+    .s_ip_dscp(0),
+    .s_ip_ecn(0),
+    .s_ip_length(0),
+    .s_ip_ttl(0),
+    .s_ip_protocol(0),
+    .s_ip_source_ip(0),
+    .s_ip_dest_ip(0),
+    .s_ip_payload_axis_tdata(0),
+    .s_ip_payload_axis_tkeep(0),
+    .s_ip_payload_axis_tvalid(0),
+    .m_ip_payload_axis_tready(1'b1),
+    .s_ip_payload_axis_tlast(0),
+    .s_ip_payload_axis_tuser(0),
     // Ethernet frame output
     .m_eth_hdr_valid(tx_eth_hdr_valid),
     .m_eth_hdr_ready(tx_eth_hdr_ready),

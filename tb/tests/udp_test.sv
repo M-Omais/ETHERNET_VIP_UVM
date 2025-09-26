@@ -3,7 +3,7 @@
 class udp_test extends base_test;
 	`uvm_component_utils(udp_test)
 	udp_seq           seq;
-	xgmii_seq xseq;
+	arp_seq xseq;
 	// Constructor
 	function new(string name = "udp_test", uvm_component parent);
 		super.new(name, parent);
@@ -12,7 +12,7 @@ class udp_test extends base_test;
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
 		seq = udp_seq::type_id::create("seq");
-		xseq = xgmii_seq::type_id::create("xseq");
+		xseq = arp_seq::type_id::create("xseq");
 	endfunction
 
 

@@ -1,8 +1,7 @@
 from cocotbext.eth import XgmiiFrame
 from scapy.layers.l2 import Ether, ARP
 from scapy.layers.inet import IP, UDP
-
-def xgmii_eth_frame(src_mac, dst_mac, src_ip, dst_ip, sport, dport, payload = b''):
+def xgmii_eth_frame(src_mac, dst_mac, src_ip, dst_ip,  eth_type, sport, dport, payload = b''):
 	"""
 	Create an XGMII frame with Ethernet header and payload.
 
@@ -27,10 +26,15 @@ def xgmii_eth_frame(src_mac, dst_mac, src_ip, dst_ip, sport, dport, payload = b'
 	# Build Ethernet frame using Scapy
 	# for i in range(len(payload)):
 	# 	print(f"payload[{i}] = {payload[i]}")
-	eth = Ether(src=src_mac, dst=dst_mac)
+	eth = Ether(src=src_mac, dst=dst_mac, type=eth_type)
 	ip = IP(src=src_ip, dst=dst_ip)
 	udp = UDP(sport=sport, dport=dport)
-	pkt = eth / ip / udp / payload
+	print(eth_type)
+	if eth_type == 2048:
+		pkt = eth / ip / udp / payload
+	elif eth_type == 2054:
+		arp = ARP(hwtype=1, ptype=0x0800, hwlen=6, plen=4, op=2,hwsrc=src_mac, psrc=src_ip, hwdst=dst_mac, pdst=dst_ip)
+		pkt = eth / arp
 	# Create XGMII frame from packet
 	frame = XgmiiFrame.from_payload(pkt.build())
 	# Normalize and patch frame for XGMII
@@ -111,7 +115,7 @@ def xgmii_arp_frame (src_mac, dst_mac, src_ip, dst_ip):
 	# 	print(f"payload[{i}] = {payload[i]}")
 	eth = Ether(src=src_mac, dst=dst_mac)
 	ip = IP(src=src_ip, dst=dst_ip)
-	arp = ARP(hwsrc=src_mac, psrc=src_ip, hwdst=dst_mac, pdst=dst_ip)
+	arp = ARP(hwtype=1, ptype=0x0800, hwlen=6, plen=4, op=2,hwsrc=src_mac, psrc=src_ip, hwdst=dst_mac, pdst=dst_ip)
 	pkt = eth / arp
 	# Create XGMII frame from packet
 	frame = XgmiiFrame.from_payload(pkt.build())
@@ -165,15 +169,61 @@ def xgmii_arp_frame (src_mac, dst_mac, src_ip, dst_ip):
 	# for data, ctrl in result:
 	# 	print(f"data = 0x{data:016x}, ctrl = 0x{ctrl:1x}")	
 	return result
+def decode_xgmii(xgmii_stream):
+    collecting = False
+    frame_bytes = []
 
+    for data, ctrl in xgmii_stream:
+        for i in range(8):
+            byte = (data >> (8*i)) & 0xFF
+            cbit = (ctrl >> i) & 0x1
+
+            if cbit:  # control char
+                if byte == 0xFB:  # START
+                    collecting = True
+                    frame_bytes = []
+                elif byte == 0xFD and collecting:  # END
+                    collecting = False
+                    return bytes(frame_bytes)
+            else:
+                if collecting:
+                    frame_bytes.append(byte)
+
+    return None
+from scapy.all import Ether
 
 if __name__ == "__main__":
 	datas = xgmii_eth_frame(src_mac="5a:51:52:53:54:55",
 							dst_mac="02:00:00:00:00:00",
 							src_ip="192.168.1.100",
 							dst_ip="192.168.1.128",
+							eth_type=0x0800,
 							sport=5678,
 							dport=1234,
 							payload = bytes([0,1,2,3,4,5,6,7,8,9]))
 	for data, ctrl in datas:
 		print(f"data = 0x{data:016x}, ctrl = 0x{ctrl:1x}")	
+
+
+
+	raw_bytes = b""
+	for data, ctrl in datas:
+		word = data.to_bytes(8, "little")   # XGMII is little-endian per byte lane
+		for i in range(8):
+			if (ctrl >> i) & 1 == 0:        # valid data byte
+				raw_bytes += word[i:i+1]
+
+	# Strip preamble + SFD
+	if raw_bytes.startswith(bytes.fromhex("555555555555d5")):
+		print("Stripping preamble and SFD")
+		raw_bytes = raw_bytes[7:]
+	# raw_bytes = raw_bytes.lstrip(b"\x00")cd cd
+	print("Raw Ethernet frame:", raw_bytes.hex())
+
+	# Decode with scapy
+	pkt = Ether(raw_bytes)
+	eth = pkt[Ether]
+	
+	ip = pkt[IP]
+	udp = pkt[UDP]
+	pkt.show()
