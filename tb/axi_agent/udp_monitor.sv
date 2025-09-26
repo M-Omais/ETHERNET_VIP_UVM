@@ -128,7 +128,7 @@ class udp_monitor extends uvm_monitor;
           if (vif.m_udp_payload_axis_tvalid) begin
             tr.m_udp_payload_data.push_back(vif.m_udp_payload_axis_tdata);
           end
-          //`uvm_info("MONITOR-M-UDP", $sformatf("PAYLOAD CAPTURE: valid=%0b ready=%0b last=%0b data=%h",vif.m_udp_payload_axis_tvalid, vif.m_udp_payload_axis_tready,vif.m_udp_payload_axis_tlast, vif.m_udp_payload_axis_tdata), UVM_MEDIUM)
+          `uvm_info("MONITOR-M-UDP", $sformatf("PAYLOAD CAPTURE: valid=%0b ready=%0b last=%0b data=%h",vif.m_udp_payload_axis_tvalid, vif.m_udp_payload_axis_tready,vif.m_udp_payload_axis_tlast, vif.m_udp_payload_axis_tdata), UVM_MEDIUM)
           @(posedge vif.clk);
         end while (!vif.m_udp_payload_axis_tlast);
 
@@ -143,4 +143,4 @@ class udp_monitor extends uvm_monitor;
       end
       endtask
 
-endclass
+endclass : udp_monitor

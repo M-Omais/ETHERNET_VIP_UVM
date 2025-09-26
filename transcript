@@ -1,2 +1,1762 @@
-# run.do
-# invalid command name "run.do"
+# //  Questa Sim-64
+# //  Version 2024.1 win64 Feb  1 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+do run.do
+# Cannot open macro file: run.do
+cd tb
+cd sim
+do run.do
+# QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+# Start time: 10:47:15 on Sep 26,2025
+# vlog -reportprogress 300 -sv "+acc" -lint "+define+UVM_REPORT_DISABLE_FILE_LINE" ../../rtl/arbiter.v ../../rtl/arp.v ../../rtl/arp_cache.v ../../rtl/arp_eth_rx.v ../../rtl/arp_eth_tx.v ../../rtl/axis_async_fifo.v ../../rtl/axis_async_fifo_adapter.v ../../rtl/axis_fifo.v ../../rtl/axis_xgmii_rx_64.v ../../rtl/axis_xgmii_tx_64.v ../../rtl/eth_arb_mux.v ../../rtl/eth_axis_rx.v ../../rtl/eth_axis_tx.v ../../rtl/eth_mac_10g.v ../../rtl/eth_mac_10g_fifo.v ../../rtl/fpga_core.v ../../rtl/ip_64.v ../../rtl/ip_arb_mux.v ../../rtl/ip_complete_64.v ../../rtl/ip_eth_rx_64.v ../../rtl/ip_eth_tx_64.v ../../rtl/lfsr.v ../../rtl/priority_encoder.v ../../rtl/udp_64.v ../../rtl/udp_checksum_gen_64.v ../../rtl/udp_complete_64.v ../../rtl/udp_ip_rx_64.v ../../rtl/udp_ip_tx_64.v ../interfaces/axi_stream_if.sv ../interfaces/udp_if.sv ../interfaces/xgmii_if.sv ./package.sv ../top.sv 
+# -- Compiling module arbiter
+# -- Compiling module arp
+# -- Compiling module arp_cache
+# -- Compiling module arp_eth_rx
+# -- Compiling module arp_eth_tx
+# -- Compiling module axis_async_fifo
+# -- Compiling module axis_async_fifo_adapter
+# -- Compiling module axis_fifo
+# -- Compiling module axis_xgmii_rx_64
+# -- Compiling module axis_xgmii_tx_64
+# -- Compiling module eth_arb_mux
+# -- Compiling module eth_axis_rx
+# -- Compiling module eth_axis_tx
+# -- Compiling module eth_mac_10g
+# -- Compiling module eth_mac_10g_fifo
+# -- Compiling module fpga_core
+# -- Compiling module ip_64
+# -- Compiling module ip_arb_mux
+# -- Compiling module ip_complete_64
+# -- Compiling module ip_eth_rx_64
+# -- Compiling module ip_eth_tx_64
+# -- Compiling module lfsr
+# -- Compiling module priority_encoder
+# -- Compiling module udp_64
+# -- Compiling module udp_checksum_gen_64
+# -- Compiling module udp_complete_64
+# -- Compiling module udp_ip_rx_64
+# -- Compiling module udp_ip_tx_64
+# -- Compiling interface axi_stream_if
+# -- Compiling interface udp_if
+# -- Compiling interface xgmii_if
+# -- Compiling package tx_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# ** Note: (vlog-2286) ./package.sv(27): Using implicit +incdir+C:/questasim64_2024.1/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# ** Warning: ** while parsing file included at ./package.sv(43)
+# ** at ../env/virtual_sequencer.sv(1): (vlog-2181) Use of a parameterized class uvm_sequencer as a type creates a default specialization.
+# ** Warning: ** while parsing file included at ./package.sv(50)
+# ** at ../env/virtual_sequences/arp_handshake_seq.sv(1): (vlog-2181) Use of a parameterized class uvm_sequence as a type creates a default specialization.
+# ** Warning: ../common/udp_seq_item.sv(79): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# -- Compiling package top_sv_unit
+# -- Importing package tx_pkg
+# -- Compiling module top
+# 
+# Top level modules:
+# 	top
+# End time: 10:47:19 on Sep 26,2025, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 14
+# vsim -sv_lib frame -classdebug -uvmcontrol=all -voptargs="+acc" "+UVM_NO_RELNOTES" "+UVM_NO_MSG=PHASESEQ" "+UVM_NO_MSG=PH_READY_TO_END" "+UVM_TESTNAME=handshake_test" work.top -do "run 0" 
+# Start time: 10:47:19 on Sep 26,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# Support of the MGLS_LICENSE_FILE and LM_LICENSE_FILE licensing environment variables will be discontinued starting with the 2025.1 release. Please update to using the SALT_LICENSE_SERVER variable.
+# Please contact Siemens EDA Customer Support (https://support.sw.siemens.com/) for assistance.
+# ** Warning: ../../rtl/fpga_core.v(172): (vopt-2685) [TFMPC] - Too few port connections for 'eth_mac_10g_fifo_inst'.  Expected 41, found 33.
+# ** Warning: ../../rtl/fpga_core.v(172): (vopt-2718) [TFMPC] - Missing connection for port 'ptp_ts_step'.
+# ** Warning: ../../rtl/fpga_core.v(172): (vopt-2718) [TFMPC] - Missing connection for port 'ptp_ts_96'.
+# ** Warning: ../../rtl/fpga_core.v(172): (vopt-2718) [TFMPC] - Missing connection for port 'tx_error_underflow'.
+# ** Warning: ../../rtl/fpga_core.v(172): (vopt-2718) [TFMPC] - Missing connection for port 'm_axis_tx_ptp_ts_ready'.
+# ** Warning: ../../rtl/fpga_core.v(172): (vopt-2718) [TFMPC] - Missing connection for port 'm_axis_tx_ptp_ts_valid'.
+# ** Warning: ../../rtl/fpga_core.v(172): (vopt-2718) [TFMPC] - Missing connection for port 'm_axis_tx_ptp_ts_tag'.
+# ** Warning: ../../rtl/fpga_core.v(172): (vopt-2718) [TFMPC] - Missing connection for port 'm_axis_tx_ptp_ts_96'.
+# ** Warning: ../../rtl/fpga_core.v(172): (vopt-2718) [TFMPC] - Missing connection for port 'ptp_sample_clk'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2685) [TFMPC] - Too few port connections for 'udp_complete_inst'.  Expected 126, found 102.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_payload_axis_tuser'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_payload_axis_tlast'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_payload_axis_tvalid'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_payload_axis_tkeep'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_payload_axis_tdata'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_dest_ip'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_source_ip'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_header_checksum'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_protocol'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_ttl'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_fragment_offset'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_flags'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_identification'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_length'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_ecn'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_dscp'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_ihl'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_version'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_eth_type'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_eth_src_mac'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_eth_dest_mac'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_hdr_valid'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 's_ip_payload_axis_tready'.
+# ** Warning: ../../rtl/fpga_core.v(277): (vopt-2718) [TFMPC] - Missing connection for port 's_ip_hdr_ready'.
+# ** Warning: ../common/udp_seq_item.sv(79): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../../rtl/axis_async_fifo.v(329): (vopt-2697) End index 80 of part-select into 'm_axis' is out of bounds.
+# ** Warning: ../../rtl/axis_async_fifo.v(330): (vopt-2697) End index 80 of part-select into 'm_axis' is out of bounds.
+# ** Warning: ../../rtl/axis_async_fifo.v(329): (vopt-2697) End index 80 of part-select into 'm_axis' is out of bounds.
+# ** Warning: ../../rtl/axis_async_fifo.v(330): (vopt-2697) End index 80 of part-select into 'm_axis' is out of bounds.
+# ** Warning: ../../rtl/axis_fifo.v(237): (vopt-2697) End index 80 of part-select into 'm_axis' is out of bounds.
+# ** Warning: ../../rtl/axis_fifo.v(238): (vopt-2697) End index 80 of part-select into 'm_axis' is out of bounds.
+# ** Warning: ../../rtl/udp_checksum_gen_64.v(220): (vopt-2685) [TFMPC] - Too few port connections for 'payload_fifo'.  Expected 25, found 21.
+# ** Warning: ../../rtl/udp_checksum_gen_64.v(220): (vopt-2718) [TFMPC] - Missing connection for port 'status_depth_commit'.
+# ** Warning: ../../rtl/udp_checksum_gen_64.v(220): (vopt-2718) [TFMPC] - Missing connection for port 'status_depth'.
+# ** Warning: ../../rtl/udp_checksum_gen_64.v(220): (vopt-2718) [TFMPC] - Missing connection for port 'pause_ack'.
+# ** Warning: ../../rtl/udp_checksum_gen_64.v(220): (vopt-2718) [TFMPC] - Missing connection for port 'pause_req'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "udp_checksum_gen_64(fast)".
+# ** Warning: ../../rtl/axis_xgmii_tx_64.v(587): (vopt-2576) [BSOB] - Bit-select into 's_axis_tuser' is out of bounds.
+# ** Warning: ../../rtl/axis_xgmii_tx_64.v(585): (vopt-2576) [BSOB] - Bit-select into 's_axis_tuser' is out of bounds.
+# ** Note: (vopt-143) Recognized 1 FSM in module "axis_xgmii_tx_64(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "ip_eth_rx_64(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "ip_eth_tx_64(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "udp_ip_tx_64(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "udp_ip_rx_64(fast)".
+# ** Warning: ../../rtl/axis_xgmii_rx_64.v(241): (vopt-2697) Start index 1 of part-select into 'm_axis_tuser_next' is out of bounds.
+# ** Warning: ../../rtl/axis_xgmii_rx_64.v(241): (vopt-2697) End index 96 of part-select into 'm_axis_tuser_next' is out of bounds.
+# ** Note: (vopt-143) Recognized 1 FSM in module "axis_xgmii_rx_64(fast)".
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2685) [TFMPC] - Too few port connections for 'eth_mac_10g_inst'.  Expected 94, found 30.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_rx_pfc_en'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_rx_pfc_opcode'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_rx_lfc_en'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_rx_lfc_opcode'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_pfc_refresh'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_pfc_quanta'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_pfc_en'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_pfc_opcode'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_pfc_eth_type'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_pfc_eth_src'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_pfc_eth_dst'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_lfc_refresh'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_lfc_quanta'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_lfc_en'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_lfc_opcode'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_lfc_eth_type'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_lfc_eth_src'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_tx_lfc_eth_dst'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_enable'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_forward'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_check_opcode_pfc'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_opcode_pfc'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_check_opcode_lfc'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_opcode_lfc'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_eth_type'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_check_eth_src'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_eth_src'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_check_eth_dst_ucast'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_eth_dst_ucast'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_check_eth_dst_mcast'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'cfg_mcf_rx_eth_dst_mcast'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_rx_pfc_paused'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_rx_pfc_xoff'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_rx_pfc_xon'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_rx_pfc_pkt'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_rx_lfc_paused'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_rx_lfc_xoff'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_rx_lfc_xon'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_rx_lfc_pkt'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_tx_pfc_paused'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_tx_pfc_xoff'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_tx_pfc_xon'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_tx_pfc_pkt'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_tx_lfc_paused'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_tx_lfc_xoff'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_tx_lfc_xon'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_tx_lfc_pkt'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_rx_mcf'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'stat_tx_mcf'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'rx_start_packet'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'tx_start_packet'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'tx_pause_ack'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'tx_pause_req'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'tx_lfc_pause_en'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'rx_pfc_ack'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'rx_pfc_req'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'rx_pfc_en'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'tx_pfc_resend'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'tx_pfc_req'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'rx_lfc_ack'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'rx_lfc_req'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'rx_lfc_en'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'tx_lfc_resend'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(343): (vopt-2718) [TFMPC] - Missing connection for port 'tx_lfc_req'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(402): (vopt-2685) [TFMPC] - Too few port connections for 'tx_fifo'.  Expected 34, found 26.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(402): (vopt-2718) [TFMPC] - Missing connection for port 'm_status_depth_commit'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(402): (vopt-2718) [TFMPC] - Missing connection for port 'm_status_depth'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(402): (vopt-2718) [TFMPC] - Missing connection for port 's_status_depth_commit'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(402): (vopt-2718) [TFMPC] - Missing connection for port 's_status_depth'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(402): (vopt-2718) [TFMPC] - Missing connection for port 'm_pause_ack'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(402): (vopt-2718) [TFMPC] - Missing connection for port 'm_pause_req'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(402): (vopt-2718) [TFMPC] - Missing connection for port 's_pause_ack'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(402): (vopt-2718) [TFMPC] - Missing connection for port 's_pause_req'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(454): (vopt-2685) [TFMPC] - Too few port connections for 'rx_fifo'.  Expected 34, found 26.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(454): (vopt-2718) [TFMPC] - Missing connection for port 'm_status_depth_commit'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(454): (vopt-2718) [TFMPC] - Missing connection for port 'm_status_depth'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(454): (vopt-2718) [TFMPC] - Missing connection for port 's_status_depth_commit'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(454): (vopt-2718) [TFMPC] - Missing connection for port 's_status_depth'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(454): (vopt-2718) [TFMPC] - Missing connection for port 'm_pause_ack'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(454): (vopt-2718) [TFMPC] - Missing connection for port 'm_pause_req'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(454): (vopt-2718) [TFMPC] - Missing connection for port 's_pause_ack'.
+# ** Warning: ../../rtl/eth_mac_10g_fifo.v(454): (vopt-2718) [TFMPC] - Missing connection for port 's_pause_req'.
+# ** Warning: ../../rtl/udp_64.v(271): (vopt-2685) [TFMPC] - Too few port connections for 'udp_checksum_gen_64_inst'.  Expected 55, found 54.
+# ** Warning: ../../rtl/udp_64.v(271): (vopt-2718) [TFMPC] - Missing connection for port 'm_ip_protocol'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "ip_64(fast)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=147.
+# Loading sv_std.std
+# Loading work.xgmii_if(fast)
+# Loading work.axi_stream_if(fast)
+# Loading work.udp_if(fast)
+# Loading mtiUvm.uvm_pkg(fast)
+# Loading work.tx_pkg(fast)
+# Loading work.top_sv_unit(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading work.top(fast)
+# Loading work.xgmii_if(fast__2)
+# Loading work.axi_stream_if(fast__2)
+# Loading work.udp_if(fast__2)
+# Loading work.fpga_core(fast)
+# Loading work.eth_mac_10g_fifo(fast)
+# Loading work.eth_mac_10g(fast)
+# Loading work.axis_xgmii_rx_64(fast)
+# Loading work.lfsr(fast)
+# Loading work.axis_xgmii_tx_64(fast)
+# Loading work.lfsr(fast__1)
+# Loading work.lfsr(fast__2)
+# Loading work.lfsr(fast__3)
+# Loading work.lfsr(fast__4)
+# Loading work.lfsr(fast__5)
+# Loading work.lfsr(fast__6)
+# Loading work.lfsr(fast__7)
+# Loading work.axis_async_fifo_adapter(fast)
+# Loading work.axis_async_fifo(fast)
+# Loading work.axis_async_fifo_adapter(fast__1)
+# Loading work.axis_async_fifo(fast__1)
+# Loading work.eth_axis_rx(fast)
+# Loading work.eth_axis_tx(fast)
+# Loading work.udp_complete_64(fast)
+# Loading work.ip_arb_mux(fast)
+# Loading work.arbiter(fast)
+# Loading work.priority_encoder(fast)
+# Loading work.ip_complete_64(fast)
+# Loading work.eth_arb_mux(fast)
+# Loading work.ip_64(fast)
+# Loading work.ip_eth_rx_64(fast)
+# Loading work.ip_eth_tx_64(fast)
+# Loading work.arp(fast)
+# Loading work.arp_eth_rx(fast)
+# Loading work.arp_eth_tx(fast)
+# Loading work.arp_cache(fast)
+# Loading work.udp_64(fast)
+# Loading work.udp_checksum_gen_64(fast)
+# Loading work.axis_fifo(fast)
+# Loading work.udp_ip_rx_64(fast)
+# Loading work.udp_ip_tx_64(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (64) does not match connection size (8) for port 's_udp_payload_axis_tdata'. The port definition is at: ../../rtl/fpga_core.v(69).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut File: ../top.sv Line: 28
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tid'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(109).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/tx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 402
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tdest'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(110).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/tx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 402
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tid'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(109).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/rx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 454
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tdest'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(110).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/rx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 454
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_hdr_valid'. The port definition is at: ../../rtl/udp_complete_64.v(80).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (32) for port 's_ip_dscp'. The port definition is at: ../../rtl/udp_complete_64.v(82).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (32) for port 's_ip_ecn'. The port definition is at: ../../rtl/udp_complete_64.v(83).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_ip_length'. The port definition is at: ../../rtl/udp_complete_64.v(84).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_ttl'. The port definition is at: ../../rtl/udp_complete_64.v(85).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_protocol'. The port definition is at: ../../rtl/udp_complete_64.v(86).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (64) does not match connection size (32) for port 's_ip_payload_axis_tdata'. The port definition is at: ../../rtl/udp_complete_64.v(89).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_payload_axis_tkeep'. The port definition is at: ../../rtl/udp_complete_64.v(90).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_payload_axis_tvalid'. The port definition is at: ../../rtl/udp_complete_64.v(91).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_payload_axis_tlast'. The port definition is at: ../../rtl/udp_complete_64.v(93).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_payload_axis_tuser'. The port definition is at: ../../rtl/udp_complete_64.v(94).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (96) does not match connection size (32) for port 's_eth_dest_mac'. The port definition is at: ../../rtl/ip_arb_mux.v(60).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (96) does not match connection size (32) for port 's_eth_src_mac'. The port definition is at: ../../rtl/ip_arb_mux.v(61).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_version'. The port definition is at: ../../rtl/ip_arb_mux.v(63).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_ihl'. The port definition is at: ../../rtl/ip_arb_mux.v(64).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (32) for port 's_ip_flags'. The port definition is at: ../../rtl/ip_arb_mux.v(69).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (26) does not match connection size (32) for port 's_ip_fragment_offset'. The port definition is at: ../../rtl/ip_arb_mux.v(70).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_ip_payload_axis_tid'. The port definition is at: ../../rtl/ip_arb_mux.v(81).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_ip_payload_axis_tdest'. The port definition is at: ../../rtl/ip_arb_mux.v(82).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_eth_payload_axis_tid'. The port definition is at: ../../rtl/eth_arb_mux.v(68).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_complete_64_inst/eth_arb_mux_inst File: ../../rtl/ip_complete_64.v Line: 279
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_eth_payload_axis_tdest'. The port definition is at: ../../rtl/eth_arb_mux.v(69).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_complete_64_inst/eth_arb_mux_inst File: ../../rtl/ip_complete_64.v Line: 279
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tid'. The port definition is at: ../../rtl/axis_fifo.v(105).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/udp_64_inst/genblk1/udp_checksum_gen_64_inst/payload_fifo File: ../../rtl/udp_checksum_gen_64.v Line: 220
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tdest'. The port definition is at: ../../rtl/axis_fifo.v(106).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/udp_64_inst/genblk1/udp_checksum_gen_64_inst/payload_fifo File: ../../rtl/udp_checksum_gen_64.v Line: 220
+# Loading .\frame.dll
+# Loading C:/questasim64_2024.1/uvm-1.1d\win64\uvm_dpi.dll
+# run 0
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(all)
+# DEBUG: Entered upsize_pre block in axis_async_fifo_adapter (instance top.dut.eth_mac_10g_fifo_inst.tx_fifo.bypass_pre)
+# DEBUG: Entered upsize_pre block in axis_async_fifo_adapter (instance top.dut.eth_mac_10g_fifo_inst.rx_fifo.bypass_pre)
+# UVM_INFO @ 0: reporter [RNTST] Running test handshake_test...
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# -----------------------------------------------------------------
+# Name                       Type                       Size  Value
+# -----------------------------------------------------------------
+# uvm_test_top               handshake_test             -     @487 
+#   env                      mac_env                    -     @494 
+#     scb                    scoreboard                 -     @628 
+#       in_port              uvm_analysis_imp_expected  -     @635 
+#       out_port             uvm_analysis_imp_actual    -     @643 
+#     udp_agent_inst         udp_agent                  -     @512 
+#       drv                  udp_driver                 -     @784 
+#         rsp_port           uvm_analysis_port          -     @799 
+#         seq_item_port      uvm_seq_item_pull_port     -     @791 
+#       mon                  udp_monitor                -     @652 
+#         ap_m_udp           uvm_analysis_port          -     @667 
+#         ap_s_udp           uvm_analysis_port          -     @659 
+#       seqr                 udp_sequencer              -     @675 
+#         rsp_export         uvm_analysis_export        -     @682 
+#         seq_item_export    uvm_seq_item_pull_imp      -     @776 
+#         arbitration_queue  array                      0     -    
+#         lock_queue         array                      0     -    
+#         num_last_reqs      integral                   32    'd1  
+#         num_last_rsps      integral                   32    'd1  
+#     virtual_seqr           virtual_sequencer          -     @519 
+#       rsp_export           uvm_analysis_export        -     @526 
+#       seq_item_export      uvm_seq_item_pull_imp      -     @620 
+#       arbitration_queue    array                      0     -    
+#       lock_queue           array                      0     -    
+#       num_last_reqs        integral                   32    'd1  
+#       num_last_rsps        integral                   32    'd1  
+#     xgmii_agent_inst       xgmii_agent                -     @505 
+#       drv                  xgmii_driver               -     @821 
+#         rsp_port           uvm_analysis_port          -     @836 
+#         seq_item_port      uvm_seq_item_pull_port     -     @828 
+#       mon                  xgmii_monitor              -     @955 
+#         dut_read           uvm_analysis_port          -     @970 
+#         dut_write          uvm_analysis_port          -     @962 
+#       sqr                  xgmii_sequencer            -     @846 
+#         rsp_export         uvm_analysis_export        -     @853 
+#         seq_item_export    uvm_seq_item_pull_imp      -     @947 
+#         arbitration_queue  array                      0     -    
+#         lock_queue         array                      0     -    
+#         num_last_reqs      integral                   32    'd1  
+#         num_last_rsps      integral                   32    'd1  
+# -----------------------------------------------------------------
+# 
+# UVM_INFO @ 0: uvm_test_top [handshake_test] End of elaboration phase
+# UVM_INFO @ 0: uvm_test_top [handshake_test] Starting arp_handshake_seq...
+# UVM_INFO @ 0: uvm_test_top.env.udp_agent_inst.seqr@@sA [no_payload_seq] Sequence running...
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: muham  Hostname: PIKU  ProcessID: 24764
+#           Attempting to use alternate WLF file "./wlftnahn3z".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftnahn3z
+# UVM_INFO @ 110: uvm_test_top.env.udp_agent_inst.drv [DRIVER] Reset deasserted, starting driver
+# UVM_INFO @ 110: uvm_test_top.env.udp_agent_inst.drv [DRIVER] Driving UDP packet: src_port=1234 dst_port=5678 len=1234
+# UVM_INFO @ 185: uvm_test_top.env.udp_agent_inst.mon [MONITOR-S-UDP] UDP Input captured: 
+# ==============================   
+#     UDP INPUT (s_udp)   
+# ==============================   
+#  SrcPort : 1234 
+#  DstPort : 5678 
+#  Len : 1234 
+#  SrcIP : c0a80180 
+#  DstIP : c0a80164 
+#  Chksum : 0000 
+#  Payload : '{0, 1, 2, 3, 4} 
+# ==============================
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# UVM_INFO @ 485: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received START character
+# UVM_INFO @ 485: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d5555555555555fb
+# UVM_INFO @ 495: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0002ffffffffffff
+# UVM_INFO @ 505: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0100060800000000
+# UVM_INFO @ 515: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0002010004060008
+# UVM_INFO @ 525: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 8001a8c000000000
+# UVM_INFO @ 535: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: a8c0000000000000
+# UVM_INFO @ 545: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000006401
+# UVM_INFO @ 555: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000000000
+# UVM_INFO @ 565: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d810dfa600000000
+# UVM_INFO @ 575: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received END character
+# UVM_INFO @ 575: uvm_test_top.env.scb [SCOREBOARD_ACTUAL] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 0002ffffffffffff 	 ctrl_out[1] = 00
+# data_out[2] = 0100060800000000 	 ctrl_out[2] = 00
+# data_out[3] = 0002010004060008 	 ctrl_out[3] = 00
+# data_out[4] = 8001a8c000000000 	 ctrl_out[4] = 00
+# data_out[5] = a8c0000000000000 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000006401 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000000000 	 ctrl_out[7] = 00
+# data_out[8] = d810dfa600000000 	 ctrl_out[8] = 00
+# data_out[9] = 07070707070707fd 	 ctrl_out[9] = ff
+# 
+# UVM_INFO @ 685: uvm_test_top.env.xgmii_agent_inst.drv [XGMII_DRIVER] Received transaction:
+#  SRC MAC: 5a5152535455
+#  DST MAC: 020000000000
+#  SRC IP: c0a80164
+#  DST IP: c0a80180
+#  SRC PORT: 18770
+#  DST PORT: 52369
+#  PAYLOAD LEN: 0
+# 
+# 2054
+# 
+# UVM_INFO @ 685: uvm_test_top.env.xgmii_agent_inst.sqr@@sB.tr [sq_item] DPI function xgmii_eth_frame_c succeeded
+# UVM_INFO @ 685: uvm_test_top.env.xgmii_agent_inst.drv [xgmii_driver] DPI function returned 12 bytes
+# STARTED
+# UVM_INFO @ 695: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received START character
+# UVM_INFO @ 695: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: d5555555555555fb
+# UVM_INFO @ 705: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 515a000000000002
+# UVM_INFO @ 715: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0100060855545352
+# UVM_INFO @ 725: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 515a020004060008
+# UVM_INFO @ 735: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 6401a8c055545352
+# UVM_INFO @ 745: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: a8c0000000000002
+# UVM_INFO @ 755: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0000000000008001
+# UVM_INFO @ 765: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0000000000000000
+# UVM_INFO @ 775: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 15dc7d4500000000
+# UVM_INFO @ 785: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received END character
+# UVM_INFO @ 785: uvm_test_top.env.scb [SCOREBOARD_EXPECTED] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 515a000000000002 	 ctrl_out[1] = 00
+# data_out[2] = 0100060855545352 	 ctrl_out[2] = 00
+# data_out[3] = 515a020004060008 	 ctrl_out[3] = 00
+# data_out[4] = 6401a8c055545352 	 ctrl_out[4] = 00
+# data_out[5] = a8c0000000000002 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000008001 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000000000 	 ctrl_out[7] = 00
+# data_out[8] = 15dc7d4500000000 	 ctrl_out[8] = 00
+# data_out[9] = 07070707070707fd 	 ctrl_out[9] = ff
+# 
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# UVM_INFO @ 1245: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received START character
+# UVM_INFO @ 1245: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d5555555555555fb
+# UVM_INFO @ 1255: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 000255545352515a
+# UVM_INFO @ 1265: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0045000800000000
+# UVM_INFO @ 1275: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 1140004000004400
+# UVM_INFO @ 1285: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: a8c08001a8c074b6
+# UVM_INFO @ 1295: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 30002e16d2046401
+# UVM_INFO @ 1305: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000005956
+# UVM_INFO @ 1315: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000010000
+# UVM_INFO @ 1325: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000020000
+# UVM_INFO @ 1335: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000030000
+# UVM_INFO @ 1345: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000040000
+# UVM_INFO @ 1355: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received END character
+# UVM_INFO @ 1355: uvm_test_top.env.scb [SCOREBOARD_ACTUAL] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 000255545352515a 	 ctrl_out[1] = 00
+# data_out[2] = 0045000800000000 	 ctrl_out[2] = 00
+# data_out[3] = 1140004000004400 	 ctrl_out[3] = 00
+# data_out[4] = a8c08001a8c074b6 	 ctrl_out[4] = 00
+# data_out[5] = 30002e16d2046401 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000005956 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000010000 	 ctrl_out[7] = 00
+# data_out[8] = 0000000000020000 	 ctrl_out[8] = 00
+# data_out[9] = 0000000000030000 	 ctrl_out[9] = 00
+# data_out[10] = 0000000000040000 	 ctrl_out[10] = 00
+# data_out[11] = 07fd9aaa06990000 	 ctrl_out[11] = c0
+# 
+# UVM_INFO @ 1405: uvm_test_top.env.udp_agent_inst.seqr@@sA [no_payload_seq] Sequence running...
+# UVM_INFO @ 1405: uvm_test_top.env.udp_agent_inst.drv [DRIVER] Driving UDP packet: src_port=1234 dst_port=5678 len=1234
+# UVM_INFO @ 1485: uvm_test_top.env.udp_agent_inst.mon [MONITOR-S-UDP] UDP Input captured: 
+# ==============================   
+#     UDP INPUT (s_udp)   
+# ==============================   
+#  SrcPort : 1234 
+#  DstPort : 5678 
+#  Len : 1234 
+#  SrcIP : c0a80180 
+#  DstIP : c0a80164 
+#  Chksum : 0000 
+#  Payload : '{0, 1, 2, 3, 4} 
+# ==============================
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# UVM_INFO @ 1845: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received START character
+# UVM_INFO @ 1845: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d5555555555555fb
+# UVM_INFO @ 1855: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 000255545352515a
+# UVM_INFO @ 1865: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0045000800000000
+# UVM_INFO @ 1875: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 1140004000004400
+# UVM_INFO @ 1885: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: a8c08001a8c074b6
+# UVM_INFO @ 1895: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 30002e16d2046401
+# UVM_INFO @ 1905: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000005956
+# UVM_INFO @ 1915: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000010000
+# UVM_INFO @ 1925: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000020000
+# UVM_INFO @ 1935: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000030000
+# UVM_INFO @ 1945: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000040000
+# UVM_INFO @ 1955: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received END character
+# UVM_INFO @ 1955: uvm_test_top.env.scb [SCOREBOARD_ACTUAL] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 000255545352515a 	 ctrl_out[1] = 00
+# data_out[2] = 0045000800000000 	 ctrl_out[2] = 00
+# data_out[3] = 1140004000004400 	 ctrl_out[3] = 00
+# data_out[4] = a8c08001a8c074b6 	 ctrl_out[4] = 00
+# data_out[5] = 30002e16d2046401 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000005956 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000010000 	 ctrl_out[7] = 00
+# data_out[8] = 0000000000020000 	 ctrl_out[8] = 00
+# data_out[9] = 0000000000030000 	 ctrl_out[9] = 00
+# data_out[10] = 0000000000040000 	 ctrl_out[10] = 00
+# data_out[11] = 07fd9aaa06990000 	 ctrl_out[11] = c0
+# 
+# UVM_INFO @ 1985: uvm_test_top.env.xgmii_agent_inst.drv [XGMII_DRIVER] Received transaction:
+#  SRC MAC: 5a5152535455
+#  DST MAC: 020000000000
+#  SRC IP: c0a80164
+#  DST IP: c0a80180
+#  SRC PORT: 5678
+#  DST PORT: 1234
+#  PAYLOAD LEN: 0
+# 
+# 2048
+# 
+# UVM_INFO @ 1985: uvm_test_top.env.xgmii_agent_inst.sqr@@sC.tr [sq_item] DPI function xgmii_eth_frame_c succeeded
+# UVM_INFO @ 1985: uvm_test_top.env.xgmii_agent_inst.drv [xgmii_driver] DPI function returned 12 bytes
+# STARTED
+# UVM_INFO @ 1995: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received START character
+# UVM_INFO @ 1995: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: d5555555555555fb
+run -all
+# UVM_INFO @ 2005: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 515a000000000002
+# UVM_INFO @ 2015: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0045000855545352
+# UVM_INFO @ 2025: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 1140000001001c00
+# UVM_INFO @ 2035: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: a8c06401a8c09bf6
+# UVM_INFO @ 2045: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0800d2042e168001
+# UVM_INFO @ 2055: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 000000000000a960
+# UVM_INFO @ 2065: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0000000000000000
+# UVM_INFO @ 2075: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 58095a3100000000
+# UVM_INFO @ 2085: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received END character
+# UVM_INFO @ 2085: uvm_test_top.env.scb [SCOREBOARD_EXPECTED] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 515a000000000002 	 ctrl_out[1] = 00
+# data_out[2] = 0045000855545352 	 ctrl_out[2] = 00
+# data_out[3] = 1140000001001c00 	 ctrl_out[3] = 00
+# data_out[4] = a8c06401a8c09bf6 	 ctrl_out[4] = 00
+# data_out[5] = 0800d2042e168001 	 ctrl_out[5] = 00
+# data_out[6] = 000000000000a960 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000000000 	 ctrl_out[7] = 00
+# data_out[8] = 58095a3100000000 	 ctrl_out[8] = 00
+# data_out[9] = 07070707070707fd 	 ctrl_out[9] = ff
+# 
+# DEBUG: Computed IPv4 checksum = 0xffff (hdr_sum_reg=0x1d73c, hdr_sum_low_reg=0x128c1)
+# OH YEAH
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 3705: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO @ 3705: uvm_test_top.env.scb [scoreboard_REPORT] Total Matches: 0, Total Mismatches: 0, Error Percentage: 0.00%
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :   85
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [DRIVER]     3
+# [MONITOR-S-UDP]     2
+# [MONITOR_READ]    37
+# [MONITOR_WRITE]    22
+# [Questa UVM]     2
+# [RNTST]     1
+# [SCOREBOARD_ACTUAL]     3
+# [SCOREBOARD_EXPECTED]     2
+# [TEST_DONE]     1
+# [UVMTOP]     1
+# [XGMII_DRIVER]     2
+# [handshake_test]     2
+# [no_payload_seq]     2
+# [scoreboard_REPORT]     1
+# [sq_item]     2
+# [xgmii_driver]     2
+# ** Note: $finish    : C:/questasim64_2024.1/win64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 3705 ps  Iteration: 54  Instance: /top
+# 1
+# Break in Task uvm_pkg/uvm_root::run_test at C:/questasim64_2024.1/win64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh line 430
+# couldn't load library "C:/questasim64_2024.1/win64/ScintillaTk/ScintillaTk114.dll": this library or a dependent library could not be found in library path
+# list element in quotes followed by ":" instead of space
+# Break key hit
+do run.do
+# QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+# Start time: 10:53:54 on Sep 26,2025
+# vlog -reportprogress 300 -sv "+acc" -lint "+define+UVM_REPORT_DISABLE_FILE_LINE" ../../rtl/arbiter.v ../../rtl/arp.v ../../rtl/arp_cache.v ../../rtl/arp_eth_rx.v ../../rtl/arp_eth_tx.v ../../rtl/axis_async_fifo.v ../../rtl/axis_async_fifo_adapter.v ../../rtl/axis_fifo.v ../../rtl/axis_xgmii_rx_64.v ../../rtl/axis_xgmii_tx_64.v ../../rtl/eth_arb_mux.v ../../rtl/eth_axis_rx.v ../../rtl/eth_axis_tx.v ../../rtl/eth_mac_10g.v ../../rtl/eth_mac_10g_fifo.v ../../rtl/fpga_core.v ../../rtl/ip_64.v ../../rtl/ip_arb_mux.v ../../rtl/ip_complete_64.v ../../rtl/ip_eth_rx_64.v ../../rtl/ip_eth_tx_64.v ../../rtl/lfsr.v ../../rtl/priority_encoder.v ../../rtl/udp_64.v ../../rtl/udp_checksum_gen_64.v ../../rtl/udp_complete_64.v ../../rtl/udp_ip_rx_64.v ../../rtl/udp_ip_tx_64.v ../interfaces/axi_stream_if.sv ../interfaces/udp_if.sv ../interfaces/xgmii_if.sv ./package.sv ../top.sv 
+# -- Compiling module arbiter
+# -- Compiling module arp
+# -- Compiling module arp_cache
+# -- Compiling module arp_eth_rx
+# -- Compiling module arp_eth_tx
+# -- Compiling module axis_async_fifo
+# -- Compiling module axis_async_fifo_adapter
+# -- Compiling module axis_fifo
+# -- Compiling module axis_xgmii_rx_64
+# -- Compiling module axis_xgmii_tx_64
+# -- Compiling module eth_arb_mux
+# -- Compiling module eth_axis_rx
+# -- Compiling module eth_axis_tx
+# -- Compiling module eth_mac_10g
+# -- Compiling module eth_mac_10g_fifo
+# -- Compiling module fpga_core
+# -- Compiling module ip_64
+# -- Compiling module ip_arb_mux
+# -- Compiling module ip_complete_64
+# -- Compiling module ip_eth_rx_64
+# -- Compiling module ip_eth_tx_64
+# -- Compiling module lfsr
+# -- Compiling module priority_encoder
+# -- Compiling module udp_64
+# -- Compiling module udp_checksum_gen_64
+# -- Compiling module udp_complete_64
+# -- Compiling module udp_ip_rx_64
+# -- Compiling module udp_ip_tx_64
+# -- Compiling interface axi_stream_if
+# -- Compiling interface udp_if
+# -- Compiling interface xgmii_if
+# -- Compiling package tx_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# ** Note: (vlog-2286) ./package.sv(27): Using implicit +incdir+C:/questasim64_2024.1/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# ** Warning: ** while parsing file included at ./package.sv(43)
+# ** at ../env/virtual_sequencer.sv(1): (vlog-2181) Use of a parameterized class uvm_sequencer as a type creates a default specialization.
+# ** Warning: ** while parsing file included at ./package.sv(50)
+# ** at ../env/virtual_sequences/arp_handshake_seq.sv(1): (vlog-2181) Use of a parameterized class uvm_sequence as a type creates a default specialization.
+# ** Warning: ../common/udp_seq_item.sv(79): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# -- Compiling package top_sv_unit
+# -- Importing package tx_pkg
+# -- Compiling module top
+# 
+# Top level modules:
+# 	top
+# End time: 10:53:56 on Sep 26,2025, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 14
+# End time: 10:54:01 on Sep 26,2025, Elapsed time: 0:06:42
+# Errors: 0, Warnings: 177
+# vsim -sv_lib frame -classdebug -uvmcontrol=all -voptargs="+acc" "+UVM_NO_RELNOTES" "+UVM_NO_MSG=PHASESEQ" "+UVM_NO_MSG=PH_READY_TO_END" "+UVM_TESTNAME=handshake_test" work.top -do "run 0" 
+# Start time: 10:54:01 on Sep 26,2025
+# ** Note: (vsim-8009) Loading existing optimized design _opt8
+# Loading sv_std.std
+# Loading work.xgmii_if(fast)
+# Loading work.axi_stream_if(fast)
+# Loading work.udp_if(fast)
+# Loading mtiUvm.uvm_pkg(fast)
+# Loading work.tx_pkg(fast)
+# Loading work.top_sv_unit(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading work.top(fast)
+# Loading work.xgmii_if(fast__2)
+# Loading work.axi_stream_if(fast__2)
+# Loading work.udp_if(fast__2)
+# Loading work.fpga_core(fast)
+# Loading work.eth_mac_10g_fifo(fast)
+# Loading work.eth_mac_10g(fast)
+# Loading work.axis_xgmii_rx_64(fast)
+# Loading work.lfsr(fast)
+# Loading work.axis_xgmii_tx_64(fast)
+# Loading work.lfsr(fast__1)
+# Loading work.lfsr(fast__2)
+# Loading work.lfsr(fast__3)
+# Loading work.lfsr(fast__4)
+# Loading work.lfsr(fast__5)
+# Loading work.lfsr(fast__6)
+# Loading work.lfsr(fast__7)
+# Loading work.axis_async_fifo_adapter(fast)
+# Loading work.axis_async_fifo(fast)
+# Loading work.axis_async_fifo_adapter(fast__1)
+# Loading work.axis_async_fifo(fast__1)
+# Loading work.eth_axis_rx(fast)
+# Loading work.eth_axis_tx(fast)
+# Loading work.udp_complete_64(fast)
+# Loading work.ip_arb_mux(fast)
+# Loading work.arbiter(fast)
+# Loading work.priority_encoder(fast)
+# Loading work.ip_complete_64(fast)
+# Loading work.eth_arb_mux(fast)
+# Loading work.ip_64(fast)
+# Loading work.ip_eth_rx_64(fast)
+# Loading work.ip_eth_tx_64(fast)
+# Loading work.arp(fast)
+# Loading work.arp_eth_rx(fast)
+# Loading work.arp_eth_tx(fast)
+# Loading work.arp_cache(fast)
+# Loading work.udp_64(fast)
+# Loading work.udp_checksum_gen_64(fast)
+# Loading work.axis_fifo(fast)
+# Loading work.udp_ip_rx_64(fast)
+# Loading work.udp_ip_tx_64(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (64) does not match connection size (8) for port 's_udp_payload_axis_tdata'. The port definition is at: ../../rtl/fpga_core.v(69).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut File: ../top.sv Line: 28
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tid'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(109).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/tx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 402
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tdest'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(110).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/tx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 402
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tid'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(109).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/rx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 454
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tdest'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(110).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/rx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 454
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_hdr_valid'. The port definition is at: ../../rtl/udp_complete_64.v(80).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (32) for port 's_ip_dscp'. The port definition is at: ../../rtl/udp_complete_64.v(82).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (32) for port 's_ip_ecn'. The port definition is at: ../../rtl/udp_complete_64.v(83).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_ip_length'. The port definition is at: ../../rtl/udp_complete_64.v(84).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_ttl'. The port definition is at: ../../rtl/udp_complete_64.v(85).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_protocol'. The port definition is at: ../../rtl/udp_complete_64.v(86).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (64) does not match connection size (32) for port 's_ip_payload_axis_tdata'. The port definition is at: ../../rtl/udp_complete_64.v(89).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_payload_axis_tkeep'. The port definition is at: ../../rtl/udp_complete_64.v(90).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_payload_axis_tvalid'. The port definition is at: ../../rtl/udp_complete_64.v(91).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_payload_axis_tlast'. The port definition is at: ../../rtl/udp_complete_64.v(93).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_payload_axis_tuser'. The port definition is at: ../../rtl/udp_complete_64.v(94).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (96) does not match connection size (32) for port 's_eth_dest_mac'. The port definition is at: ../../rtl/ip_arb_mux.v(60).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (96) does not match connection size (32) for port 's_eth_src_mac'. The port definition is at: ../../rtl/ip_arb_mux.v(61).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_version'. The port definition is at: ../../rtl/ip_arb_mux.v(63).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_ihl'. The port definition is at: ../../rtl/ip_arb_mux.v(64).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (32) for port 's_ip_flags'. The port definition is at: ../../rtl/ip_arb_mux.v(69).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (26) does not match connection size (32) for port 's_ip_fragment_offset'. The port definition is at: ../../rtl/ip_arb_mux.v(70).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_ip_payload_axis_tid'. The port definition is at: ../../rtl/ip_arb_mux.v(81).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_ip_payload_axis_tdest'. The port definition is at: ../../rtl/ip_arb_mux.v(82).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_eth_payload_axis_tid'. The port definition is at: ../../rtl/eth_arb_mux.v(68).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_complete_64_inst/eth_arb_mux_inst File: ../../rtl/ip_complete_64.v Line: 279
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_eth_payload_axis_tdest'. The port definition is at: ../../rtl/eth_arb_mux.v(69).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_complete_64_inst/eth_arb_mux_inst File: ../../rtl/ip_complete_64.v Line: 279
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tid'. The port definition is at: ../../rtl/axis_fifo.v(105).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/udp_64_inst/genblk1/udp_checksum_gen_64_inst/payload_fifo File: ../../rtl/udp_checksum_gen_64.v Line: 220
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tdest'. The port definition is at: ../../rtl/axis_fifo.v(106).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/udp_64_inst/genblk1/udp_checksum_gen_64_inst/payload_fifo File: ../../rtl/udp_checksum_gen_64.v Line: 220
+# Loading .\frame.dll
+# Loading C:/questasim64_2024.1/uvm-1.1d\win64\uvm_dpi.dll
+# run 0
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(all)
+# DEBUG: Entered upsize_pre block in axis_async_fifo_adapter (instance top.dut.eth_mac_10g_fifo_inst.tx_fifo.bypass_pre)
+# DEBUG: Entered upsize_pre block in axis_async_fifo_adapter (instance top.dut.eth_mac_10g_fifo_inst.rx_fifo.bypass_pre)
+# UVM_INFO @ 0: reporter [RNTST] Running test handshake_test...
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# -----------------------------------------------------------------
+# Name                       Type                       Size  Value
+# -----------------------------------------------------------------
+# uvm_test_top               handshake_test             -     @487 
+#   env                      mac_env                    -     @494 
+#     scb                    scoreboard                 -     @628 
+#       in_port              uvm_analysis_imp_expected  -     @635 
+#       out_port             uvm_analysis_imp_actual    -     @643 
+#     udp_agent_inst         udp_agent                  -     @512 
+#       drv                  udp_driver                 -     @784 
+#         rsp_port           uvm_analysis_port          -     @799 
+#         seq_item_port      uvm_seq_item_pull_port     -     @791 
+#       mon                  udp_monitor                -     @652 
+#         ap_m_udp           uvm_analysis_port          -     @667 
+#         ap_s_udp           uvm_analysis_port          -     @659 
+#       seqr                 udp_sequencer              -     @675 
+#         rsp_export         uvm_analysis_export        -     @682 
+#         seq_item_export    uvm_seq_item_pull_imp      -     @776 
+#         arbitration_queue  array                      0     -    
+#         lock_queue         array                      0     -    
+#         num_last_reqs      integral                   32    'd1  
+#         num_last_rsps      integral                   32    'd1  
+#     virtual_seqr           virtual_sequencer          -     @519 
+#       rsp_export           uvm_analysis_export        -     @526 
+#       seq_item_export      uvm_seq_item_pull_imp      -     @620 
+#       arbitration_queue    array                      0     -    
+#       lock_queue           array                      0     -    
+#       num_last_reqs        integral                   32    'd1  
+#       num_last_rsps        integral                   32    'd1  
+#     xgmii_agent_inst       xgmii_agent                -     @505 
+#       drv                  xgmii_driver               -     @821 
+#         rsp_port           uvm_analysis_port          -     @836 
+#         seq_item_port      uvm_seq_item_pull_port     -     @828 
+#       mon                  xgmii_monitor              -     @955 
+#         dut_read           uvm_analysis_port          -     @970 
+#         dut_write          uvm_analysis_port          -     @962 
+#       sqr                  xgmii_sequencer            -     @846 
+#         rsp_export         uvm_analysis_export        -     @853 
+#         seq_item_export    uvm_seq_item_pull_imp      -     @947 
+#         arbitration_queue  array                      0     -    
+#         lock_queue         array                      0     -    
+#         num_last_reqs      integral                   32    'd1  
+#         num_last_rsps      integral                   32    'd1  
+# -----------------------------------------------------------------
+# 
+# UVM_INFO @ 0: uvm_test_top [handshake_test] End of elaboration phase
+# UVM_INFO @ 0: uvm_test_top [handshake_test] Starting arp_handshake_seq...
+# UVM_INFO @ 0: uvm_test_top.env.udp_agent_inst.seqr@@sA [no_payload_seq] Sequence running...
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: muham  Hostname: PIKU  ProcessID: 24764
+#           Attempting to use alternate WLF file "./wlftf01xt3".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftf01xt3
+# UVM_INFO @ 110: uvm_test_top.env.udp_agent_inst.drv [DRIVER] Reset deasserted, starting driver
+# UVM_INFO @ 110: uvm_test_top.env.udp_agent_inst.drv [DRIVER] Driving UDP packet: src_port=1234 dst_port=5678 len=1234
+# UVM_INFO @ 185: uvm_test_top.env.udp_agent_inst.mon [MONITOR-S-UDP] UDP Input captured: 
+# ==============================   
+#     UDP INPUT (s_udp)   
+# ==============================   
+#  SrcPort : 1234 
+#  DstPort : 5678 
+#  Len : 1234 
+#  SrcIP : c0a80180 
+#  DstIP : c0a80164 
+#  Chksum : 0000 
+#  Payload : '{0, 1, 2, 3, 4} 
+# ==============================
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# UVM_INFO @ 485: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received START character
+# UVM_INFO @ 485: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d5555555555555fb
+# UVM_INFO @ 495: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0002ffffffffffff
+# UVM_INFO @ 505: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0100060800000000
+# UVM_INFO @ 515: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0002010004060008
+# UVM_INFO @ 525: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 8001a8c000000000
+# UVM_INFO @ 535: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: a8c0000000000000
+# UVM_INFO @ 545: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000006401
+# UVM_INFO @ 555: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000000000
+# UVM_INFO @ 565: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d810dfa600000000
+# UVM_INFO @ 575: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received END character
+# UVM_INFO @ 575: uvm_test_top.env.scb [SCOREBOARD_ACTUAL] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 0002ffffffffffff 	 ctrl_out[1] = 00
+# data_out[2] = 0100060800000000 	 ctrl_out[2] = 00
+# data_out[3] = 0002010004060008 	 ctrl_out[3] = 00
+# data_out[4] = 8001a8c000000000 	 ctrl_out[4] = 00
+# data_out[5] = a8c0000000000000 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000006401 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000000000 	 ctrl_out[7] = 00
+# data_out[8] = d810dfa600000000 	 ctrl_out[8] = 00
+# data_out[9] = 07070707070707fd 	 ctrl_out[9] = ff
+# 
+# UVM_INFO @ 685: uvm_test_top.env.xgmii_agent_inst.drv [XGMII_DRIVER] Received transaction:
+#  SRC MAC: 5a5152535455
+#  DST MAC: 020000000000
+#  SRC IP: c0a80164
+#  DST IP: c0a80180
+#  SRC PORT: 18770
+#  DST PORT: 52369
+#  PAYLOAD LEN: 0
+# 
+# 2054
+# 
+# UVM_INFO @ 685: uvm_test_top.env.xgmii_agent_inst.sqr@@sB.tr [sq_item] DPI function xgmii_eth_frame_c succeeded
+# UVM_INFO @ 685: uvm_test_top.env.xgmii_agent_inst.drv [xgmii_driver] DPI function returned 12 bytes
+# STARTED
+# UVM_INFO @ 695: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received START character
+# UVM_INFO @ 695: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: d5555555555555fb
+# UVM_INFO @ 705: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 515a000000000002
+# UVM_INFO @ 715: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0100060855545352
+# UVM_INFO @ 725: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 515a020004060008
+# UVM_INFO @ 735: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 6401a8c055545352
+# UVM_INFO @ 745: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: a8c0000000000002
+# UVM_INFO @ 755: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0000000000008001
+# UVM_INFO @ 765: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0000000000000000
+# UVM_INFO @ 775: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 15dc7d4500000000
+# UVM_INFO @ 785: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received END character
+# UVM_INFO @ 785: uvm_test_top.env.scb [SCOREBOARD_EXPECTED] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 515a000000000002 	 ctrl_out[1] = 00
+# data_out[2] = 0100060855545352 	 ctrl_out[2] = 00
+# data_out[3] = 515a020004060008 	 ctrl_out[3] = 00
+# data_out[4] = 6401a8c055545352 	 ctrl_out[4] = 00
+# data_out[5] = a8c0000000000002 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000008001 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000000000 	 ctrl_out[7] = 00
+# data_out[8] = 15dc7d4500000000 	 ctrl_out[8] = 00
+# data_out[9] = 07070707070707fd 	 ctrl_out[9] = ff
+# 
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# UVM_INFO @ 1245: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received START character
+# UVM_INFO @ 1245: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d5555555555555fb
+# UVM_INFO @ 1255: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 000255545352515a
+# UVM_INFO @ 1265: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0045000800000000
+# UVM_INFO @ 1275: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 1140004000004400
+# UVM_INFO @ 1285: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: a8c08001a8c074b6
+# UVM_INFO @ 1295: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 30002e16d2046401
+# UVM_INFO @ 1305: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000005956
+# UVM_INFO @ 1315: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000010000
+# UVM_INFO @ 1325: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000020000
+# UVM_INFO @ 1335: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000030000
+# UVM_INFO @ 1345: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000040000
+# UVM_INFO @ 1355: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received END character
+# UVM_INFO @ 1355: uvm_test_top.env.scb [SCOREBOARD_ACTUAL] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 000255545352515a 	 ctrl_out[1] = 00
+# data_out[2] = 0045000800000000 	 ctrl_out[2] = 00
+# data_out[3] = 1140004000004400 	 ctrl_out[3] = 00
+# data_out[4] = a8c08001a8c074b6 	 ctrl_out[4] = 00
+# data_out[5] = 30002e16d2046401 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000005956 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000010000 	 ctrl_out[7] = 00
+# data_out[8] = 0000000000020000 	 ctrl_out[8] = 00
+# data_out[9] = 0000000000030000 	 ctrl_out[9] = 00
+# data_out[10] = 0000000000040000 	 ctrl_out[10] = 00
+# data_out[11] = 07fd9aaa06990000 	 ctrl_out[11] = c0
+# 
+# UVM_INFO @ 1405: uvm_test_top.env.udp_agent_inst.seqr@@sA [no_payload_seq] Sequence running...
+# UVM_INFO @ 1405: uvm_test_top.env.udp_agent_inst.drv [DRIVER] Driving UDP packet: src_port=1234 dst_port=5678 len=1234
+# UVM_INFO @ 1485: uvm_test_top.env.udp_agent_inst.mon [MONITOR-S-UDP] UDP Input captured: 
+# ==============================   
+#     UDP INPUT (s_udp)   
+# ==============================   
+#  SrcPort : 1234 
+#  DstPort : 5678 
+#  Len : 1234 
+#  SrcIP : c0a80180 
+#  DstIP : c0a80164 
+#  Chksum : 0000 
+#  Payload : '{0, 1, 2, 3, 4} 
+# ==============================
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# UVM_INFO @ 1845: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received START character
+# UVM_INFO @ 1845: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d5555555555555fb
+# UVM_INFO @ 1855: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 000255545352515a
+# UVM_INFO @ 1865: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0045000800000000
+# UVM_INFO @ 1875: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 1140004000004400
+# UVM_INFO @ 1885: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: a8c08001a8c074b6
+# UVM_INFO @ 1895: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 30002e16d2046401
+# UVM_INFO @ 1905: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000005956
+# UVM_INFO @ 1915: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000010000
+# UVM_INFO @ 1925: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000020000
+# UVM_INFO @ 1935: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000030000
+# UVM_INFO @ 1945: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000040000
+# UVM_INFO @ 1955: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received END character
+# UVM_INFO @ 1955: uvm_test_top.env.scb [SCOREBOARD_ACTUAL] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 000255545352515a 	 ctrl_out[1] = 00
+# data_out[2] = 0045000800000000 	 ctrl_out[2] = 00
+# data_out[3] = 1140004000004400 	 ctrl_out[3] = 00
+# data_out[4] = a8c08001a8c074b6 	 ctrl_out[4] = 00
+# data_out[5] = 30002e16d2046401 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000005956 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000010000 	 ctrl_out[7] = 00
+# data_out[8] = 0000000000020000 	 ctrl_out[8] = 00
+# data_out[9] = 0000000000030000 	 ctrl_out[9] = 00
+# data_out[10] = 0000000000040000 	 ctrl_out[10] = 00
+# data_out[11] = 07fd9aaa06990000 	 ctrl_out[11] = c0
+# 
+# UVM_INFO @ 1985: uvm_test_top.env.xgmii_agent_inst.drv [XGMII_DRIVER] Received transaction:
+#  SRC MAC: 5a5152535455
+#  DST MAC: 020000000000
+#  SRC IP: c0a80164
+#  DST IP: c0a80180
+#  SRC PORT: 5678
+#  DST PORT: 1234
+#  PAYLOAD LEN: 0
+# 
+# 2048
+# 
+# UVM_INFO @ 1985: uvm_test_top.env.xgmii_agent_inst.sqr@@sC.tr [sq_item] DPI function xgmii_eth_frame_c succeeded
+# UVM_INFO @ 1985: uvm_test_top.env.xgmii_agent_inst.drv [xgmii_driver] DPI function returned 12 bytes
+# STARTED
+# UVM_INFO @ 1995: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received START character
+# UVM_INFO @ 1995: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: d5555555555555fb
+run -all
+# UVM_INFO @ 2005: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 515a000000000002
+# UVM_INFO @ 2015: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0045000855545352
+# UVM_INFO @ 2025: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 1140000001001c00
+# UVM_INFO @ 2035: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: a8c06401a8c09bf6
+# UVM_INFO @ 2045: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0800d2042e168001
+# UVM_INFO @ 2055: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 000000000000a960
+# UVM_INFO @ 2065: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0000000000000000
+# UVM_INFO @ 2075: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 58095a3100000000
+# UVM_INFO @ 2085: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received END character
+# UVM_INFO @ 2085: uvm_test_top.env.scb [SCOREBOARD_EXPECTED] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 515a000000000002 	 ctrl_out[1] = 00
+# data_out[2] = 0045000855545352 	 ctrl_out[2] = 00
+# data_out[3] = 1140000001001c00 	 ctrl_out[3] = 00
+# data_out[4] = a8c06401a8c09bf6 	 ctrl_out[4] = 00
+# data_out[5] = 0800d2042e168001 	 ctrl_out[5] = 00
+# data_out[6] = 000000000000a960 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000000000 	 ctrl_out[7] = 00
+# data_out[8] = 58095a3100000000 	 ctrl_out[8] = 00
+# data_out[9] = 07070707070707fd 	 ctrl_out[9] = ff
+# 
+# DEBUG: Computed IPv4 checksum = 0xffff (hdr_sum_reg=0x1d73c, hdr_sum_low_reg=0x128c1)
+# OH YEAH
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 3705: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO @ 3705: uvm_test_top.env.scb [scoreboard_REPORT] Total Matches: 0, Total Mismatches: 0, Error Percentage: 0.00%
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :   85
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [DRIVER]     3
+# [MONITOR-S-UDP]     2
+# [MONITOR_READ]    37
+# [MONITOR_WRITE]    22
+# [Questa UVM]     2
+# [RNTST]     1
+# [SCOREBOARD_ACTUAL]     3
+# [SCOREBOARD_EXPECTED]     2
+# [TEST_DONE]     1
+# [UVMTOP]     1
+# [XGMII_DRIVER]     2
+# [handshake_test]     2
+# [no_payload_seq]     2
+# [scoreboard_REPORT]     1
+# [sq_item]     2
+# [xgmii_driver]     2
+# ** Note: $finish    : C:/questasim64_2024.1/win64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 3705 ps  Iteration: 54  Instance: /top
+# 1
+# Break in Task uvm_pkg/uvm_root::run_test at C:/questasim64_2024.1/win64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh line 430
+# couldn't load library "C:/questasim64_2024.1/win64/ScintillaTk/ScintillaTk114.dll": this library or a dependent library could not be found in library path
+# list element in quotes followed by ":" instead of space
+run
+run
+run
+clear
+# [H[2J[3J
+cls
+# 
+cls
+# 
+do run.do
+# QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+# Start time: 11:06:42 on Sep 26,2025
+# vlog -reportprogress 300 -sv "+acc" -lint "+define+UVM_REPORT_DISABLE_FILE_LINE" ../../rtl/arbiter.v ../../rtl/arp.v ../../rtl/arp_cache.v ../../rtl/arp_eth_rx.v ../../rtl/arp_eth_tx.v ../../rtl/axis_async_fifo.v ../../rtl/axis_async_fifo_adapter.v ../../rtl/axis_fifo.v ../../rtl/axis_xgmii_rx_64.v ../../rtl/axis_xgmii_tx_64.v ../../rtl/eth_arb_mux.v ../../rtl/eth_axis_rx.v ../../rtl/eth_axis_tx.v ../../rtl/eth_mac_10g.v ../../rtl/eth_mac_10g_fifo.v ../../rtl/fpga_core.v ../../rtl/ip_64.v ../../rtl/ip_arb_mux.v ../../rtl/ip_complete_64.v ../../rtl/ip_eth_rx_64.v ../../rtl/ip_eth_tx_64.v ../../rtl/lfsr.v ../../rtl/priority_encoder.v ../../rtl/udp_64.v ../../rtl/udp_checksum_gen_64.v ../../rtl/udp_complete_64.v ../../rtl/udp_ip_rx_64.v ../../rtl/udp_ip_tx_64.v ../interfaces/axi_stream_if.sv ../interfaces/udp_if.sv ../interfaces/xgmii_if.sv ./package.sv ../top.sv 
+# -- Compiling module arbiter
+# -- Compiling module arp
+# -- Compiling module arp_cache
+# -- Compiling module arp_eth_rx
+# -- Compiling module arp_eth_tx
+# -- Compiling module axis_async_fifo
+# -- Compiling module axis_async_fifo_adapter
+# -- Compiling module axis_fifo
+# -- Compiling module axis_xgmii_rx_64
+# -- Compiling module axis_xgmii_tx_64
+# -- Compiling module eth_arb_mux
+# -- Compiling module eth_axis_rx
+# -- Compiling module eth_axis_tx
+# -- Compiling module eth_mac_10g
+# -- Compiling module eth_mac_10g_fifo
+# -- Compiling module fpga_core
+# -- Compiling module ip_64
+# -- Compiling module ip_arb_mux
+# -- Compiling module ip_complete_64
+# -- Compiling module ip_eth_rx_64
+# -- Compiling module ip_eth_tx_64
+# -- Compiling module lfsr
+# -- Compiling module priority_encoder
+# -- Compiling module udp_64
+# -- Compiling module udp_checksum_gen_64
+# -- Compiling module udp_complete_64
+# -- Compiling module udp_ip_rx_64
+# -- Compiling module udp_ip_tx_64
+# -- Compiling interface axi_stream_if
+# -- Compiling interface udp_if
+# -- Compiling interface xgmii_if
+# -- Compiling package tx_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# ** Note: (vlog-2286) ./package.sv(27): Using implicit +incdir+C:/questasim64_2024.1/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# ** Warning: ** while parsing file included at ./package.sv(43)
+# ** at ../env/virtual_sequencer.sv(1): (vlog-2181) Use of a parameterized class uvm_sequencer as a type creates a default specialization.
+# ** Warning: ** while parsing file included at ./package.sv(50)
+# ** at ../env/virtual_sequences/arp_handshake_seq.sv(1): (vlog-2181) Use of a parameterized class uvm_sequence as a type creates a default specialization.
+# ** Warning: ../common/udp_seq_item.sv(79): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vlog-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# -- Compiling package top_sv_unit
+# -- Importing package tx_pkg
+# -- Compiling module top
+# 
+# Top level modules:
+# 	top
+# End time: 11:06:45 on Sep 26,2025, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 14
+# End time: 11:06:49 on Sep 26,2025, Elapsed time: 0:12:48
+# Errors: 0, Warnings: 30
+# Current Python sys.path:
+# 
+#   [0] 
+# 
+#   [1] C:\Users\muham\miniconda3\python313.zip
+# 
+#   [2] C:\Users\muham\miniconda3\DLLs
+# 
+#   [3] C:\Users\muham\miniconda3\Lib
+# 
+#   [4] C:\questasim64_2024.1\win64
+# 
+#   [5] C:\Users\muham\miniconda3
+# 
+#   [6] C:\Users\muham\miniconda3\Lib\site-packages
+# 
+# Importing xgmii_frame module...
+# 
+# Python wrapper initialized successfully
+# 
+# 
+# 
+# Current Python sys.path:
+# 
+#   [0] 
+# 
+#   [1] C:\Users\muham\miniconda3\python313.zip
+# 
+#   [2] C:\Users\muham\miniconda3\DLLs
+# 
+#   [3] C:\Users\muham\miniconda3\Lib
+# 
+#   [4] C:\questasim64_2024.1\win64
+# 
+#   [5] C:\Users\muham\miniconda3
+# 
+#   [6] C:\Users\muham\miniconda3\Lib\site-packages
+# 
+# Importing xgmii_frame module...
+# 
+# Python wrapper initialized successfully
+# 
+# 
+# 
+# vsim -sv_lib frame -classdebug -uvmcontrol=all -voptargs="+acc" "+UVM_NO_RELNOTES" "+UVM_NO_MSG=PHASESEQ" "+UVM_NO_MSG=PH_READY_TO_END" "+UVM_TESTNAME=handshake_test" work.top -do "run 0" 
+# Start time: 11:06:49 on Sep 26,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# Support of the MGLS_LICENSE_FILE and LM_LICENSE_FILE licensing environment variables will be discontinued starting with the 2025.1 release. Please update to using the SALT_LICENSE_SERVER variable.
+# Please contact Siemens EDA Customer Support (https://support.sw.siemens.com/) for assistance.
+# ** Warning: ../common/udp_seq_item.sv(79): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(79): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(80): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(107): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Warning: ../common/udp_seq_item.sv(108): (vopt-8491) 'new' must be used to assign to a dynamic array; 'new' is not legal with a queue.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=13.
+# Loading sv_std.std
+# Loading work.xgmii_if(fast)
+# Loading work.axi_stream_if(fast)
+# Loading work.udp_if(fast)
+# Loading mtiUvm.uvm_pkg(fast)
+# Loading work.tx_pkg(fast)
+# Loading work.top_sv_unit(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading work.top(fast)
+# Loading work.xgmii_if(fast__2)
+# Loading work.axi_stream_if(fast__2)
+# Loading work.udp_if(fast__2)
+# Loading work.fpga_core(fast)
+# Loading work.eth_mac_10g_fifo(fast)
+# Loading work.eth_mac_10g(fast)
+# Loading work.axis_xgmii_rx_64(fast)
+# Loading work.lfsr(fast)
+# Loading work.axis_xgmii_tx_64(fast)
+# Loading work.lfsr(fast__1)
+# Loading work.lfsr(fast__2)
+# Loading work.lfsr(fast__3)
+# Loading work.lfsr(fast__4)
+# Loading work.lfsr(fast__5)
+# Loading work.lfsr(fast__6)
+# Loading work.lfsr(fast__7)
+# Loading work.axis_async_fifo_adapter(fast)
+# Loading work.axis_async_fifo(fast)
+# Loading work.axis_async_fifo_adapter(fast__1)
+# Loading work.axis_async_fifo(fast__1)
+# Loading work.eth_axis_rx(fast)
+# Loading work.eth_axis_tx(fast)
+# Loading work.udp_complete_64(fast)
+# Loading work.ip_arb_mux(fast)
+# Loading work.arbiter(fast)
+# Loading work.priority_encoder(fast)
+# Loading work.ip_complete_64(fast)
+# Loading work.eth_arb_mux(fast)
+# Loading work.ip_64(fast)
+# Loading work.ip_eth_rx_64(fast)
+# Loading work.ip_eth_tx_64(fast)
+# Loading work.arp(fast)
+# Loading work.arp_eth_rx(fast)
+# Loading work.arp_eth_tx(fast)
+# Loading work.arp_cache(fast)
+# Loading work.udp_64(fast)
+# Loading work.udp_checksum_gen_64(fast)
+# Loading work.axis_fifo(fast)
+# Loading work.udp_ip_rx_64(fast)
+# Loading work.udp_ip_tx_64(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (64) does not match connection size (8) for port 's_udp_payload_axis_tdata'. The port definition is at: ../../rtl/fpga_core.v(69).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut File: ../top.sv Line: 28
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tid'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(109).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/tx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 402
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tdest'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(110).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/tx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 402
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tid'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(109).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/rx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 454
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tdest'. The port definition is at: ../../rtl/axis_async_fifo_adapter.v(110).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/eth_mac_10g_fifo_inst/rx_fifo File: ../../rtl/eth_mac_10g_fifo.v Line: 454
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_hdr_valid'. The port definition is at: ../../rtl/udp_complete_64.v(80).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (32) for port 's_ip_dscp'. The port definition is at: ../../rtl/udp_complete_64.v(82).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (32) for port 's_ip_ecn'. The port definition is at: ../../rtl/udp_complete_64.v(83).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_ip_length'. The port definition is at: ../../rtl/udp_complete_64.v(84).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_ttl'. The port definition is at: ../../rtl/udp_complete_64.v(85).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_protocol'. The port definition is at: ../../rtl/udp_complete_64.v(86).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (64) does not match connection size (32) for port 's_ip_payload_axis_tdata'. The port definition is at: ../../rtl/udp_complete_64.v(89).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_payload_axis_tkeep'. The port definition is at: ../../rtl/udp_complete_64.v(90).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_payload_axis_tvalid'. The port definition is at: ../../rtl/udp_complete_64.v(91).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_payload_axis_tlast'. The port definition is at: ../../rtl/udp_complete_64.v(93).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 's_ip_payload_axis_tuser'. The port definition is at: ../../rtl/udp_complete_64.v(94).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst File: ../../rtl/fpga_core.v Line: 277
+# ** Warning: (vsim-3015) [PCDPC] - Port size (96) does not match connection size (32) for port 's_eth_dest_mac'. The port definition is at: ../../rtl/ip_arb_mux.v(60).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (96) does not match connection size (32) for port 's_eth_src_mac'. The port definition is at: ../../rtl/ip_arb_mux.v(61).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_version'. The port definition is at: ../../rtl/ip_arb_mux.v(63).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_ip_ihl'. The port definition is at: ../../rtl/ip_arb_mux.v(64).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (32) for port 's_ip_flags'. The port definition is at: ../../rtl/ip_arb_mux.v(69).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (26) does not match connection size (32) for port 's_ip_fragment_offset'. The port definition is at: ../../rtl/ip_arb_mux.v(70).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_ip_payload_axis_tid'. The port definition is at: ../../rtl/ip_arb_mux.v(81).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_ip_payload_axis_tdest'. The port definition is at: ../../rtl/ip_arb_mux.v(82).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_arb_mux_inst File: ../../rtl/udp_complete_64.v Line: 381
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_eth_payload_axis_tid'. The port definition is at: ../../rtl/eth_arb_mux.v(68).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_complete_64_inst/eth_arb_mux_inst File: ../../rtl/ip_complete_64.v Line: 279
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (32) for port 's_eth_payload_axis_tdest'. The port definition is at: ../../rtl/eth_arb_mux.v(69).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/ip_complete_64_inst/eth_arb_mux_inst File: ../../rtl/ip_complete_64.v Line: 279
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tid'. The port definition is at: ../../rtl/axis_fifo.v(105).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/udp_64_inst/genblk1/udp_checksum_gen_64_inst/payload_fifo File: ../../rtl/udp_checksum_gen_64.v Line: 220
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (32) for port 's_axis_tdest'. The port definition is at: ../../rtl/axis_fifo.v(106).
+#    Time: 0 ps  Iteration: 0  Instance: /top/dut/udp_complete_inst/udp_64_inst/genblk1/udp_checksum_gen_64_inst/payload_fifo File: ../../rtl/udp_checksum_gen_64.v Line: 220
+# Loading .\frame.dll
+# Loading C:/questasim64_2024.1/uvm-1.1d\win64\uvm_dpi.dll
+# run 0
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(all)
+# DEBUG: Entered upsize_pre block in axis_async_fifo_adapter (instance top.dut.eth_mac_10g_fifo_inst.tx_fifo.bypass_pre)
+# DEBUG: Entered upsize_pre block in axis_async_fifo_adapter (instance top.dut.eth_mac_10g_fifo_inst.rx_fifo.bypass_pre)
+# UVM_INFO @ 0: reporter [RNTST] Running test handshake_test...
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# -----------------------------------------------------------------
+# Name                       Type                       Size  Value
+# -----------------------------------------------------------------
+# uvm_test_top               handshake_test             -     @487 
+#   env                      mac_env                    -     @494 
+#     scb                    scoreboard                 -     @628 
+#       in_port              uvm_analysis_imp_expected  -     @635 
+#       out_port             uvm_analysis_imp_actual    -     @643 
+#     udp_agent_inst         udp_agent                  -     @512 
+#       drv                  udp_driver                 -     @784 
+#         rsp_port           uvm_analysis_port          -     @799 
+#         seq_item_port      uvm_seq_item_pull_port     -     @791 
+#       mon                  udp_monitor                -     @652 
+#         ap_m_udp           uvm_analysis_port          -     @667 
+#         ap_s_udp           uvm_analysis_port          -     @659 
+#       seqr                 udp_sequencer              -     @675 
+#         rsp_export         uvm_analysis_export        -     @682 
+#         seq_item_export    uvm_seq_item_pull_imp      -     @776 
+#         arbitration_queue  array                      0     -    
+#         lock_queue         array                      0     -    
+#         num_last_reqs      integral                   32    'd1  
+#         num_last_rsps      integral                   32    'd1  
+#     virtual_seqr           virtual_sequencer          -     @519 
+#       rsp_export           uvm_analysis_export        -     @526 
+#       seq_item_export      uvm_seq_item_pull_imp      -     @620 
+#       arbitration_queue    array                      0     -    
+#       lock_queue           array                      0     -    
+#       num_last_reqs        integral                   32    'd1  
+#       num_last_rsps        integral                   32    'd1  
+#     xgmii_agent_inst       xgmii_agent                -     @505 
+#       drv                  xgmii_driver               -     @821 
+#         rsp_port           uvm_analysis_port          -     @836 
+#         seq_item_port      uvm_seq_item_pull_port     -     @828 
+#       mon                  xgmii_monitor              -     @955 
+#         dut_read           uvm_analysis_port          -     @970 
+#         dut_write          uvm_analysis_port          -     @962 
+#       sqr                  xgmii_sequencer            -     @846 
+#         rsp_export         uvm_analysis_export        -     @853 
+#         seq_item_export    uvm_seq_item_pull_imp      -     @947 
+#         arbitration_queue  array                      0     -    
+#         lock_queue         array                      0     -    
+#         num_last_reqs      integral                   32    'd1  
+#         num_last_rsps      integral                   32    'd1  
+# -----------------------------------------------------------------
+# 
+# UVM_INFO @ 0: uvm_test_top [handshake_test] End of elaboration phase
+# UVM_INFO @ 0: uvm_test_top [handshake_test] Starting arp_handshake_seq...
+# UVM_INFO @ 0: uvm_test_top.env.udp_agent_inst.seqr@@sA [no_payload_seq] Sequence running...
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: muham  Hostname: PIKU  ProcessID: 24764
+#           Attempting to use alternate WLF file "./wlft9ej8ia".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft9ej8ia
+# UVM_INFO @ 110: uvm_test_top.env.udp_agent_inst.drv [DRIVER] Reset deasserted, starting driver
+# UVM_INFO @ 110: uvm_test_top.env.udp_agent_inst.drv [DRIVER] Driving UDP packet: src_port=1234 dst_port=5678 len=1234
+# UVM_INFO @ 185: uvm_test_top.env.udp_agent_inst.mon [MONITOR-S-UDP] UDP Input captured: 
+# ==============================   
+#     UDP INPUT (s_udp)   
+# ==============================   
+#  SrcPort : 1234 
+#  DstPort : 5678 
+#  Len : 1234 
+#  SrcIP : c0a80180 
+#  DstIP : c0a80164 
+#  Chksum : 0000 
+#  Payload : '{0, 1, 2, 3, 4} 
+# ==============================
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# UVM_INFO @ 485: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received START character
+# UVM_INFO @ 485: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d5555555555555fb
+# UVM_INFO @ 495: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0002ffffffffffff
+# UVM_INFO @ 505: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0100060800000000
+# UVM_INFO @ 515: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0002010004060008
+# UVM_INFO @ 525: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 8001a8c000000000
+# UVM_INFO @ 535: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: a8c0000000000000
+# UVM_INFO @ 545: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000006401
+# UVM_INFO @ 555: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000000000
+# UVM_INFO @ 565: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d810dfa600000000
+# UVM_INFO @ 575: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received END character
+# UVM_INFO @ 575: uvm_test_top.env.scb [SCOREBOARD_ACTUAL] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 0002ffffffffffff 	 ctrl_out[1] = 00
+# data_out[2] = 0100060800000000 	 ctrl_out[2] = 00
+# data_out[3] = 0002010004060008 	 ctrl_out[3] = 00
+# data_out[4] = 8001a8c000000000 	 ctrl_out[4] = 00
+# data_out[5] = a8c0000000000000 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000006401 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000000000 	 ctrl_out[7] = 00
+# data_out[8] = d810dfa600000000 	 ctrl_out[8] = 00
+# data_out[9] = 07070707070707fd 	 ctrl_out[9] = ff
+# 
+# UVM_INFO @ 685: uvm_test_top.env.xgmii_agent_inst.drv [XGMII_DRIVER] Received transaction:
+#  SRC MAC: 5a5152535455
+#  DST MAC: 020000000000
+#  SRC IP: c0a80164
+#  DST IP: c0a80180
+#  SRC PORT: 18770
+#  DST PORT: 52369
+#  PAYLOAD LEN: 0
+# 
+# 2054
+# 
+# UVM_INFO @ 685: uvm_test_top.env.xgmii_agent_inst.sqr@@sB.tr [sq_item] DPI function xgmii_eth_frame_c succeeded
+# UVM_INFO @ 685: uvm_test_top.env.xgmii_agent_inst.drv [xgmii_driver] DPI function returned 12 bytes
+# STARTED
+# UVM_INFO @ 695: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received START character
+# UVM_INFO @ 695: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: d5555555555555fb
+# UVM_INFO @ 705: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 515a000000000002
+# UVM_INFO @ 715: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0100060855545352
+# UVM_INFO @ 725: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 515a020004060008
+# UVM_INFO @ 735: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 6401a8c055545352
+# UVM_INFO @ 745: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: a8c0000000000002
+# UVM_INFO @ 755: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0000000000008001
+# UVM_INFO @ 765: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0000000000000000
+# UVM_INFO @ 775: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 15dc7d4500000000
+# UVM_INFO @ 785: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received END character
+# UVM_INFO @ 785: uvm_test_top.env.scb [SCOREBOARD_EXPECTED] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 515a000000000002 	 ctrl_out[1] = 00
+# data_out[2] = 0100060855545352 	 ctrl_out[2] = 00
+# data_out[3] = 515a020004060008 	 ctrl_out[3] = 00
+# data_out[4] = 6401a8c055545352 	 ctrl_out[4] = 00
+# data_out[5] = a8c0000000000002 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000008001 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000000000 	 ctrl_out[7] = 00
+# data_out[8] = 15dc7d4500000000 	 ctrl_out[8] = 00
+# data_out[9] = 07070707070707fd 	 ctrl_out[9] = ff
+# 
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=0, ip_addr_mem[1]=00000000, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# UVM_INFO @ 1245: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received START character
+# UVM_INFO @ 1245: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d5555555555555fb
+# UVM_INFO @ 1255: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 000255545352515a
+# UVM_INFO @ 1265: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0045000800000000
+# UVM_INFO @ 1275: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 1140004000004400
+# UVM_INFO @ 1285: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: a8c08001a8c074b6
+# UVM_INFO @ 1295: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 30002e16d2046401
+# UVM_INFO @ 1305: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000005956
+# UVM_INFO @ 1315: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000010000
+# UVM_INFO @ 1325: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000020000
+# UVM_INFO @ 1335: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000030000
+# UVM_INFO @ 1345: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000040000
+# UVM_INFO @ 1355: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received END character
+# UVM_INFO @ 1355: uvm_test_top.env.scb [SCOREBOARD_ACTUAL] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 000255545352515a 	 ctrl_out[1] = 00
+# data_out[2] = 0045000800000000 	 ctrl_out[2] = 00
+# data_out[3] = 1140004000004400 	 ctrl_out[3] = 00
+# data_out[4] = a8c08001a8c074b6 	 ctrl_out[4] = 00
+# data_out[5] = 30002e16d2046401 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000005956 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000010000 	 ctrl_out[7] = 00
+# data_out[8] = 0000000000020000 	 ctrl_out[8] = 00
+# data_out[9] = 0000000000030000 	 ctrl_out[9] = 00
+# data_out[10] = 0000000000040000 	 ctrl_out[10] = 00
+# data_out[11] = 07fd9aaa06990000 	 ctrl_out[11] = c0
+# 
+# UVM_INFO @ 1405: uvm_test_top.env.udp_agent_inst.seqr@@sA [no_payload_seq] Sequence running...
+# UVM_INFO @ 1405: uvm_test_top.env.udp_agent_inst.drv [DRIVER] Driving UDP packet: src_port=1234 dst_port=5678 len=1234
+# UVM_INFO @ 1485: uvm_test_top.env.udp_agent_inst.mon [MONITOR-S-UDP] UDP Input captured: 
+# ==============================   
+#     UDP INPUT (s_udp)   
+# ==============================   
+#  SrcPort : 1234 
+#  DstPort : 5678 
+#  Len : 1234 
+#  SrcIP : c0a80180 
+#  DstIP : c0a80164 
+#  Chksum : 0000 
+#  Payload : '{0, 1, 2, 3, 4} 
+# ==============================
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# ARP Cache Query: valid_mem[1]=1, ip_addr_mem[1]=c0a80164, query_ip_reg=c0a80164
+# UVM_INFO @ 1845: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received START character
+# UVM_INFO @ 1845: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: d5555555555555fb
+# UVM_INFO @ 1855: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 000255545352515a
+# UVM_INFO @ 1865: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0045000800000000
+# UVM_INFO @ 1875: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 1140004000004400
+# UVM_INFO @ 1885: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: a8c08001a8c074b6
+# UVM_INFO @ 1895: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 30002e16d2046401
+# UVM_INFO @ 1905: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000005956
+# UVM_INFO @ 1915: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000010000
+# UVM_INFO @ 1925: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000020000
+# UVM_INFO @ 1935: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000030000
+# UVM_INFO @ 1945: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Captured tdata: 0000000000040000
+# UVM_INFO @ 1955: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_READ] Received END character
+# UVM_INFO @ 1955: uvm_test_top.env.scb [SCOREBOARD_ACTUAL] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 000255545352515a 	 ctrl_out[1] = 00
+# data_out[2] = 0045000800000000 	 ctrl_out[2] = 00
+# data_out[3] = 1140004000004400 	 ctrl_out[3] = 00
+# data_out[4] = a8c08001a8c074b6 	 ctrl_out[4] = 00
+# data_out[5] = 30002e16d2046401 	 ctrl_out[5] = 00
+# data_out[6] = 0000000000005956 	 ctrl_out[6] = 00
+# data_out[7] = 0000000000010000 	 ctrl_out[7] = 00
+# data_out[8] = 0000000000020000 	 ctrl_out[8] = 00
+# data_out[9] = 0000000000030000 	 ctrl_out[9] = 00
+# data_out[10] = 0000000000040000 	 ctrl_out[10] = 00
+# data_out[11] = 07fd9aaa06990000 	 ctrl_out[11] = c0
+# 
+# UVM_INFO @ 1985: uvm_test_top.env.xgmii_agent_inst.drv [XGMII_DRIVER] Received transaction:
+#  SRC MAC: 5a5152535455
+#  DST MAC: 020000000000
+#  SRC IP: c0a80164
+#  DST IP: c0a80180
+#  SRC PORT: 5678
+#  DST PORT: 1234
+#  PAYLOAD LEN: 256
+# 
+# 2048
+# 
+# UVM_INFO @ 1985: uvm_test_top.env.xgmii_agent_inst.sqr@@sC.tr [sq_item] DPI function xgmii_eth_frame_c succeeded
+# UVM_INFO @ 1985: uvm_test_top.env.xgmii_agent_inst.drv [xgmii_driver] DPI function returned 41 bytes
+# STARTED
+# UVM_INFO @ 1995: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received START character
+# UVM_INFO @ 1995: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: d5555555555555fb
+run -all
+# UVM_INFO @ 2005: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 515a000000000002
+# UVM_INFO @ 2015: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0045000855545352
+# UVM_INFO @ 2025: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 1140000001001c01
+# UVM_INFO @ 2035: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: a8c06401a8c09bf5
+# UVM_INFO @ 2045: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0801d2042e168001
+# UVM_INFO @ 2055: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 050403020100699e
+# UVM_INFO @ 2065: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 0d0c0b0a09080706
+# UVM_INFO @ 2075: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 1514131211100f0e
+# UVM_INFO @ 2085: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 1d1c1b1a19181716
+# UVM_INFO @ 2095: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 2524232221201f1e
+# UVM_INFO @ 2105: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 2d2c2b2a29282726
+# UVM_INFO @ 2115: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 3534333231302f2e
+# UVM_INFO @ 2125: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 3d3c3b3a39383736
+# UVM_INFO @ 2135: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 4544434241403f3e
+# UVM_INFO @ 2145: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 4d4c4b4a49484746
+# UVM_INFO @ 2155: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 5554535251504f4e
+# UVM_INFO @ 2165: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 5d5c5b5a59585756
+# UVM_INFO @ 2175: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 6564636261605f5e
+# UVM_INFO @ 2185: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 6d6c6b6a69686766
+# UVM_INFO @ 2195: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 7574737271706f6e
+# UVM_INFO @ 2205: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 7d7c7b7a79787776
+# UVM_INFO @ 2215: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 8584838281807f7e
+# UVM_INFO @ 2225: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 8d8c8b8a89888786
+# UVM_INFO @ 2235: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 9594939291908f8e
+# UVM_INFO @ 2245: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: 9d9c9b9a99989796
+# UVM_INFO @ 2255: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: a5a4a3a2a1a09f9e
+# UVM_INFO @ 2265: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: adacabaaa9a8a7a6
+# UVM_INFO @ 2275: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: b5b4b3b2b1b0afae
+# UVM_INFO @ 2285: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: bdbcbbbab9b8b7b6
+# UVM_INFO @ 2295: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: c5c4c3c2c1c0bfbe
+# UVM_INFO @ 2305: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: cdcccbcac9c8c7c6
+# UVM_INFO @ 2315: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: d5d4d3d2d1d0cfce
+# UVM_INFO @ 2325: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: dddcdbdad9d8d7d6
+# UVM_INFO @ 2335: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: e5e4e3e2e1e0dfde
+# UVM_INFO @ 2345: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: edecebeae9e8e7e6
+# UVM_INFO @ 2355: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: f5f4f3f2f1f0efee
+# UVM_INFO @ 2365: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Captured tdata: fdfcfbfaf9f8f7f6
+# UVM_INFO @ 2375: uvm_test_top.env.xgmii_agent_inst.mon [MONITOR_WRITE] Received END character
+# UVM_INFO @ 2375: uvm_test_top.env.scb [SCOREBOARD_EXPECTED] Data Output:
+# data_out[0] = d5555555555555fb 	 ctrl_out[0] = 01
+# data_out[1] = 515a000000000002 	 ctrl_out[1] = 00
+# data_out[2] = 0045000855545352 	 ctrl_out[2] = 00
+# data_out[3] = 1140000001001c01 	 ctrl_out[3] = 00
+# data_out[4] = a8c06401a8c09bf5 	 ctrl_out[4] = 00
+# data_out[5] = 0801d2042e168001 	 ctrl_out[5] = 00
+# data_out[6] = 050403020100699e 	 ctrl_out[6] = 00
+# data_out[7] = 0d0c0b0a09080706 	 ctrl_out[7] = 00
+# data_out[8] = 1514131211100f0e 	 ctrl_out[8] = 00
+# data_out[9] = 1d1c1b1a19181716 	 ctrl_out[9] = 00
+# data_out[10] = 2524232221201f1e 	 ctrl_out[10] = 00
+# data_out[11] = 2d2c2b2a29282726 	 ctrl_out[11] = 00
+# data_out[12] = 3534333231302f2e 	 ctrl_out[12] = 00
+# data_out[13] = 3d3c3b3a39383736 	 ctrl_out[13] = 00
+# data_out[14] = 4544434241403f3e 	 ctrl_out[14] = 00
+# data_out[15] = 4d4c4b4a49484746 	 ctrl_out[15] = 00
+# data_out[16] = 5554535251504f4e 	 ctrl_out[16] = 00
+# data_out[17] = 5d5c5b5a59585756 	 ctrl_out[17] = 00
+# data_out[18] = 6564636261605f5e 	 ctrl_out[18] = 00
+# data_out[19] = 6d6c6b6a69686766 	 ctrl_out[19] = 00
+# data_out[20] = 7574737271706f6e 	 ctrl_out[20] = 00
+# data_out[21] = 7d7c7b7a79787776 	 ctrl_out[21] = 00
+# data_out[22] = 8584838281807f7e 	 ctrl_out[22] = 00
+# data_out[23] = 8d8c8b8a89888786 	 ctrl_out[23] = 00
+# data_out[24] = 9594939291908f8e 	 ctrl_out[24] = 00
+# data_out[25] = 9d9c9b9a99989796 	 ctrl_out[25] = 00
+# data_out[26] = a5a4a3a2a1a09f9e 	 ctrl_out[26] = 00
+# data_out[27] = adacabaaa9a8a7a6 	 ctrl_out[27] = 00
+# data_out[28] = b5b4b3b2b1b0afae 	 ctrl_out[28] = 00
+# data_out[29] = bdbcbbbab9b8b7b6 	 ctrl_out[29] = 00
+# data_out[30] = c5c4c3c2c1c0bfbe 	 ctrl_out[30] = 00
+# data_out[31] = cdcccbcac9c8c7c6 	 ctrl_out[31] = 00
+# data_out[32] = d5d4d3d2d1d0cfce 	 ctrl_out[32] = 00
+# data_out[33] = dddcdbdad9d8d7d6 	 ctrl_out[33] = 00
+# data_out[34] = e5e4e3e2e1e0dfde 	 ctrl_out[34] = 00
+# data_out[35] = edecebeae9e8e7e6 	 ctrl_out[35] = 00
+# data_out[36] = f5f4f3f2f1f0efee 	 ctrl_out[36] = 00
+# data_out[37] = fdfcfbfaf9f8f7f6 	 ctrl_out[37] = 00
+# data_out[38] = 07fdcf2b6c4cfffe 	 ctrl_out[38] = c0
+# 
+# DEBUG: Computed IPv4 checksum = 0xffff (hdr_sum_reg=0x1d73c, hdr_sum_low_reg=0x128c1)
+# OH YEAH
+# UVM_INFO @ 2575: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=0706050403020100
+# UVM_INFO @ 2585: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=0f0e0d0c0b0a0908
+# UVM_INFO @ 2595: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=1716151413121110
+# UVM_INFO @ 2605: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=1f1e1d1c1b1a1918
+# UVM_INFO @ 2615: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=2726252423222120
+# UVM_INFO @ 2625: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=2f2e2d2c2b2a2928
+# UVM_INFO @ 2635: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=3736353433323130
+# UVM_INFO @ 2645: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=3f3e3d3c3b3a3938
+# UVM_INFO @ 2655: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=4746454443424140
+# UVM_INFO @ 2665: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=4f4e4d4c4b4a4948
+# UVM_INFO @ 2675: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=5756555453525150
+# UVM_INFO @ 2685: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=5f5e5d5c5b5a5958
+# UVM_INFO @ 2695: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=6766656463626160
+# UVM_INFO @ 2705: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=6f6e6d6c6b6a6968
+# UVM_INFO @ 2715: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=7776757473727170
+# UVM_INFO @ 2725: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=7f7e7d7c7b7a7978
+# UVM_INFO @ 2735: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=8786858483828180
+# UVM_INFO @ 2745: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=8f8e8d8c8b8a8988
+# UVM_INFO @ 2755: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=9796959493929190
+# UVM_INFO @ 2765: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=9f9e9d9c9b9a9998
+# UVM_INFO @ 2775: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=a7a6a5a4a3a2a1a0
+# UVM_INFO @ 2785: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=afaeadacabaaa9a8
+# UVM_INFO @ 2795: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=b7b6b5b4b3b2b1b0
+# UVM_INFO @ 2805: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=bfbebdbcbbbab9b8
+# UVM_INFO @ 2815: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=c7c6c5c4c3c2c1c0
+# UVM_INFO @ 2825: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=cfcecdcccbcac9c8
+# UVM_INFO @ 2835: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=d7d6d5d4d3d2d1d0
+# UVM_INFO @ 2845: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=dfdedddcdbdad9d8
+# UVM_INFO @ 2855: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=e7e6e5e4e3e2e1e0
+# UVM_INFO @ 2865: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=efeeedecebeae9e8
+# UVM_INFO @ 2875: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] PAYLOAD CAPTURE: valid=1 ready=x last=0 data=f7f6f5f4f3f2f1f0
+# UVM_INFO @ 2885: uvm_test_top.env.udp_agent_inst.mon [MONITOR-M-UDP] ETH Output captured: 
+# ==============================
+#     UDP OUTPUT (m_udp)
+# ==============================
+#  MAC Dst   : 0x020000000000
+#  MAC Src   : 0x5a5152535455
+#  EthType   : 0x0800
+# ------------------------------
+#  SrcPort   : 5678
+#  DstPort   : 1234
+#  Length    : 264
+#  SrcIP     : 0xc0a80164
+#  DstIP     : 0xc0a80180
+#  Chksum    : 0x9e69
+# ------------------------------
+#  Payload   :          0706050403020100 0f0e0d0c0b0a0908 1716151413121110 1f1e1d1c1b1a1918 
+#                       2726252423222120 2f2e2d2c2b2a2928 3736353433323130 3f3e3d3c3b3a3938 
+#                       4746454443424140 4f4e4d4c4b4a4948 5756555453525150 5f5e5d5c5b5a5958 
+#                       6766656463626160 6f6e6d6c6b6a6968 7776757473727170 7f7e7d7c7b7a7978 
+#                       8786858483828180 8f8e8d8c8b8a8988 9796959493929190 9f9e9d9c9b9a9998 
+#                       a7a6a5a4a3a2a1a0 afaeadacabaaa9a8 b7b6b5b4b3b2b1b0 bfbebdbcbbbab9b8 
+#                       c7c6c5c4c3c2c1c0 cfcecdcccbcac9c8 d7d6d5d4d3d2d1d0 dfdedddcdbdad9d8 
+#                       e7e6e5e4e3e2e1e0 efeeedecebeae9e8 f7f6f5f4f3f2f1f0 
+# ==============================
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 3995: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO @ 3995: uvm_test_top.env.scb [scoreboard_REPORT] Total Matches: 0, Total Mismatches: 0, Error Percentage: 0.00%
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :  146
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [DRIVER]     3
+# [MONITOR-M-UDP]    32
+# [MONITOR-S-UDP]     2
+# [MONITOR_READ]    37
+# [MONITOR_WRITE]    51
+# [Questa UVM]     2
+# [RNTST]     1
+# [SCOREBOARD_ACTUAL]     3
+# [SCOREBOARD_EXPECTED]     2
+# [TEST_DONE]     1
+# [UVMTOP]     1
+# [XGMII_DRIVER]     2
+# [handshake_test]     2
+# [no_payload_seq]     2
+# [scoreboard_REPORT]     1
+# [sq_item]     2
+# [xgmii_driver]     2
+# ** Note: $finish    : C:/questasim64_2024.1/win64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 3995 ps  Iteration: 54  Instance: /top
+# 1
+# Break in Task uvm_pkg/uvm_root::run_test at C:/questasim64_2024.1/win64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh line 430
+# couldn't load library "C:/questasim64_2024.1/win64/ScintillaTk/ScintillaTk114.dll": this library or a dependent library could not be found in library path
+# list element in quotes followed by ":" instead of space
+# Break key hit
+# Break key hit
+# Break key hit
+# Break key hit
+# Break key hit
+# Break key hit
