@@ -28,9 +28,9 @@ class xgmii_driver extends uvm_driver#(sq_item);
 
 	virtual task run_phase(uvm_phase phase);
 		sq_item tr;
-		forever begin
 			wait(vif.rst_n);
 			wait(!vif.rst_n);
+		forever begin
 			vif.data <= 64'h0707070707070707; 
 			vif.ctrl <= 64'hFFFFFFFFFFFFFFFF; 
 			tr = sq_item::type_id::create("tr", this);

@@ -201,8 +201,8 @@ if __name__ == "__main__":
 							sport=5678,
 							dport=1234,
 							payload = bytes([0,1,2,3,4,5,6,7,8,9]))
-	for data, ctrl in datas:
-		print(f"data = 0x{data:016x}, ctrl = 0x{ctrl:1x}")	
+	# for data, ctrl in datas:
+	# 	print(f"data = 0x{data:016x}, ctrl = 0x{ctrl:1x}")	
 
 
 
@@ -218,12 +218,29 @@ if __name__ == "__main__":
 		print("Stripping preamble and SFD")
 		raw_bytes = raw_bytes[7:]
 	# raw_bytes = raw_bytes.lstrip(b"\x00")cd cd
-	print("Raw Ethernet frame:", raw_bytes.hex())
+	# print("Raw Ethernet frame:", raw_bytes.hex())
 
 	# Decode with scapy
 	pkt = Ether(raw_bytes)
 	eth = pkt[Ether]
-	
+	dst_mac = eth.dst
+	src_mac = eth.src
+	eth_type = eth.type
+	print(f"Ethernet: src_mac={src_mac}, dst_mac={dst_mac}, eth_type=0x{eth_type:04x}")
 	ip = pkt[IP]
+	version = ip.version,
+	ihl = ip.ihl,
+	tos_dscp = ip.tos >> 2,
+	tos_ecn = ip.tos & 0x3,
+	length = ip.len,
+	identification = ip.id,
+	flags = int(ip.flags),
+	fragment_offset = ip.frag,
+	ttl = ip.ttl,
+	protocol = ip.proto,
+	header_checksum = ip.chksum,
+	source_ip = ip.src,
+	dest_ip = ip.dst,
+	print(f"IP: src_ip={source_ip}, dst_ip={dest_ip}, protocol={protocol}, ttl={ttl}, length={length}, ihl={ihl}, version={version}, tos_dscp={tos_dscp}, tos_ecn={tos_ecn}, identification={identification}, flags={flags}, fragment_offset={fragment_offset}, header_checksum=0x{header_checksum:04x}")
 	udp = pkt[UDP]
-	pkt.show()
+	# pkt.show()

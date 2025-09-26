@@ -44,6 +44,7 @@ package tx_pkg;
     `include "../env/mac_env.sv"
 
     `include "../xgmii_agent/sequences/arp_seq.sv"
+    `include "../xgmii_agent/sequences/xgmii_seq.sv"
     `include "../axi_agent/sequences/udp_seq.sv"
     `include "../axi_agent/sequences/no_payload_seq.sv"
     `include "../env/virtual_sequences/arp_handshake_seq.sv"
