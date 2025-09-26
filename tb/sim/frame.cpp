@@ -169,7 +169,7 @@ int convert_python_list_to_c_array(PyObject *py_list, unsigned long long *data_v
     return (int)list_size; // number of entries filled
 }
 int xgmii_eth_frame(char *src_mac = NULL, char *dst_mac = NULL,
-                    char *src_ip = NULL, char *dst_ip = NULL,
+                    char *src_ip = NULL, char *dst_ip = NULL,short eth_type = 0x0800,
                     int sport = 0, int dport = 0,
                     unsigned char *payload = NULL, int payload_size = 0, unsigned long long data_array[] = NULL, unsigned long long ctrl_array[] = NULL)
 {
@@ -189,20 +189,21 @@ int xgmii_eth_frame(char *src_mac = NULL, char *dst_mac = NULL,
     // 	payload[i] = i; // example payload lengths
 
     // Build Python tuple of 7 args
-    PyObject *args = PyTuple_New(7);
+    PyObject *args = PyTuple_New(8);
     PyTuple_SetItem(args, 0, PyUnicode_FromString(src_mac));
     PyTuple_SetItem(args, 1, PyUnicode_FromString(dst_mac));
     PyTuple_SetItem(args, 2, PyUnicode_FromString(src_ip));
     PyTuple_SetItem(args, 3, PyUnicode_FromString(dst_ip));
-    PyTuple_SetItem(args, 4, PyLong_FromLong(sport));
-    PyTuple_SetItem(args, 5, PyLong_FromLong(dport));
+    PyTuple_SetItem(args, 4, PyLong_FromLong(eth_type));
+    PyTuple_SetItem(args, 5, PyLong_FromLong(sport));
+    PyTuple_SetItem(args, 6, PyLong_FromLong(dport));
 
     // Send payload as bytes
     PyObject *py_payload_bytes = PyBytes_FromStringAndSize(
         (const char *)payload, // pointer to raw data
         payload_size		   // 10 bytes
     );
-    PyTuple_SetItem(args, 6, py_payload_bytes);
+    PyTuple_SetItem(args, 7, py_payload_bytes);
 
     // Call Python function with args
     PyObject *py_result = PyObject_CallObject(create_xgmii_eth_frame_func, args);
@@ -304,7 +305,7 @@ void ip_to_str(unsigned long ip, char *buf)
 }
 
 extern "C" __declspec(dllexport) int xgmii_eth_frame_c(
-    unsigned long long src_mac, unsigned long long dst_mac, unsigned long src_ip, unsigned long dst_ip,
+    unsigned long long src_mac, unsigned long long dst_mac, unsigned long src_ip, unsigned long dst_ip, short eth_type,
     int sport, int dport, const svOpenArrayHandle payload, svOpenArrayHandle data, svOpenArrayHandle ctrl)
 {
     char src_mac_str[18];
@@ -334,7 +335,7 @@ extern "C" __declspec(dllexport) int xgmii_eth_frame_c(
     // Call the actual XGMII frame builder
     return frame_len = xgmii_eth_frame(
                src_mac_str, dst_mac_str,
-               src_ip_str, dst_ip_str,
+               src_ip_str, dst_ip_str, eth_type,
                sport, dport,
                payload_ptr, // <-- correct pointer now
                payload_len, // <-- pass payload length

@@ -5,6 +5,7 @@ tb/sim/transcript
 tb/sim/*.dll
 tb/sim/*.wlf
 tb/sim/*.xml
+tb/sim/*.vstf
 
 
 

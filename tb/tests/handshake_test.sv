@@ -9,7 +9,7 @@ class handshake_test extends base_test;
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
 		seq = arp_handshake_seq::type_id::create("seq");
-		// xseq = xgmii_seq::type_id::create("xseq");
+		// xseq = arp_seq::type_id::create("xseq");
 	endfunction
 
 
@@ -19,7 +19,7 @@ class handshake_test extends base_test;
 		phase.raise_objection(this);
 		`uvm_info(get_type_name(), "Starting arp_handshake_seq...", UVM_LOW)
 		seq.start(env.virtual_seqr); 
-		# 5ns; 
+		# 1ns; 
 		phase.drop_objection(this);
 	endtask
 

@@ -49,6 +49,7 @@ module top;
 	    .s_udp_length            (udp_vif.s_udp_length),
 	    .s_udp_checksum          (udp_vif.s_udp_checksum),
 	    .s_udp_payload_axis_tdata(udp_vif.s_udp_payload_axis_tdata),
+	    .s_udp_payload_axis_tkeep(8'hFF),
 	    .s_udp_payload_axis_tvalid(udp_vif.s_udp_payload_axis_tvalid),
 	    .s_udp_payload_axis_tready(udp_vif.s_udp_payload_axis_tready),
 	    .s_udp_payload_axis_tlast(udp_vif.s_udp_payload_axis_tlast),

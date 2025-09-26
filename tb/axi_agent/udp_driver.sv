@@ -53,11 +53,11 @@ class udp_driver extends uvm_driver #(udp_seq_item);
                    item.s_udp_source_port, item.s_udp_dest_port, item.s_udp_length),UVM_LOW)
 
       drive_task(item);
-      #1ns;
+      // #1ns;
       seq_item_port.item_done();
 
       // Random idle cycles between packets (simulate realistic gaps)
-      repeat($urandom_range(0,3)) @(posedge vif.clk);
+      // repeat($urandom_range(0,3)) @(posedge vif.clk);
     end
   endtask
 
