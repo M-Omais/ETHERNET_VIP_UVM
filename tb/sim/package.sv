@@ -12,14 +12,43 @@ package tx_pkg;
         output longint data_ray[],     // output frame bytes
         output longint ctrl_ray[]     // output frame bytes
     );
-    import "DPI-C" context function int xgmii_arp_frame_c(
-        input longint src_mac,
-        input longint dst_mac,
-        input int src_ip,
-        input int dst_ip,
-        output longint data_ray[],     // output frame bytes
-        output longint ctrl_ray[]     // output frame bytes
+    import "DPI-C" context function int scb_xgmii_to_udp(
+        input  bit [63:0] data_ray[],     // XGMII data
+        input  bit [7:0]  ctrl_ray[],     // XGMII control
+
+        // Ethernet
+        output longint unsigned m_udp_eth_dest_mac,
+        output longint unsigned m_udp_eth_src_mac,
+        output shortint unsigned m_udp_eth_type,
+        // ARP
+        output shortint unsigned arp_hwtype,
+        output shortint unsigned arp_ptype,
+        output byte unsigned arp_hwlen,
+        output byte unsigned arp_plen,
+        output shortint unsigned arp_op,
+
+        // IP
+        output byte unsigned m_udp_ip_version,
+        output byte unsigned m_udp_ip_ihl,
+        output byte unsigned m_udp_ip_dscp,
+        output byte unsigned m_udp_ip_ecn,
+        output shortint unsigned m_udp_ip_length,
+        output shortint unsigned m_udp_ip_identification,
+        output byte unsigned m_udp_ip_flags,
+        output shortint unsigned m_udp_ip_fragment_offset,
+        output byte unsigned m_udp_ip_ttl,
+        output byte unsigned m_udp_ip_protocol,
+        output shortint unsigned m_udp_ip_header_checksum,
+        output int unsigned  m_udp_ip_source_ip,
+        output int unsigned  m_udp_ip_dest_ip,
+
+        // UDP
+        output shortint unsigned m_udp_source_port,
+        output shortint unsigned m_udp_dest_port,
+        output shortint unsigned m_udp_length,
+        output shortint unsigned m_udp_checksum
     );
+
     parameter dut_ip = 32'hc0a80180;     // Data bus width
     parameter master_ip = 32'hc0a80164;     // Master IP address
     parameter dut_mac = 48'h02_00_00_00_00_00; // DUT MAC address

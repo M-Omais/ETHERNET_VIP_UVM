@@ -10,11 +10,101 @@
 #endif
 #include < stdint.h>
 #include <svdpi.h>
-#include <iostream>
+#include "vpi_user.h"
+
 using namespace std;
 static PyObject *xgmii_frame = NULL;
 static PyObject *create_xgmii_eth_frame_func = NULL;
-static PyObject *create_xgmii_arp_frame_func = NULL;
+static PyObject *decode_xgmii_frame_func = NULL;
+
+typedef struct
+{
+    // Ethernet fields
+    unsigned long long dst_mac;
+    unsigned long long src_mac;
+    unsigned short eth_type;
+    // ARP fields
+    unsigned short hwtype;
+    unsigned short ptype;
+    unsigned char hwlen;
+    unsigned char plen;
+    unsigned short op;
+
+    // IP fields
+    unsigned char version;
+    unsigned char ihl;
+    unsigned char tos_dscp;
+    unsigned char tos_ecn;
+    unsigned short length;
+    unsigned short identification;
+    unsigned char flags;
+    unsigned short fragment_offset;
+    unsigned char ttl;
+    unsigned char protocol;
+    unsigned short header_checksum;
+    unsigned int source_ip;
+    unsigned int dest_ip;
+
+    // UDP fields
+    unsigned short source_port;
+    unsigned short dest_port;
+    unsigned short udp_length;
+    unsigned short udp_checksum;
+
+    // Payload
+    unsigned char payload[1500]; // Max Ethernet payload
+    int payload_size;
+
+    // Status
+    int valid; // 0 = invalid, 1 = valid
+} decoded_packet_t;
+static unsigned long long get_dict_ull(PyObject *dict, const char *key, unsigned long long default_val)
+{
+    PyObject *item = PyDict_GetItemString(dict, key);
+    if (!item)
+        return default_val;
+
+    if (PyLong_Check(item))
+    {
+        return PyLong_AsUnsignedLongLong(item);
+    }
+    return default_val;
+}
+
+// Helper function to safely get integer from dictionary
+static long get_dict_long(PyObject *dict, const char *key, long default_val)
+{
+    PyObject *item = PyDict_GetItemString(dict, key);
+    if (!item)
+        return default_val;
+
+    if (PyLong_Check(item))
+    {
+        return PyLong_AsLong(item);
+    }
+    return default_val;
+}
+
+// Helper function to safely get bytes from dictionary
+static int get_dict_bytes(PyObject *dict, const char *key, unsigned char *buffer, int max_size)
+{
+    PyObject *item = PyDict_GetItemString(dict, key);
+    if (!item)
+        return 0;
+
+    if (PyBytes_Check(item))
+    {
+        Py_ssize_t size;
+        char *data;
+        if (PyBytes_AsStringAndSize(item, &data, &size) == 0)
+        {
+            int copy_size = (size < max_size) ? size : max_size;
+            memcpy(buffer, data, copy_size);
+            return copy_size;
+        }
+    }
+    return 0;
+}
 
 int init_python_wrapper()
 {
@@ -32,10 +122,12 @@ int init_python_wrapper()
 
     // Debug: Print current Python paths
     printf("Current Python sys.path:\n");
-    for (int i = 0; i < PyList_Size(sys_path); i++) {
-        PyObject* item = PyList_GetItem(sys_path, i);
-        const char* path = PyUnicode_AsUTF8(item);
-        if (path) {
+    for (int i = 0; i < PyList_Size(sys_path); i++)
+    {
+        PyObject *item = PyList_GetItem(sys_path, i);
+        const char *path = PyUnicode_AsUTF8(item);
+        if (path)
+        {
             printf("  [%d] %s\n", i, path);
         }
     }
@@ -94,8 +186,8 @@ int init_python_wrapper()
 
     // Get function references
     create_xgmii_eth_frame_func = PyObject_GetAttrString(xgmii_frame, "xgmii_eth_frame");
-    create_xgmii_arp_frame_func = PyObject_GetAttrString(xgmii_frame, "xgmii_arp_frame");
-    if (!create_xgmii_eth_frame_func || !create_xgmii_arp_frame_func)
+    decode_xgmii_frame_func = PyObject_GetAttrString(xgmii_frame, "decode_xgmii_frame");
+    if (!create_xgmii_eth_frame_func || !decode_xgmii_frame_func)
     {
         PyErr_Print();
         fprintf(stderr, "Failed to retrieve one or more Python functions\n");
@@ -168,9 +260,7 @@ int convert_python_list_to_c_array(PyObject *py_list, unsigned long long *data_v
 
     return (int)list_size; // number of entries filled
 }
-int xgmii_eth_frame(char *src_mac = NULL, char *dst_mac = NULL,
-                    char *src_ip = NULL, char *dst_ip = NULL,short eth_type = 0x0800,
-                    int sport = 0, int dport = 0,
+int xgmii_eth_frame(char *src_mac = NULL, char *dst_mac = NULL, char *src_ip = NULL, char *dst_ip = NULL, short eth_type = 0x0800, int sport = 0, int dport = 0,
                     unsigned char *payload = NULL, int payload_size = 0, unsigned long long data_array[] = NULL, unsigned long long ctrl_array[] = NULL)
 {
     if (init_python_wrapper() != 0)
@@ -201,59 +291,12 @@ int xgmii_eth_frame(char *src_mac = NULL, char *dst_mac = NULL,
     // Send payload as bytes
     PyObject *py_payload_bytes = PyBytes_FromStringAndSize(
         (const char *)payload, // pointer to raw data
-        payload_size		   // 10 bytes
+        payload_size           // 10 bytes
     );
     PyTuple_SetItem(args, 7, py_payload_bytes);
 
     // Call Python function with args
     PyObject *py_result = PyObject_CallObject(create_xgmii_eth_frame_func, args);
-    if (!py_result)
-    {
-        PyErr_Print();
-        fprintf(stderr, "❌ Python function call failed\n");
-        cleanup_python_wrapper();
-        return 1;
-    }
-
-    int size = convert_python_list_to_c_array(py_result, data_array, ctrl_array, 64);
-    if (size < 0)
-    {
-        fprintf(stderr, "❌ Failed to convert Python list to C array\n");
-        Py_DECREF(py_result);
-        cleanup_python_wrapper();
-        return 1;
-    }
-
-    // Print converted C array in hex
-    // printf("✅ Got %d bytes from Python:\n", size);
-    // for (int i = 0; i < size; i++) {
-    // 	cout<< hex << data_array[i] << '\t' << ctrl_array[i] << endl;
-    // }
-    printf("\n");
-
-    Py_DECREF(py_result);
-    cleanup_python_wrapper();
-    return size; // return number of bytes in frame
-}
-
-int xgmii_arp_frame(char *src_mac = NULL, char *dst_mac = NULL, char *src_ip = NULL, char *dst_ip = NULL,
-                    unsigned long long data_array[] = NULL, unsigned long long ctrl_array[] = NULL)
-{
-    if (init_python_wrapper() != 0)
-    {
-        fprintf(stderr, "❌ Failed to initialize Python wrapper\n");
-        return 1;
-    }
-
-    // Build Python tuple of 7 args
-    PyObject *args = PyTuple_New(4);
-    PyTuple_SetItem(args, 0, PyUnicode_FromString(src_mac));
-    PyTuple_SetItem(args, 1, PyUnicode_FromString(dst_mac));
-    PyTuple_SetItem(args, 2, PyUnicode_FromString(src_ip));
-    PyTuple_SetItem(args, 3, PyUnicode_FromString(dst_ip));
-
-    // Call Python function with args
-    PyObject *py_result = PyObject_CallObject(create_xgmii_arp_frame_func, args);
     if (!py_result)
     {
         PyErr_Print();
@@ -283,7 +326,52 @@ int xgmii_arp_frame(char *src_mac = NULL, char *dst_mac = NULL, char *src_ip = N
     return size; // return number of bytes in frame
 }
 
+int xgmii_to_udp(char *src_mac = NULL, char *dst_mac = NULL, char *src_ip = NULL, char *dst_ip = NULL,
+                 unsigned long long data_array[] = NULL, unsigned long long ctrl_array[] = NULL)
+{
+    if (init_python_wrapper() != 0)
+    {
+        fprintf(stderr, "❌ Failed to initialize Python wrapper\n");
+        return 1;
+    }
 
+    // Build Python tuple of 7 args
+    PyObject *args = PyTuple_New(4);
+    PyTuple_SetItem(args, 0, PyUnicode_FromString(src_mac));
+    PyTuple_SetItem(args, 1, PyUnicode_FromString(dst_mac));
+    PyTuple_SetItem(args, 2, PyUnicode_FromString(src_ip));
+    PyTuple_SetItem(args, 3, PyUnicode_FromString(dst_ip));
+
+    // Call Python function with args
+    PyObject *py_result = PyObject_CallObject(decode_xgmii_frame_func, args);
+    if (!py_result)
+    {
+        PyErr_Print();
+        fprintf(stderr, "❌ Python function call failed\n");
+        cleanup_python_wrapper();
+        return 1;
+    }
+
+    int size = convert_python_list_to_c_array(py_result, data_array, ctrl_array, 64);
+    if (size < 0)
+    {
+        fprintf(stderr, "❌ Failed to convert Python list to C array\n");
+        Py_DECREF(py_result);
+        cleanup_python_wrapper();
+        return 1;
+    }
+
+    // Print converted C array in hex
+    // printf("✅ Got %d bytes from Python:\n", size);
+    // for (int i = 0; i < size; i++) {
+    // 	cout<< hex << data_array[i] << '\t' << ctrl_array[i] << endl;
+    // }
+    // printf("\n");
+
+    Py_DECREF(py_result);
+    cleanup_python_wrapper();
+    return size; // return number of bytes in frame
+}
 
 void mac_to_str(unsigned long long mac, char *buf)
 {
@@ -302,6 +390,130 @@ void ip_to_str(unsigned long ip, char *buf)
             (ip >> 16) & 0xff,
             (ip >> 8) & 0xff,
             ip & 0xff);
+}
+int decode_xgmii_frame(unsigned long long data_array[], unsigned long long ctrl_array[],
+                       int array_size, decoded_packet_t *result)
+{
+    // vpi_printf("Decoding XGMII frame of size: %d\n", array_size);
+    // Initialize result structure
+    memset(result, 0, sizeof(decoded_packet_t));
+
+    if (init_python_wrapper() != 0)
+    {
+        fprintf(stderr, "❌ Failed to initialize Python wrapper\n");
+        return -1;
+    }
+
+    // Create Python list of tuples for xgmii_words
+    PyObject *xgmii_list = PyList_New(array_size);
+    if (!xgmii_list)
+    {
+        fprintf(stderr, "❌ Failed to create Python list\n");
+        cleanup_python_wrapper();
+        return -1;
+    }
+
+    // Fill the list with (data, ctrl) tuples
+    for (int i = 0; i < array_size; i++)
+    {
+        PyObject *tuple = PyTuple_New(2);
+        PyTuple_SetItem(tuple, 0, PyLong_FromUnsignedLongLong(data_array[i]));
+        PyTuple_SetItem(tuple, 1, PyLong_FromUnsignedLongLong(ctrl_array[i]));
+        PyList_SetItem(xgmii_list, i, tuple);
+    }
+
+    // Create arguments tuple
+    PyObject *args = PyTuple_New(1);
+    PyTuple_SetItem(args, 0, xgmii_list);
+
+    // Call Python decode function
+    PyObject *py_result = PyObject_CallObject(decode_xgmii_frame_func, args);
+    if (!py_result)
+    {
+        PyErr_Print();
+        fprintf(stderr, "❌ Python decode function call failed\n");
+        Py_DECREF(args);
+        cleanup_python_wrapper();
+        return -1;
+    }
+
+    // Check if result is a dictionary
+    if (!PyDict_Check(py_result))
+    {
+        fprintf(stderr, "❌ Python function didn't return a dictionary\n");
+        Py_DECREF(py_result);
+        Py_DECREF(args);
+        cleanup_python_wrapper();
+        return -1;
+    }
+
+    // Extract fields from dictionary
+    // Ethernet fields
+    result->dst_mac = get_dict_ull(py_result, "dst_mac", 0);
+    result->src_mac = get_dict_ull(py_result, "src_mac", 0);
+    result->eth_type = (unsigned short)get_dict_long(py_result, "eth_type", 0);
+    // ARP fields
+    result->hwtype = (unsigned short)get_dict_long(py_result, "hwtype", 0);
+    result->ptype = (unsigned short)get_dict_long(py_result, "ptype", 0);
+    result->hwlen = (unsigned char)get_dict_long(py_result, "hwlen", 0);
+    result->plen = (unsigned char)get_dict_long(py_result, "plen", 0);
+    result->op = (unsigned short)get_dict_long(py_result, "op", 0);
+
+    // IP fields
+    result->version = (unsigned char)get_dict_long(py_result, "version", 0);
+    result->ihl = (unsigned char)get_dict_long(py_result, "ihl", 0);
+    result->tos_dscp = (unsigned char)get_dict_long(py_result, "tos_dscp", 0);
+    result->tos_ecn = (unsigned char)get_dict_long(py_result, "tos_ecn", 0);
+    result->length = (unsigned short)get_dict_long(py_result, "length", 0);
+    result->identification = (unsigned short)get_dict_long(py_result, "identification", 0);
+    result->flags = (unsigned char)get_dict_long(py_result, "flags", 0);
+    result->fragment_offset = (unsigned short)get_dict_long(py_result, "fragment_offset", 0);
+    result->ttl = (unsigned char)get_dict_long(py_result, "ttl", 0);
+    result->protocol = (unsigned char)get_dict_long(py_result, "protocol", 0);
+    result->header_checksum = (unsigned short)get_dict_long(py_result, "header_checksum", 0);
+    result->source_ip = (unsigned int)get_dict_ull(py_result, "source_ip", 0);
+    result->dest_ip = (unsigned int)get_dict_ull(py_result, "dest_ip", 0);
+
+    // UDP fields
+    result->source_port = (unsigned short)get_dict_long(py_result, "source_port", 0);
+    result->dest_port = (unsigned short)get_dict_long(py_result, "dest_port", 0);
+    result->udp_length = (unsigned short)get_dict_long(py_result, "udp_length", 0);
+    result->udp_checksum = (unsigned short)get_dict_long(py_result, "udp_checksum", 0);
+
+    // Payload
+    result->payload_size = get_dict_bytes(py_result, "payload", result->payload, sizeof(result->payload));
+
+    // Mark as valid if we got essential fields
+    result->valid = (result->dst_mac != 0 && result->src_mac != 0) ? 1 : 0;
+
+    // Cleanup
+    Py_DECREF(py_result);
+    Py_DECREF(args);
+    cleanup_python_wrapper();
+
+    return result->valid ? 0 : -1;
+}
+
+void print_decoded_packet(const decoded_packet_t *pkt)
+{
+    if (!pkt->valid)
+    {
+        // vpi_printf("❌ Invalid packet\n");
+        return;
+    }
+
+    // vpi_printf("Decoded Packet:\n");
+    // vpi_printf("  Ethernet: %012llx -> %012llx (type: 0x%04x)\n",
+            //    pkt->src_mac, pkt->dst_mac, pkt->eth_type);
+    // vpi_printf("  IP: %u.%u.%u.%u → %u.%u.%u.%u (proto: %d, len: %d)\n",
+    //            (pkt->source_ip >> 24) & 0xFF, (pkt->source_ip >> 16) & 0xFF,
+    //            (pkt->source_ip >> 8) & 0xFF, pkt->source_ip & 0xFF,
+    //            (pkt->dest_ip >> 24) & 0xFF, (pkt->dest_ip >> 16) & 0xFF,
+    //            (pkt->dest_ip >> 8) & 0xFF, pkt->dest_ip & 0xFF,
+    //            pkt->protocol, pkt->length);
+    // vpi_printf("  UDP: %d → %d (len: %d)\n",
+    //            pkt->source_port, pkt->dest_port, pkt->udp_length);
+    // vpi_printf("  Payload: %d bytes\n", pkt->payload_size);
 }
 
 extern "C" __declspec(dllexport) int xgmii_eth_frame_c(
@@ -339,8 +551,8 @@ extern "C" __declspec(dllexport) int xgmii_eth_frame_c(
                sport, dport,
                payload_ptr, // <-- correct pointer now
                payload_len, // <-- pass payload length
-               data_ptr,	// <-- correct pointer now
-               ctrl_ptr		// <-- correct pointer now
+               data_ptr,    // <-- correct pointer now
+               ctrl_ptr     // <-- correct pointer now
            );
 
     // Debug: print generated data/ctrl
@@ -348,61 +560,123 @@ extern "C" __declspec(dllexport) int xgmii_eth_frame_c(
     // 	cout << hex << data_ptr[i] << '\t' << hex << ctrl_ptr[i] << endl;
     // }
 }
-extern "C" __declspec(dllexport) int xgmii_arp_frame_c(
-    unsigned long long src_mac, unsigned long long dst_mac, unsigned long src_ip, unsigned long dst_ip,
-    svOpenArrayHandle data, svOpenArrayHandle ctrl)
+
+extern "C" __declspec(dllexport) int scb_xgmii_to_udp(
+    svOpenArrayHandle data,
+    svOpenArrayHandle ctrl,
+    // Ethernet
+    unsigned long long *m_udp_eth_dest_mac,
+    unsigned long long *m_udp_eth_src_mac,
+    unsigned short *m_udp_eth_type,
+    // ARP
+    unsigned short *hwtype,
+    unsigned short *ptype,
+    unsigned char *hwlen,
+    unsigned char *plen,
+    unsigned short *op,
+    // IP
+    unsigned char *m_udp_ip_version,
+    unsigned char *m_udp_ip_ihl,
+    unsigned char *m_udp_ip_dscp,
+    unsigned char *m_udp_ip_ecn,
+    unsigned short *m_udp_ip_length,
+    unsigned short *m_udp_ip_identification,
+    unsigned char *m_udp_ip_flags,
+    unsigned short *m_udp_ip_fragment_offset,
+    unsigned char *m_udp_ip_ttl,
+    unsigned char *m_udp_ip_protocol,
+    unsigned short *m_udp_ip_header_checksum,
+    unsigned int *m_udp_ip_source_ip,
+    unsigned int *m_udp_ip_dest_ip,
+    // UDP
+    unsigned short *m_udp_source_port,
+    unsigned short *m_udp_dest_port,
+    unsigned short *m_udp_length,
+    unsigned short *m_udp_checksum
+)
 {
-    char src_mac_str[18];
-    char dst_mac_str[18];
-    char src_ip_str[16];
-    char dst_ip_str[16];
+    // Get array length
+    // fprintf(stderr, "✅ scb_xgmii_to_udp called!\n");
+    // fflush(stderr);
 
-    // Convert integer MAC/IP to string format
-    mac_to_str(src_mac, src_mac_str);
-    mac_to_str(dst_mac, dst_mac_str);
-    ip_to_str(src_ip, src_ip_str);
-    ip_to_str(dst_ip, dst_ip_str);
-
-    // Extract data/ctrl output array pointers
+    int len = svSize(data, 1);
+    // vpi_printf("Data received, length = %d\n", len);
     unsigned long long *data_ptr = (unsigned long long *)svGetArrayPtr(data);
-    unsigned long long *ctrl_ptr = (unsigned long long *)svGetArrayPtr(ctrl);
-    int frame_len = 0;
-    // Call the actual XGMII frame builder
-    return frame_len = xgmii_arp_frame(
-               src_mac_str, dst_mac_str,
-               src_ip_str, dst_ip_str,
-               data_ptr,	// <-- correct pointer now
-               ctrl_ptr		// <-- correct pointer now
-           );
-
-    // Debug: print generated data/ctrl
-    for (int i = 0; i < frame_len; i++) {
-        cout << hex << data_ptr[i] << '\t' << hex << ctrl_ptr[i] << endl;
+    unsigned long long *cptr = (unsigned long long *)svGetArrayPtr(ctrl);
+    if (!data_ptr || !cptr)
+    {
+        fprintf(stderr, "❌ svGetArrayPtr returned NULL!\n");
+        return -1;
     }
-}
+    fprintf(stderr, "Data received from SV, length: %d\n", len);
 
+    for (int i = 0; i < len; i++)
+        printf("%d\t%x\t%x\n", i, data_ptr[i], (int)cptr[i]);
+
+    decoded_packet_t packet;
+    if (decode_xgmii_frame(data_ptr, cptr, len, &packet) == 0)
+    {
+        print_decoded_packet(&packet);
+
+        // Use the decoded fields
+        if (packet.dest_port == 1234)
+        {
+            printf("This is our target port!\n");
+        }
+    }
+    else
+    {
+        printf("Failed to decode XGMII frame\n");
+    }
+    *m_udp_eth_dest_mac = packet.dst_mac;
+    *m_udp_eth_src_mac = packet.src_mac;
+    *m_udp_eth_type = packet.eth_type;
+    *hwtype = packet.hwtype;
+    *ptype = packet.ptype;
+    *hwlen = packet.hwlen;
+    *plen = packet.plen;
+    *op = packet.op;
+    *m_udp_ip_version = packet.version;
+    *m_udp_ip_ihl = packet.ihl;
+    *m_udp_ip_dscp = packet.tos_dscp;
+    *m_udp_ip_ecn = packet.tos_ecn;
+    *m_udp_ip_length = packet.length;
+    *m_udp_ip_identification = packet.identification;
+    *m_udp_ip_flags = packet.flags;
+    *m_udp_ip_fragment_offset = packet.fragment_offset;
+    *m_udp_ip_ttl = packet.ttl;
+    *m_udp_ip_protocol = packet.protocol;
+    *m_udp_ip_header_checksum = packet.header_checksum;
+    *m_udp_ip_source_ip = packet.source_ip;
+    *m_udp_ip_dest_ip = packet.dest_ip;
+    *m_udp_source_port = packet.source_port;
+    *m_udp_dest_port = packet.dest_port;
+    *m_udp_length = packet.udp_length;
+    *m_udp_checksum = packet.udp_checksum;
+    return 10;
+}
 int main()
 {
     return 0;
-	// unsigned long long mac1 = 99305320044117ULL;  // some MAC as integer
-	// unsigned long long mac2 = 2199023255552ULL;  // some MAC as integer
-	// unsigned long ip1 = 3232235876;  //
-	// unsigned long ip2 = 3232236033;  //
-	// unsigned long long data_array[64];
-	// unsigned long long ctrl_array[64];
-	// char srcmac[18];  // "xx:xx:xx:xx:xx:xx" + '\0'
-	// char dstmac[18];  // "xx:xx:xx:xx:xx:xx" + '\0'
-	// char srcip[16];   // "xxx.xxx.xxx.xxx" + '\0'
-	// char dstip[16];   // "xxx.xxx.xxx.xxx" + '\0'
+    // unsigned long long mac1 = 99305320044117ULL;  // some MAC as integer
+    // unsigned long long mac2 = 2199023255552ULL;  // some MAC as integer
+    // unsigned long ip1 = 3232235876;  //
+    // unsigned long ip2 = 3232236033;  //
+    // unsigned long long data_array[64];
+    // unsigned long long ctrl_array[64];
+    // char srcmac[18];  // "xx:xx:xx:xx:xx:xx" + '\0'
+    // char dstmac[18];  // "xx:xx:xx:xx:xx:xx" + '\0'
+    // char srcip[16];   // "xxx.xxx.xxx.xxx" + '\0'
+    // char dstip[16];   // "xxx.xxx.xxx.xxx" + '\0'
     // mac_to_str(mac1, srcmac);
     // mac_to_str(mac2, dstmac);
-	// ip_to_str(ip1, srcip);
-	// ip_to_str(ip2, dstip);
-	// printf("Source MAC string: %s\n", srcmac);
-	// printf("Destination MAC string: %s\n", dstmac);
-	// printf("Source IP string: %s\n", srcip);
-	// printf("Destination IP string: %s\n", dstip);
-	// // cout<< hex << mac1 << endl;
-	// // cout<< hex << mac2 << endl;
-	// return xgmii_eth_frame(srcmac, dstmac, srcip, dstip, 5678, 1234, (unsigned char *)"HelloWorld", data_array, ctrl_array);
+    // ip_to_str(ip1, srcip);
+    // ip_to_str(ip2, dstip);
+    // printf("Source MAC string: %s\n", srcmac);
+    // printf("Destination MAC string: %s\n", dstmac);
+    // printf("Source IP string: %s\n", srcip);
+    // printf("Destination IP string: %s\n", dstip);
+    // // cout<< hex << mac1 << endl;
+    // // cout<< hex << mac2 << endl;
+    // return xgmii_eth_frame(srcmac, dstmac, srcip, dstip, 5678, 1234, (unsigned char *)"HelloWorld", data_array, ctrl_array);
 }
