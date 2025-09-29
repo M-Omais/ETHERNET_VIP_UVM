@@ -669,28 +669,3 @@ extern "C" __declspec(dllexport) int scb_xgmii_to_udp(
     }
     return 10;
 }
-int main()
-{
-    return 0;
-    // unsigned long long mac1 = 99305320044117ULL;  // some MAC as integer
-    // unsigned long long mac2 = 2199023255552ULL;  // some MAC as integer
-    // unsigned long ip1 = 3232235876;  //
-    // unsigned long ip2 = 3232236033;  //
-    // unsigned long long data_array[64];
-    // unsigned long long ctrl_array[64];
-    // char srcmac[18];  // "xx:xx:xx:xx:xx:xx" + '\0'
-    // char dstmac[18];  // "xx:xx:xx:xx:xx:xx" + '\0'
-    // char srcip[16];   // "xxx.xxx.xxx.xxx" + '\0'
-    // char dstip[16];   // "xxx.xxx.xxx.xxx" + '\0'
-    // mac_to_str(mac1, srcmac);
-    // mac_to_str(mac2, dstmac);
-    // ip_to_str(ip1, srcip);
-    // ip_to_str(ip2, dstip);
-    // printf("Source MAC string: %s\n", srcmac);
-    // printf("Destination MAC string: %s\n", dstmac);
-    // printf("Source IP string: %s\n", srcip);
-    // printf("Destination IP string: %s\n", dstip);
-    // // cout<< hex << mac1 << endl;
-    // // cout<< hex << mac2 << endl;
-    // return xgmii_eth_frame(srcmac, dstmac, srcip, dstip, 5678, 1234, (unsigned char *)"HelloWorld", data_array, ctrl_array);
-}
