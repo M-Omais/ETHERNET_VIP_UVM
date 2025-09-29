@@ -45,7 +45,7 @@ class scoreboard extends uvm_scoreboard;
 	  // UDP
 	  shortint unsigned m_udp_source_port, m_udp_dest_port, m_udp_length, m_udp_checksum;
 	udp_seq_item udp_tr = udp_seq_item::type_id::create("udp_tr");
-	  `uvm_info("SCOREBOARD_EXPECTED", tr.print_data(), UVM_LOW)
+	//   `uvm_info("SCOREBOARD_EXPECTED", tr.print_data(), UVM_LOW)
 		i = scb_xgmii_to_udp(tr.data_out, tr.ctrl_out,
                                m_udp_eth_dest_mac, m_udp_eth_src_mac, m_udp_eth_type,
                                arp_hwtype, arp_ptype, arp_hwlen, arp_plen, arp_op,
