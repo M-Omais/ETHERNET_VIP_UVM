@@ -44,6 +44,8 @@ class scoreboard extends uvm_scoreboard;
 
 	  // UDP
 	  shortint unsigned m_udp_source_port, m_udp_dest_port, m_udp_length, m_udp_checksum;
+	  // payload data
+	  bit [63:0] m_udp_payload[1500];     // payload data
 	udp_seq_item udp_tr = udp_seq_item::type_id::create("udp_tr");
 	//   `uvm_info("SCOREBOARD_EXPECTED", tr.print_data(), UVM_LOW)
 		i = scb_xgmii_to_udp(tr.data_out, tr.ctrl_out,
@@ -53,7 +55,9 @@ class scoreboard extends uvm_scoreboard;
                                m_udp_ip_length, m_udp_ip_identification, m_udp_ip_flags,
                                m_udp_ip_fragment_offset, m_udp_ip_ttl, m_udp_ip_protocol,
                                m_udp_ip_header_checksum, m_udp_ip_source_ip, m_udp_ip_dest_ip,
-                               m_udp_source_port, m_udp_dest_port, m_udp_length, m_udp_checksum);
+                               m_udp_source_port, m_udp_dest_port, m_udp_length, m_udp_checksum,
+							   m_udp_payload
+							   );
 		udp_tr.m_udp_eth_src_mac = m_udp_eth_src_mac;
 		udp_tr.m_udp_eth_dest_mac = m_udp_eth_dest_mac;
 		udp_tr.m_udp_eth_type = m_udp_eth_type;
@@ -74,6 +78,12 @@ class scoreboard extends uvm_scoreboard;
 		udp_tr.m_udp_dest_port = m_udp_dest_port;
 		udp_tr.m_udp_length = m_udp_length;
 		udp_tr.m_udp_checksum = m_udp_checksum;
+		// copying the payload
+		udp_tr.m_udp_payload_data.delete(); // clear old contents
+
+		for (int j = 0; j < i; j++) begin
+		    udp_tr.m_udp_payload_data.push_back(tr.data_out[j]);
+		end
 		if(m_udp_eth_type == 16'h0806) begin
 			arp_print(m_udp_eth_dest_mac,m_udp_eth_src_mac,arp_op,m_udp_ip_source_ip,m_udp_ip_dest_ip);
 		end
