@@ -46,7 +46,8 @@ package tx_pkg;
         output shortint unsigned m_udp_source_port,
         output shortint unsigned m_udp_dest_port,
         output shortint unsigned m_udp_length,
-        output shortint unsigned m_udp_checksum
+        output shortint unsigned m_udp_checksum,
+        output  bit [63:0] m_udp_payload[]     // payload data
     );
 
     parameter dut_ip = 32'hc0a80180;     // Data bus width
