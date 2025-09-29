@@ -13,8 +13,8 @@ class sq_item extends uvm_sequence_item;
 	rand bit [15:0] dst_port;
 	// Payload
 	rand logic [7:0] payload[];
-	logic [63:0]  data_out[]; 
-	logic [7:0]  ctrl_out[];
+	bit [63:0]  data_out[]; 
+	bit [7:0]  ctrl_out[];
 
 	function new(string name = "sq_item");
 		super.new(name);
@@ -29,7 +29,7 @@ class sq_item extends uvm_sequence_item;
     if (eth_type == 16'h0806)
         payload.size() == 0;       // ARP → no payload
     else
-        payload.size() inside {0, 256};  // otherwise normal constraint
+        payload.size() == 256;  // otherwise normal constraint
 	}
 
 	virtual function int data_create();
@@ -79,10 +79,20 @@ class sq_item extends uvm_sequence_item;
 	    return ret;
 	endfunction
 	virtual function string print_data();
-		string s = "Data Output:\n";
+		string s = "\nData Output:\t\t";
 		foreach (data_out[i]) begin
-			s = {s, $sformatf("data_out[%0d] = %h \t ctrl_out[%0d] = %h\n", i, data_out[i], i, ctrl_out[i])};
+			s = {s, $sformatf("%016h ", data_out[i])};
+			if (((i+1) % 4) == 0)
+				s = {s, "\n                      "};
+			// break every 4 words, indent under "Data Output:"
 		end
+		// s = {s, "\nCtrl Output:\n                      "};
+		// foreach (ctrl_out[i]) begin
+		// 	s = {s, $sformatf("%02h ", ctrl_out[i])};
+		// 	if (((i+1) % 16) == 0)
+		// 		s = {s, "\n                      "};
+		// 	// break every 16 bytes, indent under "Ctrl Output:"
+		// end
 		return s;
 	endfunction
 

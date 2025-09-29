@@ -163,7 +163,6 @@ always @* begin
     if (query_ip_valid_reg && (~query_request_valid || query_response_ready)) begin
         query_response_valid_next = 1;
         query_ip_valid_next = 0;
-        $display("ARP Cache Query: valid_mem[%0d]=%b, ip_addr_mem[%0d]=%h, query_ip_reg=%h", rd_ptr_reg, valid_mem[rd_ptr_reg], rd_ptr_reg, ip_addr_mem[rd_ptr_reg], query_ip_reg);
         if (valid_mem[rd_ptr_reg] && ip_addr_mem[rd_ptr_reg] == query_ip_reg) begin
             query_response_error_next = 0;
         end else begin

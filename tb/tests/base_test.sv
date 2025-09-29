@@ -18,7 +18,7 @@ class base_test extends uvm_test;
 	endtask
 	function void end_of_elaboration_phase(uvm_phase phase);
 		super.end_of_elaboration_phase(phase);
-		uvm_top.print_topology();
+		// uvm_top.print_topology();
 		`uvm_info(get_type_name(), "End of elaboration phase", UVM_LOW)
 	endfunction
 endclass

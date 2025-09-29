@@ -76,7 +76,7 @@ class xgmii_monitor extends uvm_monitor;
 		    if (collecting) begin
 		        data_q.push_back(vif.data);
 		        ctrl_q.push_back(vif.ctrl);
-		        `uvm_info("MONITOR_WRITE", $sformatf("Captured tdata: %h", vif.data), UVM_LOW);
+		        `uvm_info("MONITOR_WRITE", $sformatf("Captured tdata: %h", vif.data), UVM_HIGH);
 		    end
 		@(posedge vif.clk);
 		end
