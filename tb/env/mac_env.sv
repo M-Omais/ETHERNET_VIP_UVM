@@ -18,13 +18,27 @@ class mac_env extends uvm_env;
 		scb = scoreboard::type_id::create("scb", this);
 	endfunction
 
-	virtual function void connect_phase(uvm_phase phase);
+	function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
-		// Connect both monitor ports to scb
+
+		// ---------------- XGMII ----------------
 		virtual_seqr.xgmii_sequencer_inst = xgmii_agent_inst.sqr;
+
+		// Expected XGMII stream
+		xgmii_agent_inst.mon.dut_write.connect(scb.xgmii_in_port);
+
+		// Actual XGMII stream
+		xgmii_agent_inst.mon.dut_read.connect(scb.xgmii_out_port);
+
+		// ---------------- UDP ----------------
 		virtual_seqr.udp_sequencer_inst = udp_agent_inst.seqr;
-		xgmii_agent_inst.mon.dut_write.connect(scb.in_port);
-		xgmii_agent_inst.mon.dut_read.connect(scb.out_port);
+
+		// Expected UDP stream
+		udp_agent_inst.mon.ap_s_udp.connect(scb.udp_in_port);
+
+		// Actual UDP stream
+		udp_agent_inst.mon.ap_m_udp.connect(scb.udp_out_port);
 	endfunction
+
 
 endclass : mac_env

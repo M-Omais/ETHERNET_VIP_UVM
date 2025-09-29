@@ -137,7 +137,7 @@ class udp_monitor extends uvm_monitor;
         tr.m_udp_payload_user = vif.m_udp_payload_axis_tuser;
 
         // Send transaction to analysis port
-        ap_s_udp.write(tr);
+        ap_m_udp.write(tr);
         // Ethernet output monitor
         `uvm_info("MONITOR-M-UDP", $sformatf("ETH Output captured: %s", tr.convert2string_m_udp()), UVM_LOW)
       end

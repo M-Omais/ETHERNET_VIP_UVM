@@ -15,7 +15,7 @@ class udp_seq_item extends uvm_sequence_item;
     rand bit [15:0] s_udp_length;
     rand bit [15:0] s_udp_checksum;
     
-    rand bit [7:0]  s_udp_payload_data[$];// Payload (we’ll send byte by byte for now)
+    rand bit [63:0]  s_udp_payload_data[$];
     rand bit        s_udp_payload_last;
     rand bit        s_udp_payload_user;
     rand bit [7:0]  s_udp_payload_keep[$];
