@@ -592,7 +592,8 @@ extern "C" __declspec(dllexport) int scb_xgmii_to_udp(
     unsigned short *m_udp_source_port,
     unsigned short *m_udp_dest_port,
     unsigned short *m_udp_length,
-    unsigned short *m_udp_checksum
+    unsigned short *m_udp_checksum,
+    svOpenArrayHandle payload
 )
 {
     // Get array length
@@ -653,6 +654,19 @@ extern "C" __declspec(dllexport) int scb_xgmii_to_udp(
     *m_udp_dest_port = packet.dest_port;
     *m_udp_length = packet.udp_length;
     *m_udp_checksum = packet.udp_checksum;
+    // Copy payload to SystemVerilog array
+    int payload_size = packet.payload_size;
+    if (payload_size > 0 && payload_size <= svSize(payload, 1))
+    {
+        unsigned char *payload_ptr = (unsigned char *)svGetArrayPtr(payload);
+        memcpy(payload_ptr, packet.payload, payload_size);
+    }
+    else if (payload_size > svSize(payload, 1))
+    {
+        fprintf(stderr, "Warning: Payload size %d exceeds SV array size %d, truncating\n", payload_size, svSize(payload, 1));
+        unsigned char *payload_ptr = (unsigned char *)svGetArrayPtr(payload);
+        memcpy(payload_ptr, packet.payload, svSize(payload, 1));
+    }
     return 10;
 }
 int main()
