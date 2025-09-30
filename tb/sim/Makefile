@@ -57,7 +57,6 @@ sim:
 	@echo "Running simulation..."
 	@cls
 	$(VSIM) -sv_lib $(FRAME_LIB) $(VSIM_FLAGS) $(VSIM_ARGS) $(TEST_NAME) $(WORKDIR).top -do "run -all"
-	$(VSIM) -sv_lib $(FRAME_LIB) $(VSIM_FLAGS) $(VSIM_ARGS) $(TEST_NAME) $(WORKDIR).top -do "run -all"
 
 # Clean all generated files
 clean:
