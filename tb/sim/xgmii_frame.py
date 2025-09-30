@@ -5,7 +5,7 @@ from scapy.all import Ether, IP, UDP
 import socket
 import struct
 
-def xgmii_eth_frame(src_mac, dst_mac, src_ip, dst_ip,  eth_type, sport, dport, payload = b''):
+def xgmii_eth_frame(src_mac, dst_mac, src_ip, dst_ip,  eth_type, sport, dport, op, payload = b''):
 	"""
 	Create an XGMII frame with Ethernet header and payload.
 
@@ -26,19 +26,45 @@ def xgmii_eth_frame(src_mac, dst_mac, src_ip, dst_ip,  eth_type, sport, dport, p
 		Encoded XGMII data and control words
 	"""
 
-	
+	print("==== xgmii_eth_frame INPUTS ====")
+	print(f"src_mac : {src_mac} (type={type(src_mac)})")
+	print(f"dst_mac : {dst_mac} (type={type(dst_mac)})")
+	print(f"src_ip  : {src_ip} (type={type(src_ip)})")
+	print(f"dst_ip  : {dst_ip} (type={type(dst_ip)})")
+	print(f"eth_type: {eth_type} (hex={hex(eth_type) if isinstance(eth_type, int) else 'N/A'}, type={type(eth_type)})")
+	print(f"sport   : {sport} (type={type(sport)})")
+	print(f"dport   : {dport} (type={type(dport)})")
+	print(f"op      : {op} (type={type(op)})")
+	print(f"payload : {payload} (len={len(payload) if isinstance(payload, (bytes, bytearray)) else 'N/A'})")
+	print("=================================")
 	# Build Ethernet frame using Scapy
 	# for i in range(len(payload)):
 	# 	print(f"payload[{i}] = {payload[i]}")
 	eth = Ether(src=src_mac, dst=dst_mac, type=eth_type)
-	ip = IP(src=src_ip, dst=dst_ip)
+	ip = IP(src=src_ip, dst=dst_ip, id=0,flags=2)
 	udp = UDP(sport=sport, dport=dport)
 	print(eth_type)
-	if eth_type == 2048:
+	if eth_type == 0x0800:  # IPv4
 		pkt = eth / ip / udp / payload
-	elif eth_type == 2054:
-		arp = ARP(hwtype=1, ptype=0x0800, hwlen=6, plen=4, op=2,hwsrc=src_mac, psrc=src_ip, hwdst=dst_mac, pdst=dst_ip)
-		pkt = eth / arp
+
+	elif eth_type == 0x0806:  # ARP
+		if op == 2:  # ARP Reply
+			arp = ARP(
+			hwtype=1, ptype=0x0800, hwlen=6, plen=4, op=2,
+			hwsrc=src_mac, psrc=src_ip,
+			hwdst=dst_mac, pdst=dst_ip
+			)
+			pkt = eth / arp
+
+		elif op == 1:  # ARP Request
+			eth = Ether(src=src_mac, dst="ff:ff:ff:ff:ff:ff", type=0x0806)
+			arp = ARP(
+			hwtype=1, ptype=0x0800, hwlen=6, plen=4, op=1,
+			hwsrc=src_mac, psrc=src_ip,
+			hwdst="00:00:00:00:00:00", pdst=dst_ip
+			)
+			pkt = eth / arp
+
 	# Create XGMII frame from packet
 	frame = XgmiiFrame.from_payload(pkt.build())
 	# Normalize and patch frame for XGMII
@@ -200,7 +226,7 @@ def decode_xgmii_frame(xgmii_words) -> dict:
 		fields["payload"] = bytes(udp.payload)[: (udp.len - 8)]  # exclude UDP header
 	# return 0
 	# print the payload
-	print("Payload:", fields["payload"].hex())
+	# print("Payload:", fields["payload"].hex())
 	print(fields)
 
 	return fields
@@ -213,11 +239,13 @@ if __name__ == "__main__":
 							eth_type=0x0806,
 							sport=5678,
 							dport=1234,
-							payload=bytes([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]))
+							payload=bytes([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
+							op=2
+							)
 	for data, ctrl in datas:
 		print(f"data = 0x{data:016x}, ctrl = 0x{ctrl:1x}")	
 
 
-	fields = decode_xgmii_frame(datas)
-	for k, v in fields.items():
-		print(f"{k:20} = {v!r} \t(type: {type(v).__name__})")
+	# fields = decode_xgmii_frame(datas)
+	# for k, v in fields.items():
+	# 	print(f"{k:20} = {v!r} \t(type: {type(v).__name__})")

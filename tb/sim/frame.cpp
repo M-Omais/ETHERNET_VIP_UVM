@@ -261,7 +261,7 @@ int convert_python_list_to_c_array(PyObject *py_list, unsigned long long *data_v
     return (int)list_size; // number of entries filled
 }
 int xgmii_eth_frame(char *src_mac = NULL, char *dst_mac = NULL, char *src_ip = NULL, char *dst_ip = NULL, short eth_type = 0x0800, int sport = 0, int dport = 0,
-                    unsigned char *payload = NULL, int payload_size = 0, unsigned long long data_array[] = NULL, unsigned long long ctrl_array[] = NULL)
+                    unsigned char *payload = NULL, int payload_size = 0, unsigned long long data_array[] = NULL, unsigned long long ctrl_array[] = NULL, short op = 2)
 {
     if (init_python_wrapper() != 0)
     {
@@ -279,7 +279,7 @@ int xgmii_eth_frame(char *src_mac = NULL, char *dst_mac = NULL, char *src_ip = N
     // 	payload[i] = i; // example payload lengths
 
     // Build Python tuple of 7 args
-    PyObject *args = PyTuple_New(8);
+    PyObject *args = PyTuple_New(9);
     PyTuple_SetItem(args, 0, PyUnicode_FromString(src_mac));
     PyTuple_SetItem(args, 1, PyUnicode_FromString(dst_mac));
     PyTuple_SetItem(args, 2, PyUnicode_FromString(src_ip));
@@ -293,7 +293,8 @@ int xgmii_eth_frame(char *src_mac = NULL, char *dst_mac = NULL, char *src_ip = N
         (const char *)payload, // pointer to raw data
         payload_size           // 10 bytes
     );
-    PyTuple_SetItem(args, 7, py_payload_bytes);
+    PyTuple_SetItem(args, 7, PyLong_FromLong(op));
+    PyTuple_SetItem(args, 8, py_payload_bytes);
 
     // Call Python function with args
     PyObject *py_result = PyObject_CallObject(create_xgmii_eth_frame_func, args);
@@ -518,7 +519,7 @@ void print_decoded_packet(const decoded_packet_t *pkt)
 
 extern "C" __declspec(dllexport) int xgmii_eth_frame_c(
     unsigned long long src_mac, unsigned long long dst_mac, unsigned long src_ip, unsigned long dst_ip, short eth_type,
-    int sport, int dport, const svOpenArrayHandle payload, svOpenArrayHandle data, svOpenArrayHandle ctrl)
+    int sport, int dport, const svOpenArrayHandle payload, svOpenArrayHandle data, svOpenArrayHandle ctrl, short op)
 {
     char src_mac_str[18];
     char dst_mac_str[18];
@@ -552,7 +553,8 @@ extern "C" __declspec(dllexport) int xgmii_eth_frame_c(
                payload_ptr, // <-- correct pointer now
                payload_len, // <-- pass payload length
                data_ptr,    // <-- correct pointer now
-               ctrl_ptr     // <-- correct pointer now
+               ctrl_ptr,   // <-- correct pointer now
+               op
            );
 
     // Debug: print generated data/ctrl
@@ -600,11 +602,11 @@ extern "C" __declspec(dllexport) int scb_xgmii_to_udp(
     int data_len = svSize(data, 1);
     int ctrl_len = svSize(ctrl, 1);
 
-    vpi_printf("Data array length: %d\n", data_len);
-    vpi_printf("Ctrl array length: %d\n", ctrl_len);
+    // vpi_printf("Data array length: %d\n", data_len);
+    // vpi_printf("Ctrl array length: %d\n", ctrl_len);
 
     unsigned long long *data_ptr = (unsigned long long *)svGetArrayPtr(data);
-    unsigned long  *ctrl_ptr = (unsigned long  *)svGetArrayPtr(ctrl);
+    unsigned long *ctrl_ptr = (unsigned long *)svGetArrayPtr(ctrl);
 
     if (!data_ptr || !ctrl_ptr)
     {
@@ -612,16 +614,17 @@ extern "C" __declspec(dllexport) int scb_xgmii_to_udp(
         return 0;
     }
 
-    for (int i = 0; i < data_len; i++) {
+    for (int i = 0; i < data_len; i++)
+    {
         unsigned long long data_val = data_ptr[i];
         int ctrl_val = ctrl_ptr[i];
 
-        vpi_printf("Data[%d]: %016llx, Ctrl[%d]: %02x  [bits: %d%d%d%d%d%d%d%d]\n",
-                   i, data_val, i, ctrl_val,
-                   (ctrl_val >> 7) & 1, (ctrl_val >> 6) & 1,
-                   (ctrl_val >> 5) & 1, (ctrl_val >> 4) & 1,
-                   (ctrl_val >> 3) & 1, (ctrl_val >> 2) & 1,
-                   (ctrl_val >> 1) & 1, (ctrl_val >> 0) & 1);
+        // vpi_printf("Data[%d]: %016llx, Ctrl[%d]: %02x  [bits: %d%d%d%d%d%d%d%d]\n",
+        //            i, data_val, i, ctrl_val,
+        //            (ctrl_val >> 7) & 1, (ctrl_val >> 6) & 1,
+        //            (ctrl_val >> 5) & 1, (ctrl_val >> 4) & 1,
+        //            (ctrl_val >> 3) & 1, (ctrl_val >> 2) & 1,
+        //            (ctrl_val >> 1) & 1, (ctrl_val >> 0) & 1);
     }
     int len = svSize(data, 1);
     // vpi_printf("Data received, length = %d\n", len);

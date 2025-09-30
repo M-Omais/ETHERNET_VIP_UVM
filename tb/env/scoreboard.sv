@@ -175,10 +175,17 @@ class scoreboard extends uvm_scoreboard;
 				expec.eth_type = 16'h0800; // IPv4
 				found = 1;
 				`uvm_info("SCOREBOARD_EXPECTED_UDP", 
-				$sformatf("Resolved IP %0d.%0d.%0d.%0d to MAC %012h",
-				tr.s_udp_ip_dest_ip[31:24], tr.s_udp_ip_dest_ip[23:16],
-				tr.s_udp_ip_dest_ip[15:8], tr.s_udp_ip_dest_ip[7:0],
-				arp_table[i].mac), UVM_LOW)
+				$sformatf("Resolved IP %sto MAC %012h",ip_to_string(tr.s_udp_ip_dest_ip), arp_table[i].mac), UVM_LOW)
+				expec.payload = new[tr.s_udp_payload_data.size()*8];
+				foreach (tr.s_udp_payload_data[i]) begin
+					for (int b = 0; b < 8; b++) begin
+						expec.payload[idx] = tr.s_udp_payload_data[i][8*b +: 8];
+						`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Flattened Payload[%0d]: %h", idx, expec.payload[idx]), UVM_DEBUG);
+						idx++;
+					end
+				end
+				idx = expec.data_create();
+
 				break;
 			end
 		end
@@ -186,28 +193,75 @@ class scoreboard extends uvm_scoreboard;
 		if (!found) begin
 			expec.eth_type = 16'h0806; // ARP
 			`uvm_info("SCOREBOARD_EXPECTED_UDP", 
-			$sformatf("No ARP entry for IP %0d.%0d.%0d.%0d -> sending ARP",
-			tr.s_udp_ip_dest_ip[31:24], tr.s_udp_ip_dest_ip[23:16],
-			tr.s_udp_ip_dest_ip[15:8], tr.s_udp_ip_dest_ip[7:0]), UVM_LOW)
+			$sformatf("No ARP entry for IP %s -> sending ARP", ip_to_string(tr.s_udp_ip_dest_ip)), UVM_LOW)
 			arp_table.push_back('{ip: tr.s_udp_ip_dest_ip, mac: 48'h0, req: 1'b1, valid: 1'b0});
+			idx = expec.data_create(1);
 		end
 
 		// Flatten payload
-		expec.payload = new[tr.s_udp_payload_data.size()*8];
-		foreach (tr.s_udp_payload_data[i]) begin
-			for (int b = 0; b < 8; b++) begin
-				expec.payload[idx] = tr.s_udp_payload_data[i][8*b +: 8];
-				`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Flattened Payload[%0d]: %h", idx, expec.payload[idx]), UVM_DEBUG);
-				idx++;
-			end
-		end
-		idx = expec.data_create();
+		xgmii_exp.push_back(expec);
 		// expec.print_data();
 		`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("EXPECTED XGMII Packet: \n%s", expec.print_data()), UVM_LOW)
 	endfunction
 
 	virtual function void write_actual_xgmii(sq_item tr);
+		sq_item exp_tr;
+		bit correct = 1;
+		int checking_size;
+		if (xgmii_exp.size() == 0) begin
+			`uvm_error("SCOREBOARD_MISMATCH","No expected XGMII transaction available for comparison")
+			`uvm_info("SCOREBOARD_MISMATCH_DETAILS", $sformatf("Actual XGMII Packet: \n%s", tr.print_data()), UVM_LOW)
+			mis_match++;
+			return;
+		end
+
+		xgmii_act = tr;
+		`uvm_info("SCOREBOARD_ACTUAL_XGMII", $sformatf("ACTUAL XGMII Packet: \n%s", xgmii_act.print_data()), UVM_LOW)
+
+		exp_tr = xgmii_exp.pop_front();
+		`uvm_info("SCOREBOARD_EXPECTED_XGMII", $sformatf("EXPECTED XGMII Packet: \n%s", exp_tr.print_data()), UVM_LOW)
+		checking_size = exp_tr.data_out.size()-2; // ignore last 2 words (IFG)
+		// Compare data_out and ctrl_out element by element
+		if (xgmii_act.data_out.size() != checking_size) begin
+			`uvm_error("SCOREBOARD_MISMATCH", $sformatf("data_out size mismatch. Expected=%0d, Actual=%0d",
+			checking_size, xgmii_act.data_out.size()))
+			correct = 0;
+		end 
+		else begin
+			foreach (xgmii_act.data_out[i]) begin
+				if (xgmii_act.data_out[i] !== exp_tr.data_out[i]) begin
+					`uvm_error("SCOREBOARD_MISMATCH", $sformatf("Data mismatch at word[%0d]. Expected=%h, Actual=%h",
+					i, exp_tr.data_out[i], xgmii_act.data_out[i]))
+					correct = 0;
+				end
+			end
+		end
+
+		if (xgmii_act.ctrl_out.size() != checking_size) begin
+			`uvm_error("SCOREBOARD_MISMATCH", $sformatf("ctrl_out size mismatch. Expected=%0d, Actual=%0d",
+			checking_size, xgmii_act.ctrl_out.size()))
+			correct = 0;
+		end 
+		else begin
+			foreach (xgmii_act.ctrl_out[i]) begin
+				if (xgmii_act.ctrl_out[i] !== exp_tr.ctrl_out[i]) begin
+					`uvm_error("SCOREBOARD_MISMATCH", $sformatf("Ctrl mismatch at byte[%0d]. Expected=%h, Actual=%h",
+					i, exp_tr.ctrl_out[i], xgmii_act.ctrl_out[i]))
+					correct = 0;
+				end
+			end
+		end
+
+		if (correct) begin
+			`uvm_info("SCOREBOARD_MATCH", "Actual XGMII transaction matches expected", UVM_LOW)
+			match++;
+		end 
+		else begin
+			mis_match++;
+			`uvm_info("SCOREBOARD_MISMATCH_DETAILS", $sformatf("Expected:\n%s\nActual:\n%s", exp_tr.print_data(), tr.print_data()), UVM_LOW)
+		end
 	endfunction
+
 
 
 	// Report final statistics

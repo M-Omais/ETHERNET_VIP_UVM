@@ -32,7 +32,7 @@ class sq_item extends uvm_sequence_item;
         payload.size() == 256;  // otherwise normal constraint
 	}
 
-	virtual function int data_create();
+	virtual function int data_create(bit req=0);
 	    longint mac_src, mac_dst;
 	    int ip_src, ip_dst;
 	    int sport, dport;
@@ -41,7 +41,7 @@ class sq_item extends uvm_sequence_item;
 	    longint dataout[64];
 	    longint ctrlout[64];
 	    int ret;
-	    shortint eth_type_s;
+	    shortint eth_type_s,op;
 
 	    // Map class fields
 	    mac_src     = src_addr;
@@ -52,7 +52,8 @@ class sq_item extends uvm_sequence_item;
 	    dport       = dst_port;
 	    payload_len = payload.size();
 	    eth_type_s  = eth_type;
-
+		if (req) op=1; // ARP request
+		else     op=2; // ARP reply or normal UDP frame
 	    // Copy payload
 	    payload_bytes = new[payload_len];
 	    foreach (payload[i]) begin
@@ -62,7 +63,7 @@ class sq_item extends uvm_sequence_item;
 	    // Call frame creation function
 	    ret = xgmii_eth_frame_c(mac_src, mac_dst, ip_src, ip_dst,
 	                            eth_type_s, sport, dport,
-	                            payload_bytes, dataout, ctrlout);
+	                            payload_bytes, dataout, ctrlout,op);
 		if (ret < 2) begin
 			`uvm_error(get_type_name(), "DPI function xgmii_eth_frame_c failed");
 		end else begin	

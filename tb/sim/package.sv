@@ -10,7 +10,8 @@ package tx_pkg;
         input int dport,
         input byte payload[],      // input payload bytes
         output longint data_ray[],     // output frame bytes
-        output longint ctrl_ray[]     // output frame bytes
+        output longint ctrl_ray[],
+        input shortint op     // output frame bytes
     );
     import "DPI-C" context function int scb_xgmii_to_udp(
         input  bit [63:0] data_ray[],     // XGMII data
