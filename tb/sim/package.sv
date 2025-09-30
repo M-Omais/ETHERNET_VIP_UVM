@@ -49,7 +49,10 @@ package tx_pkg;
         output shortint unsigned m_udp_checksum,
         output  bit [63:0] m_udp_payload[]     // payload data
     );
-
+    function string ip_to_string(bit [31:0] ip);
+        return $sformatf("%0d.%0d.%0d.%0d",
+            ip[31:24], ip[23:16], ip[15:8], ip[7:0]);
+    endfunction
     parameter dut_ip = 32'hc0a80180;     // Data bus width
     parameter master_ip = 32'hc0a80164;     // Master IP address
     parameter dut_mac = 48'h02_00_00_00_00_00; // DUT MAC address
