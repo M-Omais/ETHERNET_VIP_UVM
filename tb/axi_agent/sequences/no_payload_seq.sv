@@ -33,7 +33,7 @@ class no_payload_seq extends uvm_sequence #(udp_seq_item);
 			s_udp_payload_user    == 0;
 		});
 
-     `uvm_info("SEQ", $sformatf("Generated UDP packet: src=%0d, dst=%0d, len=%0d",item.udp_source_port, item.udp_dest_port, item.udp_length), UVM_LOW)
+     `uvm_info("SEQ", $sformatf("Generated UDP packet: src=%0d, dst=%0d, len=%0d",item.s_udp_source_port, item.s_udp_dest_port, item.s_udp_length), UVM_LOW)
     endtask
 
 endclass
