@@ -111,6 +111,7 @@ def decode_xgmii_frame(xgmii_words) -> dict:
 			if cbit == 0:  # valid byte
 				raw_bytes += bytes([byte])
 			# print(f"Raw byte: {byte:02x} \t Ctrl byte: {cbit:02x}")
+		# print(f"Intermediate raw bytes: {data:016x} \t Ctrl: {ctrl:02x}")
 	# print("Raw Ethernet frame:", raw_bytes.hex())
 	# Strip preamble + SFD if present
 	if raw_bytes.startswith(bytes.fromhex("555555555555d5")):
@@ -120,7 +121,7 @@ def decode_xgmii_frame(xgmii_words) -> dict:
     # Decode with scapy
 	pkt = Ether(raw_bytes)
 	eth = pkt[Ether]
-
+	# pkt.show2()
 	# Declare all possible fields first
 	fields = {
 		# Ethernet
@@ -198,6 +199,8 @@ def decode_xgmii_frame(xgmii_words) -> dict:
 		fields["udp_checksum"] = udp.chksum
 		fields["payload"] = bytes(udp.payload)[: (udp.len - 8)]  # exclude UDP header
 	# return 0
+	# print the payload
+	print("Payload:", fields["payload"].hex())
 	print(fields)
 
 	return fields

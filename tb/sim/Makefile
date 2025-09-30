@@ -30,7 +30,7 @@ CPP_INCLUDES = /I "$(PY_INCLUDE)" /I "$(MTI_HOME)\include"
 CPP_LINK_FLAGS = /link /LIBPATH:"$(PY_LIBDIR)" python313.lib "$(MTI_HOME)\win64\mtipli.lib"
 
 VLOG_FLAGS = -sv +acc -lint +define+UVM_REPORT_DISABLE_FILE_LINE
-VSIM_FLAGS = -classdebug -uvmcontrol=all -voptargs=+acc +UVM_NO_RELNOTES +UVM_NO_MSG=PHASESEQ +UVM_NO_MSG=PH_READY_TO_END
+VSIM_FLAGS = -classdebug -uvmcontrol=all -voptargs=+acc +UVM_NO_RELNOTES +UVM_NO_MSG=PHASESEQ +UVM_NO_MSG=PH_READY_TO_END +UVM_VERBOSITY=UVM_LOW
 TEST_NAME = +UVM_TESTNAME=handshake_test
 # -----------------------------
 # Targets
@@ -55,7 +55,8 @@ sim:
 	@echo "Compiling RTL, interfaces, and top..."
 	$(VLOG) $(VLOG_FLAGS) $(RTL_DIR)/*.v $(IFACES_DIR)/*.sv $(TOP_LEVEL)
 	@echo "Running simulation..."
-	$(VSIM) -sv_lib $(FRAME_LIB) $(VSIM_FLAGS) $(VSIM_ARGS) $(TEST_NAME) $(WORKDIR).top -do "run 0"
+	@cls
+	$(VSIM) -sv_lib $(FRAME_LIB) $(VSIM_FLAGS) $(VSIM_ARGS) $(TEST_NAME) $(WORKDIR).top -do "run -all"
 
 # Clean all generated files
 clean:

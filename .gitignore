@@ -6,7 +6,6 @@ tb/sim/*.dll
 tb/sim/*.wlf
 tb/sim/*.xml
 tb/sim/*.vstf
-
-
+.vscode/
 
 # "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"

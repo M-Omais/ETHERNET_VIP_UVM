@@ -391,7 +391,7 @@ void ip_to_str(unsigned long ip, char *buf)
             (ip >> 8) & 0xff,
             ip & 0xff);
 }
-int decode_xgmii_frame(unsigned long long data_array[], unsigned long long ctrl_array[],
+int decode_xgmii_frame(unsigned long long data_array[], unsigned long ctrl_array[],
                        int array_size, decoded_packet_t *result)
 {
     // vpi_printf("Decoding XGMII frame of size: %d\n", array_size);
@@ -418,7 +418,7 @@ int decode_xgmii_frame(unsigned long long data_array[], unsigned long long ctrl_
     {
         PyObject *tuple = PyTuple_New(2);
         PyTuple_SetItem(tuple, 0, PyLong_FromUnsignedLongLong(data_array[i]));
-        PyTuple_SetItem(tuple, 1, PyLong_FromUnsignedLongLong(ctrl_array[i]));
+        PyTuple_SetItem(tuple, 1, PyLong_FromUnsignedLong(ctrl_array[i]));
         PyList_SetItem(xgmii_list, i, tuple);
     }
 
@@ -504,7 +504,7 @@ void print_decoded_packet(const decoded_packet_t *pkt)
 
     // vpi_printf("Decoded Packet:\n");
     // vpi_printf("  Ethernet: %012llx -> %012llx (type: 0x%04x)\n",
-            //    pkt->src_mac, pkt->dst_mac, pkt->eth_type);
+    //    pkt->src_mac, pkt->dst_mac, pkt->eth_type);
     // vpi_printf("  IP: %u.%u.%u.%u → %u.%u.%u.%u (proto: %d, len: %d)\n",
     //            (pkt->source_ip >> 24) & 0xFF, (pkt->source_ip >> 16) & 0xFF,
     //            (pkt->source_ip >> 8) & 0xFF, pkt->source_ip & 0xFF,
@@ -593,26 +593,45 @@ extern "C" __declspec(dllexport) int scb_xgmii_to_udp(
     unsigned short *m_udp_dest_port,
     unsigned short *m_udp_length,
     unsigned short *m_udp_checksum,
-    svOpenArrayHandle payload
-)
+    svOpenArrayHandle payload)
 {
     // Get array length
     // fprintf(stderr, "✅ scb_xgmii_to_udp called!\n");
-    // fflush(stderr);
+    int data_len = svSize(data, 1);
+    int ctrl_len = svSize(ctrl, 1);
 
+    vpi_printf("Data array length: %d\n", data_len);
+    vpi_printf("Ctrl array length: %d\n", ctrl_len);
+
+    unsigned long long *data_ptr = (unsigned long long *)svGetArrayPtr(data);
+    unsigned long  *ctrl_ptr = (unsigned long  *)svGetArrayPtr(ctrl);
+
+    if (!data_ptr || !ctrl_ptr)
+    {
+        vpi_printf("❌ Failed to get array pointers!\n");
+        return 0;
+    }
+
+    for (int i = 0; i < data_len; i++) {
+        unsigned long long data_val = data_ptr[i];
+        int ctrl_val = ctrl_ptr[i];
+
+        vpi_printf("Data[%d]: %016llx, Ctrl[%d]: %02x  [bits: %d%d%d%d%d%d%d%d]\n",
+                   i, data_val, i, ctrl_val,
+                   (ctrl_val >> 7) & 1, (ctrl_val >> 6) & 1,
+                   (ctrl_val >> 5) & 1, (ctrl_val >> 4) & 1,
+                   (ctrl_val >> 3) & 1, (ctrl_val >> 2) & 1,
+                   (ctrl_val >> 1) & 1, (ctrl_val >> 0) & 1);
+    }
     int len = svSize(data, 1);
     // vpi_printf("Data received, length = %d\n", len);
-    unsigned long long *data_ptr = (unsigned long long *)svGetArrayPtr(data);
-    unsigned long long *cptr = (unsigned long long *)svGetArrayPtr(ctrl);
+    // unsigned long long *data_ptr = (unsigned long long *)svGetArrayPtr(data);
+    unsigned long *cptr = (unsigned long *)svGetArrayPtr(ctrl);
     if (!data_ptr || !cptr)
     {
         fprintf(stderr, "❌ svGetArrayPtr returned NULL!\n");
         return -1;
     }
-    fprintf(stderr, "Data received from SV, length: %d\n", len);
-
-    for (int i = 0; i < len; i++)
-        printf("%d\t%x\t%x\n", i, data_ptr[i], (int)cptr[i]);
 
     decoded_packet_t packet;
     if (decode_xgmii_frame(data_ptr, cptr, len, &packet) == 0)

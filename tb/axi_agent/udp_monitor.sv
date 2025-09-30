@@ -69,7 +69,7 @@ class udp_monitor extends uvm_monitor;
       // Send transaction to analysis port
       ap_s_udp.write(tr);
       // UDP input monitor
-      `uvm_info("MONITOR-S-UDP", $sformatf("UDP Input captured: %s", tr.convert2string_s_udp()), UVM_LOW);    
+      `uvm_info("MONITOR-S-UDP", $sformatf("UDP Input captured: %s", tr.convert2string_s_udp()), UVM_MEDIUM);    
     end
   endtask: monitor_s_udp
   
@@ -131,6 +131,7 @@ class udp_monitor extends uvm_monitor;
           `uvm_info("MONITOR-M-UDP", $sformatf("PAYLOAD CAPTURE: valid=%0b ready=%0b last=%0b data=%h",vif.m_udp_payload_axis_tvalid, vif.m_udp_payload_axis_tready,vif.m_udp_payload_axis_tlast, vif.m_udp_payload_axis_tdata), UVM_MEDIUM)
           @(posedge vif.clk);
         end while (!vif.m_udp_payload_axis_tlast);
+        tr.m_udp_payload_data.push_back(vif.m_udp_payload_axis_tdata);
 
 
         tr.m_udp_payload_last = vif.m_udp_payload_axis_tlast;
@@ -139,7 +140,7 @@ class udp_monitor extends uvm_monitor;
         // Send transaction to analysis port
         ap_m_udp.write(tr);
         // Ethernet output monitor
-        `uvm_info("MONITOR-M-UDP", $sformatf("ETH Output captured: %s", tr.convert2string_m_udp()), UVM_LOW)
+        `uvm_info("MONITOR-M-UDP", $sformatf("ETH Output captured: %s", tr.convert2string_m_udp()), UVM_MEDIUM)
       end
       endtask
 

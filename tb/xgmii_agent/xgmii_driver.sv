@@ -40,10 +40,10 @@ class xgmii_driver extends uvm_driver#(sq_item);
 			// for (i = 0; i < 256; i++) begin
 			// 	tr.payload[i] = i;
 			// end
-			`uvm_info("XGMII_DRIVER", $sformatf("Received transaction:\n%s", tr.convert2string()), UVM_LOW)
+			`uvm_info("XGMII_DRIVER", $sformatf("Received transaction:\n%s", tr.convert2string()), UVM_HIGH)
 			// Prepare parameters for DPI call
 			ret = tr.data_create();
-			`uvm_info(get_type_name(), $sformatf("DPI function returned %0d bytes", ret), UVM_LOW);
+			`uvm_info(get_type_name(), $sformatf("DPI function returned %0d bytes", ret), UVM_MEDIUM);
 			for (int i  = 0; i < ret; i++) begin
 					vif.data <= tr.data_out[i]; 
 					vif.ctrl <= tr.ctrl_out[i]; 

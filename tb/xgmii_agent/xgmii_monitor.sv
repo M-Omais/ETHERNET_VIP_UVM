@@ -44,13 +44,13 @@ class xgmii_monitor extends uvm_monitor;
 		                    `uvm_info("MONITOR_WRITE", "Received IDLE character", UVM_DEBUG);
 		                end
 		                8'hFB: begin
-		                    `uvm_info("MONITOR_WRITE", "Received START character", UVM_LOW);
+		                    `uvm_info("MONITOR_WRITE", "Received START character", UVM_HIGH);
 		                    collecting = 1;
 		                    data_q.delete();  // reset queues at new frame
 		                    ctrl_q.delete();
 		                end
 		                8'hFD: begin
-		                    `uvm_info("MONITOR_WRITE", "Received END character", UVM_LOW);
+		                    `uvm_info("MONITOR_WRITE", "Received END character", UVM_HIGH);
 		                    collecting = 0;
 					        data_q.push_back(vif.data);
 					        ctrl_q.push_back(vif.ctrl);
@@ -102,13 +102,13 @@ class xgmii_monitor extends uvm_monitor;
 	                        `uvm_info("MONITOR_READ", "Received IDLE character", UVM_DEBUG);
 	                    end
 	                    8'hFB: begin
-	                        `uvm_info("MONITOR_READ", "Received START character", UVM_LOW);
+	                        `uvm_info("MONITOR_READ", "Received START character", UVM_HIGH);
 	                        collecting = 1;
 	                        data_q.delete();
 	                        ctrl_q.delete();
 	                    end
 	                    8'hFD: begin
-	                        `uvm_info("MONITOR_READ", "Received END character", UVM_LOW);
+	                        `uvm_info("MONITOR_READ", "Received END character", UVM_HIGH);
 	                        collecting = 0;
 
 	                        // push the last word
@@ -134,7 +134,7 @@ class xgmii_monitor extends uvm_monitor;
 	        if (collecting) begin
 	            data_q.push_back(vif.tdata);
 	            ctrl_q.push_back(vif.tctrl);
-	            `uvm_info("MONITOR_READ", $sformatf("Captured tdata: %h", vif.tdata), UVM_LOW);
+	            `uvm_info("MONITOR_READ", $sformatf("Captured tdata: %h", vif.tdata), UVM_MEDIUM);
 	        end
 
 	        @(posedge vif.clk);
