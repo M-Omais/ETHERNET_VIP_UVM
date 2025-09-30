@@ -1,12 +1,12 @@
 // Base Test: Creates driver + sequencer, connects them, and starts sequence
 // Xgmii Test: After a ARP handshake, send a Xgmii packet with specific constraints
-class udp_test extends base_test;
-	`uvm_component_utils(udp_test)
+class xgmii_test extends base_test;
+	`uvm_component_utils(xgmii_test)
 	arp_handshake_seq           xseq;
 	xgmii_seq                    seq;
 
     // Constructor
-	function new(string name = "udp_test", uvm_component parent);
+	function new(string name = "xgmii_test", uvm_component parent);
 		super.new(name, parent);
 	endfunction
 
@@ -24,10 +24,10 @@ class udp_test extends base_test;
 		`uvm_info(get_type_name(), "Starting arp_handshake_seq...", UVM_LOW)
 		xseq.start(env.virtual_seqr);
 
-		`uvm_info(get_type_name(), "Starting udp_seq...", UVM_LOW)
+		`uvm_info(get_type_name(), "Starting xgmii_seq...", UVM_LOW)
 		seq.start(env.xgmii_agent_inst.sqr); //define which sequencer the sequence should run on.
 		# 1ns; 
 		phase.drop_objection(this);
 	endtask
 
-endclass : udp_test
+endclass : xgmii_test

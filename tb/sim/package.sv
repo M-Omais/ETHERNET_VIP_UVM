@@ -85,6 +85,7 @@ package tx_pkg;
     `include "../tests/base_test.sv"
     `include "../tests/udp_test.sv"
     `include "../tests/handshake_test.sv"
+    `include "../tests/xgmii_test.sv"
     // `include "../axi_agent/udp_env.sv"
 
 endpackage
