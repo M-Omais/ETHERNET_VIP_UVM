@@ -132,7 +132,7 @@ class udp_monitor extends uvm_monitor;
           @(posedge vif.clk);
         end while (!vif.m_udp_payload_axis_tlast);
 
-
+        tr.m_udp_payload_data.push_back(vif.m_udp_payload_axis_tdata);
         tr.m_udp_payload_last = vif.m_udp_payload_axis_tlast;
         tr.m_udp_payload_user = vif.m_udp_payload_axis_tuser;
 
