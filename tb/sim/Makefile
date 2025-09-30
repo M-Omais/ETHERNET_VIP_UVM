@@ -31,7 +31,7 @@ CPP_LINK_FLAGS = /link /LIBPATH:"$(PY_LIBDIR)" python313.lib "$(MTI_HOME)\win64\
 
 VLOG_FLAGS = -sv +acc -lint +define+UVM_REPORT_DISABLE_FILE_LINE
 VSIM_FLAGS = -classdebug -uvmcontrol=all -voptargs=+acc +UVM_NO_RELNOTES +UVM_NO_MSG=PHASESEQ +UVM_NO_MSG=PH_READY_TO_END +UVM_VERBOSITY=UVM_LOW
-TEST_NAME = +UVM_TESTNAME=handshake_test
+TEST_NAME = +UVM_TESTNAME=handshake_test       #handshake_test,udp_test,xgmii_test
 # -----------------------------
 # Targets
 # -----------------------------
@@ -56,6 +56,7 @@ sim:
 	$(VLOG) $(VLOG_FLAGS) $(RTL_DIR)/*.v $(IFACES_DIR)/*.sv $(TOP_LEVEL)
 	@echo "Running simulation..."
 	@cls
+	$(VSIM) -sv_lib $(FRAME_LIB) $(VSIM_FLAGS) $(VSIM_ARGS) $(TEST_NAME) $(WORKDIR).top -do "run -all"
 	$(VSIM) -sv_lib $(FRAME_LIB) $(VSIM_FLAGS) $(VSIM_ARGS) $(TEST_NAME) $(WORKDIR).top -do "run -all"
 
 # Clean all generated files
