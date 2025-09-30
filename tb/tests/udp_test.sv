@@ -1,5 +1,6 @@
 
 // Base Test: Creates driver + sequencer, connects them, and starts sequence
+// UDP Test: Sends a UDP packet with specific constraints after a ARP handshake
 class udp_test extends base_test;
 	`uvm_component_utils(udp_test)
 	udp_seq           seq;

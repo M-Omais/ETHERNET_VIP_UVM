@@ -1,4 +1,5 @@
 // Base Test: Creates driver + sequencer, connects them, and starts sequence
+// Handshake Test: Sends an ARP request and Recieves the ARP reply
 class handshake_test extends base_test;
 	`uvm_component_utils(handshake_test)
 	arp_handshake_seq           seq;

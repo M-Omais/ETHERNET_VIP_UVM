@@ -1,16 +1,20 @@
 // Sequence generates the stimulus and sends to driver via sequencer.
 
 class no_payload_seq extends uvm_sequence #(udp_seq_item);
+
     `uvm_object_utils(no_payload_seq)
 
     // Constructor
     function new(string name = "no_payload_seq");
         super.new(name);
     endfunction
+
     // Body task → Logic to generate and send the sequence_item is added inside the body() method
     virtual task body();
+
         udp_seq_item item;
         `uvm_info(get_type_name(), "Sequence running...", UVM_LOW);
+
 		item = udp_seq_item::type_id::create("item");
 		// Use uvm_do to create and randomize the sequence item with constraints
 		`uvm_do_with(item, {
@@ -29,7 +33,7 @@ class no_payload_seq extends uvm_sequence #(udp_seq_item);
 			s_udp_payload_user    == 0;
 		});
 
-        // `uvm_info("SEQ", $sformatf("Generated UDP packet: src=%0d, dst=%0d, len=%0d",item.udp_source_port, item.udp_dest_port, item.udp_length), UVM_LOW)
+     `uvm_info("SEQ", $sformatf("Generated UDP packet: src=%0d, dst=%0d, len=%0d",item.udp_source_port, item.udp_dest_port, item.udp_length), UVM_LOW)
     endtask
 
 endclass
