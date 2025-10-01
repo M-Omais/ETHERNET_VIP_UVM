@@ -26,17 +26,17 @@ def xgmii_eth_frame(src_mac, dst_mac, src_ip, dst_ip,  eth_type, sport, dport, o
 		Encoded XGMII data and control words
 	"""
 
-	print("==== xgmii_eth_frame INPUTS ====")
-	print(f"src_mac : {src_mac} (type={type(src_mac)})")
-	print(f"dst_mac : {dst_mac} (type={type(dst_mac)})")
-	print(f"src_ip  : {src_ip} (type={type(src_ip)})")
-	print(f"dst_ip  : {dst_ip} (type={type(dst_ip)})")
-	print(f"eth_type: {eth_type} (hex={hex(eth_type) if isinstance(eth_type, int) else 'N/A'}, type={type(eth_type)})")
-	print(f"sport   : {sport} (type={type(sport)})")
-	print(f"dport   : {dport} (type={type(dport)})")
-	print(f"op      : {op} (type={type(op)})")
-	print(f"payload : {payload} (len={len(payload) if isinstance(payload, (bytes, bytearray)) else 'N/A'})")
-	print("=================================")
+	# print("==== xgmii_eth_frame INPUTS ====")
+	# print(f"src_mac : {src_mac} (type={type(src_mac)})")
+	# print(f"dst_mac : {dst_mac} (type={type(dst_mac)})")
+	# print(f"src_ip  : {src_ip} (type={type(src_ip)})")
+	# print(f"dst_ip  : {dst_ip} (type={type(dst_ip)})")
+	# print(f"eth_type: {eth_type} (hex={hex(eth_type) if isinstance(eth_type, int) else 'N/A'}, type={type(eth_type)})")
+	# print(f"sport   : {sport} (type={type(sport)})")
+	# print(f"dport   : {dport} (type={type(dport)})")
+	# print(f"op      : {op} (type={type(op)})")
+	# print(f"payload : {payload} (len={len(payload) if isinstance(payload, (bytes, bytearray)) else 'N/A'})")
+	# print("=================================")
 	# Build Ethernet frame using Scapy
 	# for i in range(len(payload)):
 	# 	print(f"payload[{i}] = {payload[i]}")
@@ -64,7 +64,7 @@ def xgmii_eth_frame(src_mac, dst_mac, src_ip, dst_ip,  eth_type, sport, dport, o
 			hwdst="00:00:00:00:00:00", pdst=dst_ip
 			)
 			pkt = eth / arp
-
+	pkt.show2()
 	# Create XGMII frame from packet
 	frame = XgmiiFrame.from_payload(pkt.build())
 	# Normalize and patch frame for XGMII

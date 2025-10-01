@@ -15,7 +15,7 @@ class scoreboard extends uvm_scoreboard;
 	`uvm_analysis_imp_decl(_actual_udp)
 	arp_item_t arp_table[$];
 	udp_seq_item udp_exp[$], udp_act;
-	sq_item     xgmii_exp[$], xgmii_act;
+	sq_item     xgmii_exp[$], xgmii_act,pending;
 	// ------------------------------------------------------
 	// Analysis implementation ports
 	// ------------------------------------------------------
@@ -69,6 +69,7 @@ class scoreboard extends uvm_scoreboard;
 		// payload data
 		bit [63:0] m_udp_payload[1500];     // payload data
 		udp_seq_item udp_tr = udp_seq_item::type_id::create("udp_tr");
+		sq_item temp = sq_item::type_id::create("xgmii_tr");
 		//   `uvm_info("SCOREBOARD_EXPECTED", tr.print_data(), UVM_LOW)
 		i = scb_xgmii_to_udp(tr.data_out, {tr.ctrl_out}, m_udp_eth_dest_mac, m_udp_eth_src_mac, m_udp_eth_type,
 							arp_hwtype, arp_ptype, arp_hwlen, arp_plen, arp_op, m_udp_ip_version,
@@ -107,6 +108,13 @@ class scoreboard extends uvm_scoreboard;
 				if (arp_table[i].req == 1'b1 && arp_table[i].ip == m_udp_ip_source_ip) begin
 					arp_table[i].valid = 1; // request seen
 					arp_table[i].mac = m_udp_eth_src_mac;
+					temp =xgmii_exp.pop_front();
+					if (temp.dst_addr ==  {48{1'b1}} && temp.dst_ip == m_udp_ip_source_ip) begin
+						temp.dst_addr = m_udp_eth_src_mac;
+						temp.data_create();
+						xgmii_exp.push_back(temp);
+
+					end
 					`uvm_info("SCOREBOARD_EXPECTED", $sformatf("ARP Cache Update: IP %s -> MAC %012h", ip_to_string(m_udp_ip_source_ip), m_udp_eth_src_mac), UVM_LOW)
 					break;
 				end
@@ -172,11 +180,8 @@ class scoreboard extends uvm_scoreboard;
 		foreach (arp_table[i]) begin
 			if (arp_table[i].ip == tr.s_udp_ip_dest_ip && arp_table[i].valid) begin
 				expec.dst_addr = arp_table[i].mac;
-				expec.eth_type = 16'h0800; // IPv4
-				found = 1;
-				`uvm_info("SCOREBOARD_EXPECTED_UDP", 
-				$sformatf("Resolved IP %sto MAC %012h",ip_to_string(tr.s_udp_ip_dest_ip), arp_table[i].mac), UVM_LOW)
 				expec.payload = new[tr.s_udp_payload_data.size()*8];
+				expec.eth_type = 16'h0800;
 				foreach (tr.s_udp_payload_data[i]) begin
 					for (int b = 0; b < 8; b++) begin
 						expec.payload[idx] = tr.s_udp_payload_data[i][8*b +: 8];
@@ -185,22 +190,45 @@ class scoreboard extends uvm_scoreboard;
 					end
 				end
 				idx = expec.data_create();
-
+				// Flatten payload
+				xgmii_exp.push_back(expec);
+				found = 1;
+				`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Resolved IP %sto MAC %012h",ip_to_string(tr.s_udp_ip_dest_ip), arp_table[i].mac), UVM_LOW)
 				break;
 			end
 		end
 
 		if (!found) begin
 			expec.eth_type = 16'h0806; // ARP
+			// expec.dst_addr =  {48{1'b1}};
 			`uvm_info("SCOREBOARD_EXPECTED_UDP", 
 			$sformatf("No ARP entry for IP %s -> sending ARP", ip_to_string(tr.s_udp_ip_dest_ip)), UVM_LOW)
 			arp_table.push_back('{ip: tr.s_udp_ip_dest_ip, mac: 48'h0, req: 1'b1, valid: 1'b0});
 			idx = expec.data_create(1);
+			xgmii_exp.push_back(expec);
+			pending = sq_item::type_id::create("pending", this);
+			pending.src_addr = dut_mac;
+			pending.dst_addr = {48{1'b1}}; // Broadcast
+			pending.src_ip   = tr.s_udp_ip_source_ip;
+			pending.dst_ip   = tr.s_udp_ip_dest_ip;
+			pending.src_port = tr.s_udp_source_port;
+			pending.dst_port = tr.s_udp_dest_port;
+			pending.payload = new[tr.s_udp_payload_data.size()*8];
+			pending.eth_type = 16'h0800;
+			idx=0;
+			foreach (tr.s_udp_payload_data[i]) begin
+				for (int b = 0; b < 8; b++) begin
+					pending.payload[idx] = tr.s_udp_payload_data[i][8*b +: 8];
+					`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Flattened Payload[%0d]: %h", idx, pending.payload[idx]), UVM_NONE);
+					idx++;
+				end
+			end
+			`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("PENDING XGMII Packet: \n%s", pending.print_data()), UVM_LOW)
+			// Flatten payload
+			xgmii_exp.push_back(pending);
 		end
 
-		// Flatten payload
-		xgmii_exp.push_back(expec);
-		// expec.print_data();
+		// pending.print_data();
 		`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("EXPECTED XGMII Packet: \n%s", expec.print_data()), UVM_LOW)
 	endfunction
 
