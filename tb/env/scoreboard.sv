@@ -115,7 +115,7 @@ class scoreboard extends uvm_scoreboard;
 						xgmii_exp.push_back(temp);
 
 					end
-					`uvm_info("SCOREBOARD_EXPECTED", $sformatf("ARP Cache Update: IP %s -> MAC %012h", ip_to_string(m_udp_ip_source_ip), m_udp_eth_src_mac), UVM_LOW)
+					`uvm_info("SCOREBOARD_EXPECTED", $sformatf("ARP Cache Update: IP %s -> MAC %012h", ip_to_string(m_udp_ip_source_ip), m_udp_eth_src_mac), UVM_MEDIUM)
 					break;
 				end
 			end
@@ -124,12 +124,12 @@ class scoreboard extends uvm_scoreboard;
 		end
 
 		else if (m_udp_eth_type == 16'h0800) begin
-					udp_tr.m_udp_payload_data.delete(); // clear old contents
+			udp_tr.m_udp_payload_data.delete(); // clear old contents
 
-		for (int j = 0; j < (m_udp_length-8)/8 ; j++)	begin
-			udp_tr.m_udp_payload_data.push_back(m_udp_payload[j]);
-			`uvm_info("SCOREBOARD_EXPECTED", $sformatf("Length %0d Payload[%0d]: %h", (m_udp_length-8)/8, j, m_udp_payload[j]), UVM_LOW);	
-		end	
+			for (int j = 0; j < (m_udp_length-8)/8 ; j++)	begin
+				udp_tr.m_udp_payload_data.push_back(m_udp_payload[j]);
+				`uvm_info("SCOREBOARD_EXPECTED", $sformatf("Length %0d Payload[%0d]: %h", (m_udp_length-8)/8, j, m_udp_payload[j]), UVM_DEBUG);	
+			end	
 			`uvm_info("SCOREBOARD_EXPECTED", $sformatf("%s",  udp_tr.convert2string_m_udp()), UVM_LOW)
 			udp_exp.push_back(udp_tr);
 		end
@@ -193,7 +193,7 @@ class scoreboard extends uvm_scoreboard;
 				// Flatten payload
 				xgmii_exp.push_back(expec);
 				found = 1;
-				`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Resolved IP %sto MAC %012h",ip_to_string(tr.s_udp_ip_dest_ip), arp_table[i].mac), UVM_LOW)
+				`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Resolved IP %sto MAC %012h",ip_to_string(tr.s_udp_ip_dest_ip), arp_table[i].mac), UVM_MEDIUM)
 				break;
 			end
 		end
@@ -219,11 +219,11 @@ class scoreboard extends uvm_scoreboard;
 			foreach (tr.s_udp_payload_data[i]) begin
 				for (int b = 0; b < 8; b++) begin
 					pending.payload[idx] = tr.s_udp_payload_data[i][8*b +: 8];
-					`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Flattened Payload[%0d]: %h", idx, pending.payload[idx]), UVM_NONE);
+					`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Flattened Payload[%0d]: %h", idx, pending.payload[idx]), UVM_DEBUG);
 					idx++;
 				end
 			end
-			`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("PENDING XGMII Packet: \n%s", pending.print_data()), UVM_LOW)
+			`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("PENDING XGMII Packet: \n%s", pending.print_data()), UVM_HIGH)
 			// Flatten payload
 			xgmii_exp.push_back(pending);
 		end
