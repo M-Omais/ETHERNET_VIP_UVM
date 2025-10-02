@@ -18,9 +18,9 @@ class arp_handshake_seq extends uvm_sequence;
 		#500;
 		sB.start(p_sequencer.xgmii_sequencer_inst);
 		#600;
-		sA.start(p_sequencer.udp_sequencer_inst);
+		// sA.start(p_sequencer.udp_sequencer_inst);
 	    #500;
-		sC.start(p_sequencer.xgmii_sequencer_inst);
+		// sC.start(p_sequencer.xgmii_sequencer_inst);
 		#600;
 
 	endtask

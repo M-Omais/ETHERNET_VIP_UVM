@@ -79,7 +79,10 @@ package tx_pkg;
 
     `include "../xgmii_agent/sequences/arp_seq.sv"
     `include "../xgmii_agent/sequences/xgmii_seq.sv"
+    `include "../xgmii_agent/sequences/xgmii_back_to_back_seq.sv"
     `include "../axi_agent/sequences/udp_seq.sv"
+    `include "../axi_agent/sequences/back_to_back_seq.sv"
+
     `include "../axi_agent/sequences/no_payload_seq.sv"
     `include "../env/virtual_sequences/arp_handshake_seq.sv"
 
@@ -87,6 +90,9 @@ package tx_pkg;
     `include "../tests/udp_test.sv"
     `include "../tests/handshake_test.sv"
     `include "../tests/xgmii_test.sv"
+    `include "../tests/udp_back_to_back_test.sv"
+    `include "../tests/xgmii_back_to_back_test.sv"
+    `include "../tests/udp_xgmii_parallel_test.sv"
     // `include "../axi_agent/udp_env.sv"
 
 endpackage

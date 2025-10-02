@@ -26,10 +26,7 @@ class sq_item extends uvm_sequence_item;
 	endfunction
 
 	constraint payload_size_c {
-    if (eth_type == 16'h0806)
-        payload.size() == 0;       // ARP → no payload
-    else
-        payload.size() == 256;  // otherwise normal constraint
+    if (eth_type == 16'h0806)	payload.size() == 0;
 	}
 
 	virtual function int data_create(bit req=0);

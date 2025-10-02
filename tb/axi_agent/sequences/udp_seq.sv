@@ -25,8 +25,8 @@ class udp_seq extends uvm_sequence #(udp_seq_item);
             s_udp_ip_dscp        == 0;
             s_udp_ip_ecn         == 0;
             s_udp_ip_ttl         == 8'd64;
-            s_udp_ip_source_ip   == 32'hc0a80164; // 192.168.1.100
-            s_udp_ip_dest_ip     == 32'hc0a80166; // 192.168.1.102
+            s_udp_ip_source_ip   == dut_ip; // 192.168.1.100
+            s_udp_ip_dest_ip     == master_ip; // 192.168.1.102
             s_udp_source_port == 16'd1234;
             s_udp_dest_port   == 16'd5678;
             s_udp_length      == 16'd1234; // payload + header

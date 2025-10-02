@@ -1,11 +1,15 @@
 class scoreboard extends uvm_scoreboard;
 	`uvm_component_utils(scoreboard)
-	typedef struct {
+
+	typedef struct {	//struct for ARP table
 		bit [31:0] ip;
 		bit [47:0] mac;
 		bit        req;
 		bit        valid;
 	} arp_item_t;
+	arp_item_t arp_table[$];
+	udp_seq_item udp_exp[$], udp_act;
+	sq_item     xgmii_exp[$], xgmii_act,pending;
 	// ------------------------------------------------------
 	// Analysis import declarations
 	// ------------------------------------------------------
@@ -13,9 +17,6 @@ class scoreboard extends uvm_scoreboard;
 	`uvm_analysis_imp_decl(_actual_xgmii)
 	`uvm_analysis_imp_decl(_expected_udp)
 	`uvm_analysis_imp_decl(_actual_udp)
-	arp_item_t arp_table[$];
-	udp_seq_item udp_exp[$], udp_act;
-	sq_item     xgmii_exp[$], xgmii_act,pending;
 	// ------------------------------------------------------
 	// Analysis implementation ports
 	// ------------------------------------------------------

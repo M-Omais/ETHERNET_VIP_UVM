@@ -13,6 +13,8 @@ class xgmii_seq extends uvm_sequence#(sq_item);
 							dst_ip == dut_ip;
 							src_port == 16'd5678;
 							dst_port == 16'd1234;
+							// payload.size() inside {[0:512]};
+							payload.size() == 256;
 							foreach(payload[i]) payload[i] == i;})
 
 	endtask
