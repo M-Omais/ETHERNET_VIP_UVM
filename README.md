@@ -7,59 +7,95 @@ Provides reusable, configurable testbench components to accelerate functional ve
 
 ## 📂 Project Structure
 ```bash
-project_root/
-├── docs/ # Documentation
-│ ├── architecture/ # Block diagrams, specifications
-│ └── meeting_notes/ # Weekly sync notes
-├── rtl/ # Design files (DUT)
-│ └── eth_mac/ # Ethernet MAC RTL
-├── tb/ # Testbench directory
-│ ├── common/ # Shared components
-│ │ ├── sq_item.sv # Transaction class (AGREED CONTRACT)
-│ │ └── pkg_common.sv # Common parameters, types, utilities
-│ ├── interfaces/ # Interface definitions
-│ │ ├── xgmii_if.sv # XGMII interface with clocking blocks
-│ │ └── axi_stream_if.sv # AXI Stream interface with clocking blocks
-│ ├── xgmii_agent/ # PERSON A's domain
-│ │ ├── pkg_xgmii_agent.sv
-│ │ ├── xgmii_agent.sv
-│ │ ├── xgmii_driver.sv
-│ │ ├── xgmii_monitor.sv
-│ │ ├── xgmii_sequencer.sv
-│ │ └── sequences/ # XGMII sequences
-│ │ ├── xgmii_base_seq.sv
-│ │ └── xgmii_simple_seq.sv
-│ ├── axi_agent/ # PERSON B's domain
-│ │ ├── pkg_axi_agent.sv
-│ │ ├── axi_agent.sv
-│ │ ├── axi_driver.sv
-│ │ ├── axi_monitor.sv
-│ │ ├── axi_sequencer.sv
-│ │ └── sequences/ # AXI sequences
-│ │ ├── axi_base_seq.sv
-│ │ └── axi_simple_seq.sv
-│ ├── env/ # Integration components
-│ │ ├── pkg_env.sv
-│ │ ├── mac_env.sv # Main environment (owns both agents)
-│ │ ├── scoreboard.sv # Cross-interface checker
-│ │ ├── coverage.sv # Functional coverage
-│ │ └── virtual_sequences/ # Coordinated sequences
-│ │ └── mac_vseq.sv
-│ ├── tests/ # Test scenarios
-│ │ ├── base_test.sv
-│ │ ├── test_xgmii_to_axi.sv
-│ │ └── test_axi_to_xgmii.sv
-│ └── tb_top.sv # Top-level testbench module
-├── sim/ # Simulation directory
-│ ├── scripts/ # Simulation scripts
-│ │ ├── compile.tcl # Compilation script
-│ │ └── run_test.tcl # Test run script
-│ ├── work/ # Simulation working directory
-│ └── logs/ # Simulation logs
-└── verification_plan/ # Verification documentation
-├── test_plan.md # Overall test plan
-├── coverage_plan.md # Coverage goals
-└── results/ # Verification results
+.
+├── docs/
+├── README.md
+├── rtl/
+│   ├── arbiter.v
+│   ├── arp.v
+│   ├── arp_cache.v
+│   ├── arp_eth_rx.v
+│   ├── arp_eth_tx.v
+│   ├── axis_async_fifo.v
+│   ├── axis_async_fifo_adapter.v
+│   ├── axis_fifo.v
+│   ├── axis_xgmii_rx_64.v
+│   ├── axis_xgmii_tx_64.v
+│   ├── eth_arb_mux.v
+│   ├── eth_axis_rx.v
+│   ├── eth_axis_tx.v
+│   ├── eth_mac_10g.v
+│   ├── eth_mac_10g_fifo.v
+│   ├── fpga_core.v
+│   ├── ip_64.v
+│   ├── ip_arb_mux.v
+│   ├── ip_complete_64.v
+│   ├── ip_eth_rx_64.v
+│   ├── ip_eth_tx_64.v
+│   ├── lfsr.v
+│   ├── priority_encoder.v
+│   ├── udp_64.v
+│   ├── udp_checksum_gen_64.v
+│   ├── udp_complete_64.v
+│   ├── udp_ip_rx_64.v
+│   └── udp_ip_tx_64.v
+├── tb/
+│   ├── top.sv
+│   ├── common/
+│   │   ├── sq_item.sv
+│   │   └── udp_seq_item.sv
+│   ├── interfaces/
+│   │   ├── axi_stream_if.sv
+│   │   ├── udp_if.sv
+│   │   └── xgmii_if.sv
+│   ├── axi_agent/
+│   │   ├── pkg_axi_agent.sv
+│   │   ├── udp_agent.sv
+│   │   ├── udp_driver.sv
+│   │   ├── udp_monitor.sv
+│   │   ├── udp_sequencer.sv
+│   │   ├── sequences/
+│   │   │   ├── back_to_back_seq.sv
+│   │   │   ├── no_payload_seq.sv
+│   │   │   ├── udp_seq.sv
+│   │   │   └── variable_udp_seq.sv
+│   ├── env/
+│   │   ├── mac_env.sv
+│   │   ├── scoreboard.sv
+│   │   ├── virtual_sequencer.sv
+│   │   └── virtual_sequences/
+│   │       ├── arp_handshake_seq.sv
+│   │       ├── variable_arp_seq.sv
+│   │       └── variable_ip_seq.sv
+│   ├── tests/
+│   │   ├── base_test.sv
+│   │   ├── handshake_test.sv
+│   │   ├── udp_back_to_back_test.sv
+│   │   ├── udp_test.sv
+│   │   ├── udp_xgmii_parallel_test.sv
+│   │   ├── variable_ip_test.sv
+│   │   ├── xgmii_back_to_back_test.sv
+│   │   └── xgmii_test.sv
+│   ├── xgmii_agent/
+│   │   ├── xgmii_agent.sv
+│   │   ├── xgmii_driver.sv
+│   │   ├── xgmii_monitor.sv
+│   │   ├── xgmii_sequencer.sv
+│   │   ├── sequences/
+│   │   │   ├── arp_seq.sv
+│   │   │   ├── variable_xgmii_seq.sv
+│   │   │   ├── xgmii_back_to_back_seq.sv
+│   │   │   └── xgmii_seq.sv
+│   └── sim/
+│       ├── certe_dump.xml
+│       ├── frame.cpp
+│       ├── Makefile
+│       ├── package.sv
+│       ├── requirements.txt
+│       ├── run.do
+│       ├── xgmii_frame.py
+│       └── work/ (gitignored)
+├── .gitignore
 ```
 ---
 

@@ -8,6 +8,8 @@ class scoreboard extends uvm_scoreboard;
 		bit        valid;
 	} arp_item_t;
 	arp_item_t arp_table[$];
+
+	// Queues to hold expected and actual transactions and pending ARP requests
 	udp_seq_item udp_exp[$], udp_act;
 	sq_item     xgmii_exp[$], xgmii_act,pending;
 	// ------------------------------------------------------
@@ -51,7 +53,9 @@ class scoreboard extends uvm_scoreboard;
 	endfunction
 
 	virtual function void write_expected_udp(sq_item tr);
-
+		// --------------------------------
+		// Variables to hold parsed fields
+		// --------------------------------
 		// Ethernet
 		longint unsigned m_udp_eth_dest_mac, m_udp_eth_src_mac; 
 		shortint unsigned m_udp_eth_type;                      
@@ -71,14 +75,14 @@ class scoreboard extends uvm_scoreboard;
 		bit [63:0] m_udp_payload[1500];     // payload data
 		udp_seq_item udp_tr = udp_seq_item::type_id::create("udp_tr");
 		sq_item temp = sq_item::type_id::create("xgmii_tr");
-		//   `uvm_info("SCOREBOARD_EXPECTED", tr.print_data(), UVM_LOW)
-		i = scb_xgmii_to_udp(tr.data_out, {tr.ctrl_out}, m_udp_eth_dest_mac, m_udp_eth_src_mac, m_udp_eth_type,
+		// Translate XGMII to UDP fields
+		i = scb_xgmii_to_udp(tr.data_out, tr.ctrl_out, m_udp_eth_dest_mac, m_udp_eth_src_mac, m_udp_eth_type,
 							arp_hwtype, arp_ptype, arp_hwlen, arp_plen, arp_op, m_udp_ip_version,
 							m_udp_ip_ihl, m_udp_ip_dscp, m_udp_ip_ecn,m_udp_ip_length, m_udp_ip_identification,
 							m_udp_ip_flags, m_udp_ip_fragment_offset,m_udp_ip_ttl, m_udp_ip_protocol,
 							m_udp_ip_header_checksum, m_udp_ip_source_ip, m_udp_ip_dest_ip, m_udp_source_port,
 							m_udp_dest_port, m_udp_length, m_udp_checksum, m_udp_payload);
-
+			// Populate UDP transaction fields
 			udp_tr.m_udp_eth_src_mac = m_udp_eth_src_mac;
 			udp_tr.m_udp_eth_dest_mac = m_udp_eth_dest_mac;
 			udp_tr.m_udp_eth_type = m_udp_eth_type;
@@ -99,8 +103,6 @@ class scoreboard extends uvm_scoreboard;
 			udp_tr.m_udp_dest_port = m_udp_dest_port;
 			udp_tr.m_udp_length = m_udp_length;
 			udp_tr.m_udp_checksum = m_udp_checksum;
-		// copying the payload
-
 		
 		if (m_udp_eth_type == 16'h0806) begin
 
@@ -131,7 +133,7 @@ class scoreboard extends uvm_scoreboard;
 				udp_tr.m_udp_payload_data.push_back(m_udp_payload[j]);
 				`uvm_info("SCOREBOARD_EXPECTED", $sformatf("Length %0d Payload[%0d]: %h", (m_udp_length-8)/8, j, m_udp_payload[j]), UVM_DEBUG);	
 			end	
-			`uvm_info("SCOREBOARD_EXPECTED", $sformatf("%s",  udp_tr.convert2string_m_udp()), UVM_LOW)
+			`uvm_info("SCOREBOARD_EXPECTED", $sformatf("%s",  udp_tr.convert2string_m_udp()), UVM_HIGH)
 			udp_exp.push_back(udp_tr);
 		end
 
@@ -143,16 +145,16 @@ class scoreboard extends uvm_scoreboard;
 		udp_seq_item exp_tr;
 
 		udp_act = tr;
-		`uvm_info("SCOREBOARD_ACTUAL", $sformatf("%s", udp_act.convert2string_m_udp()), UVM_LOW)
+		`uvm_info("SCOREBOARD_ACTUAL", $sformatf("%s", udp_act.convert2string_m_udp()), UVM_HIGH)
 
 		if (udp_exp.size() == 0) begin
-		`uvm_error("SCOREBOARD_MISMATCH","No expected UDP transaction available for comparison")
-		mis_match++;
-		return;
+			`uvm_error("SCOREBOARD_MISMATCH","No expected UDP transaction available for comparison")
+			mis_match++;
+			return;
 		end
 
 		exp_tr = udp_exp.pop_front();
-		`uvm_info("SCOREBOARD_EXPECTED", $sformatf("%s", exp_tr.convert2string_m_udp()), UVM_LOW)
+		`uvm_info("SCOREBOARD_EXPECTED", $sformatf("%s", exp_tr.convert2string_m_udp()), UVM_HIGH)
 
 		if (udp_pkt_compare(tr, exp_tr)) begin
 			`uvm_info("SCOREBOARD_MATCH", "Actual UDP transaction matches expected", UVM_LOW)
@@ -179,9 +181,10 @@ class scoreboard extends uvm_scoreboard;
 		expec.dst_port = tr.s_udp_dest_port;
 		// Default: no valid ARP mapping found
 		foreach (arp_table[i]) begin
+			// Check for valid ARP entry throughout table
 			if (arp_table[i].ip == tr.s_udp_ip_dest_ip && arp_table[i].valid) begin
 				expec.dst_addr = arp_table[i].mac;
-				expec.payload = new[tr.s_udp_payload_data.size()*8];
+				expec.payload = new[tr.s_udp_payload_data.size() * 8];
 				expec.eth_type = 16'h0800;
 				foreach (tr.s_udp_payload_data[i]) begin
 					for (int b = 0; b < 8; b++) begin
@@ -202,11 +205,11 @@ class scoreboard extends uvm_scoreboard;
 		if (!found) begin
 			expec.eth_type = 16'h0806; // ARP
 			// expec.dst_addr =  {48{1'b1}};
-			`uvm_info("SCOREBOARD_EXPECTED_UDP", 
-			$sformatf("No ARP entry for IP %s -> sending ARP", ip_to_string(tr.s_udp_ip_dest_ip)), UVM_LOW)
-			arp_table.push_back('{ip: tr.s_udp_ip_dest_ip, mac: 48'h0, req: 1'b1, valid: 1'b0});
+			`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("No ARP entry for IP %s -> sending ARP", ip_to_string(tr.s_udp_ip_dest_ip)), UVM_LOW)
+			arp_table.push_back('{ip: tr.s_udp_ip_dest_ip, mac: 48'h0, req: 1'b1, valid: 1'b0}); // add ARP request entry
 			idx = expec.data_create(1);
-			xgmii_exp.push_back(expec);
+			xgmii_exp.push_back(expec);// send ARP request
+			// Create pending XGMII packet for later UDP send after ARP reply
 			pending = sq_item::type_id::create("pending", this);
 			pending.src_addr = dut_mac;
 			pending.dst_addr = {48{1'b1}}; // Broadcast
@@ -230,7 +233,7 @@ class scoreboard extends uvm_scoreboard;
 		end
 
 		// pending.print_data();
-		`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("EXPECTED XGMII Packet: \n%s", expec.print_data()), UVM_LOW)
+		`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("EXPECTED XGMII Packet: \n%s", expec.print_data()), UVM_MEDIUM)
 	endfunction
 
 	virtual function void write_actual_xgmii(sq_item tr);
@@ -245,10 +248,10 @@ class scoreboard extends uvm_scoreboard;
 		end
 
 		xgmii_act = tr;
-		`uvm_info("SCOREBOARD_ACTUAL_XGMII", $sformatf("ACTUAL XGMII Packet: \n%s", xgmii_act.print_data()), UVM_LOW)
+		`uvm_info("SCOREBOARD_ACTUAL_XGMII", $sformatf("ACTUAL XGMII Packet: \n%s", xgmii_act.print_data()), UVM_MEDIUM)
 
 		exp_tr = xgmii_exp.pop_front();
-		`uvm_info("SCOREBOARD_EXPECTED_XGMII", $sformatf("EXPECTED XGMII Packet: \n%s", exp_tr.print_data()), UVM_LOW)
+		`uvm_info("SCOREBOARD_EXPECTED_XGMII", $sformatf("EXPECTED XGMII Packet: \n%s", exp_tr.print_data()), UVM_MEDIUM)
 		checking_size = exp_tr.data_out.size()-2; // ignore last 2 words (IFG)
 		// Compare data_out and ctrl_out element by element
 		if (xgmii_act.data_out.size() != checking_size) begin
@@ -274,8 +277,7 @@ class scoreboard extends uvm_scoreboard;
 		else begin
 			foreach (xgmii_act.ctrl_out[i]) begin
 				if (xgmii_act.ctrl_out[i] !== exp_tr.ctrl_out[i]) begin
-					`uvm_error("SCOREBOARD_MISMATCH", $sformatf("Ctrl mismatch at byte[%0d]. Expected=%h, Actual=%h",
-					i, exp_tr.ctrl_out[i], xgmii_act.ctrl_out[i]))
+					`uvm_error("SCOREBOARD_MISMATCH", $sformatf("Ctrl mismatch at byte[%0d]. Expected=%h, Actual=%h", i, exp_tr.ctrl_out[i], xgmii_act.ctrl_out[i]))
 					correct = 0;
 				end
 			end
@@ -305,8 +307,8 @@ class scoreboard extends uvm_scoreboard;
 		else if (op == 16'h0002) op_str = "ARP Reply";
 		else op_str = $sformatf("Unknown (0x%0h)", op);
 
-		`uvm_info("ARP", $sformatf("Ethernet: %012h -> %012h | %s | Src IP: %0d.%0d.%0d.%0d | Dst IP: %0d.%0d.%0d.%0d", src_mac, dst_mac, op_str,
-		 src_ip[31:24], src_ip[23:16], src_ip[15:8], src_ip[7:0], dst_ip[31:24], dst_ip[23:16], dst_ip[15:8], dst_ip[7:0]),UVM_LOW);
+		`uvm_info("ARP", $sformatf("Ethernet: %012h -> %012h | %s | Src IP: %s | Dst IP: %s", src_mac, dst_mac, op_str,
+		 ip_to_string(src_ip), ip_to_string(dst_ip)),UVM_LOW);
 	endfunction
 
 	
