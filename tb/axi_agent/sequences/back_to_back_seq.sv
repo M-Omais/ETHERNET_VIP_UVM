@@ -36,7 +36,7 @@ class back_to_back_seq extends uvm_sequence #(udp_seq_item);
 									s_udp_ip_dest_ip     == master_ip;  // e.g. 192.168.1.102
 									s_udp_source_port    == 16'd1234;
 									s_udp_dest_port      == 16'd5678;
-									s_udp_payload_data.size() < 10; // small payload
+									s_udp_payload_data.size() < 25 && s_udp_payload_data.size() > 23; // large payload
 									s_udp_length         == (s_udp_payload_data.size()*8) + 8; // random legal length
 									s_udp_checksum       == 16'h0;      // let DUT recalc
 									foreach(s_udp_payload_data[i]) s_udp_payload_data[i] == i;

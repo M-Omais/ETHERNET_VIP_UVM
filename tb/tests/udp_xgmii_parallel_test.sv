@@ -25,23 +25,19 @@ class udp_xgmii_parallel_test extends base_test;
         xseq.start(env.virtual_seqr);
         #1ns;
         // Configure sequences before starting
-        udp_b2b_seq.num_packets   = 1;
+        udp_b2b_seq.num_packets   = 8;
         udp_b2b_seq.rp            = 2;
         udp_b2b_seq.delay         = 500;
 
-        xgmii_b2b_seq.num_packets = 1;
+        xgmii_b2b_seq.num_packets = 8;
         xgmii_b2b_seq.rp          = 2;
-        xgmii_b2b_seq.delay       = 1000;
+        xgmii_b2b_seq.delay       = 100;
 
         `uvm_info(get_type_name(), "Starting UDP + XGMII back-to-back sequences in parallel", UVM_LOW)
 
         fork
-            begin
                 udp_b2b_seq.start(env.udp_agent_inst.seqr);
-            end
-            begin
                 xgmii_b2b_seq.start(env.xgmii_agent_inst.sqr);
-            end
         join
 
         #1ns;

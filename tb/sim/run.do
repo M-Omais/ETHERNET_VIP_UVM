@@ -1,11 +1,11 @@
 # vlib work
 # vlog -sv +acc -lint package.sv +define+UVM_REPORT_DISABLE_FILE_LINE 
 # vlog -sv +acc -lint ../../rtl/*.v ../interfaces/*.sv ../top.sv +define+UVM_REPORT_DISABLE_FILE_LINE 
-vlog -sv "+acc" -lint "+define+UVM_REPORT_DISABLE_FILE_LINE" ../../rtl/*.v ../interfaces/*.sv ./package.sv ../top.sv
-vsim -sv_lib frame -classdebug -uvmcontrol=all -voptargs=+acc +UVM_NO_RELNOTES +UVM_NO_MSG=PHASESEQ +UVM_NO_MSG=PH_READY_TO_END  +UVM_TESTNAME=udp_back_to_back_test work.top -do "run 0" +UVM_VERBOSITY=UVM_LOW
+# vlog -sv "+acc" -lint "+define+UVM_REPORT_DISABLE_FILE_LINE" ../../rtl/*.v ../interfaces/*.sv ./package.sv ../top.sv
+vsim -sv_lib frame -classdebug -uvmcontrol=all -voptargs=+acc +UVM_NO_RELNOTES +UVM_NO_MSG=PHASESEQ +UVM_NO_MSG=PH_READY_TO_END  +UVM_TESTNAME=udp_xgmii_parallel_test work.top -do "run 9ns" +UVM_VERBOSITY=UVM_LOW
 # 	+UVM_NO_RELNOTES  +UVM_NO_MSG=PHASESEQ +UVM_NO_MSG=PH_READY_TO_END 
 add wave -position insertpoint sim:/top/dut/*
-# add wave -position insertpoint sim:/top/dut/udp_complete_inst/*
+add wave -position insertpoint sim:/top/dut/udp_complete_inst/*
 # add wave -position insertpoint sim:/top/udp_vif/*
 # add wave -position insertpoint sim:/top/dut/udp_complete_inst/ip_complete_64_inst/arp_inst/arp_cache_inst/*
 
@@ -19,4 +19,4 @@ add wave -position insertpoint sim:/top/dut/*
 
 
 #run -all
-run -all
+run 3ns
