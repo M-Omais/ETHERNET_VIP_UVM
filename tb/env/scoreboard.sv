@@ -11,7 +11,7 @@ class scoreboard extends uvm_scoreboard;
 
 	// Queues to hold expected and actual transactions and pending ARP requests
 	udp_seq_item udp_exp[$], udp_act;
-	sq_item     xgmii_exp[$], xgmii_act,pending;
+	xgmii_seq_item     xgmii_exp[$], xgmii_act,pending;
 	// ------------------------------------------------------
 	// Analysis import declarations
 	// ------------------------------------------------------
@@ -22,8 +22,8 @@ class scoreboard extends uvm_scoreboard;
 	// ------------------------------------------------------
 	// Analysis implementation ports
 	// ------------------------------------------------------
-	uvm_analysis_imp_expected_udp #(sq_item, scoreboard)  xgmii_in_port;
-	uvm_analysis_imp_actual_xgmii   #(sq_item, scoreboard)  xgmii_out_port;
+	uvm_analysis_imp_expected_udp #(xgmii_seq_item, scoreboard)  xgmii_in_port;
+	uvm_analysis_imp_actual_xgmii   #(xgmii_seq_item, scoreboard)  xgmii_out_port;
 
 	uvm_analysis_imp_expected_xgmii   #(udp_seq_item, scoreboard) udp_in_port;
 	uvm_analysis_imp_actual_udp     #(udp_seq_item, scoreboard) udp_out_port;
@@ -52,7 +52,7 @@ class scoreboard extends uvm_scoreboard;
 		mis_match = 0;
 	endfunction
 
-	virtual function void write_expected_udp(sq_item tr);
+	virtual function void write_expected_udp(xgmii_seq_item tr);
 		// --------------------------------
 		// Variables to hold parsed fields
 		// --------------------------------
@@ -74,7 +74,7 @@ class scoreboard extends uvm_scoreboard;
 		// payload data
 		bit [63:0] m_udp_payload[1500];     // payload data
 		udp_seq_item udp_tr = udp_seq_item::type_id::create("udp_tr");
-		sq_item temp = sq_item::type_id::create("xgmii_tr");
+		xgmii_seq_item temp = xgmii_seq_item::type_id::create("xgmii_tr");
 		// Translate XGMII to UDP fields
 		i = scb_xgmii_to_udp(tr.data_out, tr.ctrl_out, m_udp_eth_dest_mac, m_udp_eth_src_mac, m_udp_eth_type,
 							arp_hwtype, arp_ptype, arp_hwlen, arp_plen, arp_op, m_udp_ip_version,
@@ -168,12 +168,12 @@ class scoreboard extends uvm_scoreboard;
 
 
 	virtual function void write_expected_xgmii(udp_seq_item tr);
-		sq_item expec;
+		xgmii_seq_item expec;
 		bit found = 0;
 		int idx = 0;
 		`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("INCOMING UDP Packet:\n%s", tr.convert2string_s_udp()), UVM_LOW)
 
-		expec = sq_item::type_id::create("expec", this);
+		expec = xgmii_seq_item::type_id::create("expec", this);
 		expec.src_addr = dut_mac;
 		expec.src_ip   = tr.s_udp_ip_source_ip;
 		expec.dst_ip   = tr.s_udp_ip_dest_ip;
@@ -210,7 +210,7 @@ class scoreboard extends uvm_scoreboard;
 			idx = expec.data_create(1);
 			xgmii_exp.push_back(expec);// send ARP request
 			// Create pending XGMII packet for later UDP send after ARP reply
-			pending = sq_item::type_id::create("pending", this);
+			pending = xgmii_seq_item::type_id::create("pending", this);
 			pending.src_addr = dut_mac;
 			pending.dst_addr = {48{1'b1}}; // Broadcast
 			pending.src_ip   = tr.s_udp_ip_source_ip;
@@ -236,8 +236,8 @@ class scoreboard extends uvm_scoreboard;
 		`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("EXPECTED XGMII Packet: \n%s", expec.print_data()), UVM_MEDIUM)
 	endfunction
 
-	virtual function void write_actual_xgmii(sq_item tr);
-		sq_item exp_tr;
+	virtual function void write_actual_xgmii(xgmii_seq_item tr);
+		xgmii_seq_item exp_tr;
 		bit correct = 1;
 		int checking_size;
 		if (xgmii_exp.size() == 0) begin

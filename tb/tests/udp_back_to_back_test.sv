@@ -20,6 +20,7 @@ class udp_back_to_back_test extends base_test;
     phase.raise_objection(this);
 
     `uvm_info(get_type_name(), "Starting arp_handshake_seq...", UVM_LOW)
+    // start ARP handshake sequence first
     xseq.start(env.virtual_seqr);
 
     `uvm_info(get_type_name(), "Starting back_to_back_seq...", UVM_LOW)
@@ -30,7 +31,6 @@ class udp_back_to_back_test extends base_test;
 
     b2b_seq.start(env.udp_agent_inst.seqr);
 
-    #1ns;
     phase.drop_objection(this);
   endtask
 

@@ -1,4 +1,5 @@
 package tx_pkg;
+
     import uvm_pkg::*;
     import "DPI-C" context function int xgmii_eth_frame_c(
         input longint src_mac,
@@ -59,7 +60,7 @@ package tx_pkg;
     parameter dut_mac = 48'h02_00_00_00_00_00; // DUT MAC address
     parameter master_mac = 48'h5a5152535455; // Master MAC address
     `include "uvm_macros.svh"
-    `include "../common/sq_item.sv"
+    `include "../common/xgmii_seq_item.sv"
     `include "../common/udp_seq_item.sv"
 
     `include "../xgmii_agent/xgmii_sequencer.sv"

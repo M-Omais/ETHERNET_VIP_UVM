@@ -16,7 +16,6 @@ class xgmii_test extends base_test;
 		seq = xgmii_seq::type_id::create("seq");
 	endfunction
 
-
 	// run_phase: start the sequence
 	task run_phase(uvm_phase phase);
 
@@ -25,7 +24,7 @@ class xgmii_test extends base_test;
 		xseq.start(env.virtual_seqr);
 
 		`uvm_info(get_type_name(), "Starting xgmii_seq...", UVM_LOW)
-		seq.start(env.xgmii_agent_inst.sqr); //define which sequencer the sequence should run on.
+		seq.start(env.xgmii_agent_inst.seqr); //define which sequencer the sequence should run on.
 		# 1ns; 
 		phase.drop_objection(this);
 	endtask

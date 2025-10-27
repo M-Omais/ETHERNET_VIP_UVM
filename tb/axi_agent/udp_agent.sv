@@ -26,6 +26,7 @@ class udp_agent extends uvm_agent;
       seqr = udp_sequencer::type_id::create("seqr", this);
       drv  = udp_driver   ::type_id::create("drv",  this);
     end
+    
   endfunction
 
   // Connect sequencer <-> driver

@@ -23,16 +23,16 @@ class variable_ip_seq extends uvm_sequence;
         // --------------------------------
         // Assign unique IP/MACs
         // --------------------------------
-        hs[0].custom_mac = 48'h5a5152535455;
-        hs[0].custom_ip  = 32'hc0a80164;  // 192.168.1.100
-        hs[1].custom_mac = 48'h6a6162636465;
-        hs[1].custom_ip  = 32'hc0a80165;  // 192.168.1.101
-        hs[2].custom_mac = 48'h7a7172737475;
-        hs[2].custom_ip  = 32'hc0a80166;  // 192.168.1.102
+        hs[0].custom_mac    = 48'h5a5152535455;
+        hs[0].custom_ip     = 32'hc0a80164;  // 192.168.1.100
+        hs[1].custom_mac    = 48'h6a6162636465;
+        hs[1].custom_ip     = 32'hc0a80165;  // 192.168.1.101
+        hs[2].custom_mac    = 48'h7a7172737475;
+        hs[2].custom_ip     = 32'hc0a80166;  // 192.168.1.102
 
-        udp[0].custom_ip = 32'hc0a80164;
-        udp[1].custom_ip = 32'hc0a80165;
-        udp[2].custom_ip = 32'hc0a80166;
+        udp[0].custom_ip    = 32'hc0a80164;
+        udp[1].custom_ip    = 32'hc0a80165;
+        udp[2].custom_ip    = 32'hc0a80166;
 
         xgmii[0].custom_mac = 48'h5a5152535455;
         xgmii[0].custom_ip  = 32'hc0a80164;
@@ -60,13 +60,6 @@ class variable_ip_seq extends uvm_sequence;
             xgmii[i].start(p_sequencer.xgmii_sequencer_inst);
             #100;
         end
-
-        // Option 2: Run them all in parallel
-        // fork
-        //   foreach (hs[i]) hs[i].start(p_sequencer);
-        //   foreach (udp[i]) udp[i].start(p_sequencer.udp_sequencer_inst);
-        //   foreach (xgmii[i]) xgmii[i].start(p_sequencer.xgmii_sequencer_inst);
-        // join
 
     endtask
 endclass

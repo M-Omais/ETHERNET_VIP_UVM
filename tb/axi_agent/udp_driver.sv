@@ -67,7 +67,7 @@ class udp_driver extends uvm_driver #(udp_seq_item);
 
     // Drive header first
     @(posedge vif.clk);
-    vif.s_udp_hdr_valid      <= 1;
+    vif.s_udp_hdr_valid      <= 1'b1;
     vif.s_udp_ip_dscp        <= tr.s_udp_ip_dscp;
     vif.s_udp_ip_ecn         <= tr.s_udp_ip_ecn;
     vif.s_udp_ip_ttl         <= tr.s_udp_ip_ttl;

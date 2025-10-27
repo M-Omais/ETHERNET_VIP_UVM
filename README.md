@@ -6,6 +6,7 @@ Provides reusable, configurable testbench components to accelerate functional ve
 ---
 
 ## 📂 Project Structure
+
 ```bash
 .
 ├── docs/
@@ -97,21 +98,3 @@ Provides reusable, configurable testbench components to accelerate functional ve
 │       └── work/ (gitignored)
 ├── .gitignore
 ```
----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

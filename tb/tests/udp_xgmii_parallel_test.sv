@@ -36,11 +36,10 @@ class udp_xgmii_parallel_test extends base_test;
         `uvm_info(get_type_name(), "Starting UDP + XGMII back-to-back sequences in parallel", UVM_LOW)
 
         fork
-                udp_b2b_seq.start(env.udp_agent_inst.seqr);
-                xgmii_b2b_seq.start(env.xgmii_agent_inst.sqr);
+          udp_b2b_seq.start(env.udp_agent_inst.seqr);
+          xgmii_b2b_seq.start(env.xgmii_agent_inst.seqr);
         join
 
-        #1ns;
         phase.drop_objection(this);
     endtask
 

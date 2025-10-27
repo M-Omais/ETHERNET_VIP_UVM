@@ -15,7 +15,7 @@ class udp_seq_item extends uvm_sequence_item;
     rand bit [15:0] s_udp_length;
     rand bit [15:0] s_udp_checksum;
     
-    rand bit [63:0]  s_udp_payload_data[$];
+    rand bit [63:0] s_udp_payload_data[$];
     rand bit        s_udp_payload_last;
     rand bit        s_udp_payload_user;
     rand bit [7:0]  s_udp_payload_keep[$];
@@ -29,8 +29,6 @@ class udp_seq_item extends uvm_sequence_item;
     constraint payload_keep_full_c {
         foreach (s_udp_payload_keep[i]) s_udp_payload_keep[i] == 8'hFF;
     }
-
-
 
     // OUTPUT SIDE (m_udp_*) → fields observed from DUT
     bit        m_udp_hdr_valid;
@@ -158,9 +156,5 @@ class udp_seq_item extends uvm_sequence_item;
             payload_str
         );
     endfunction
-
-
-
-
 
 endclass

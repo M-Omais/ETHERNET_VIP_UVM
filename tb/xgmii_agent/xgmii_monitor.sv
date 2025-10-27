@@ -1,7 +1,7 @@
 class xgmii_monitor extends uvm_monitor;
     `uvm_component_utils(xgmii_monitor)
-	uvm_analysis_port #(sq_item) dut_write;   
-    uvm_analysis_port #(sq_item) dut_read;
+	uvm_analysis_port #(xgmii_seq_item) dut_write;   
+  uvm_analysis_port #(xgmii_seq_item) dut_read;
     function new(string name , uvm_component parent);
         super.new(name,parent);
     endfunction //new()
@@ -27,7 +27,7 @@ class xgmii_monitor extends uvm_monitor;
 		join
     endtask // run_phase
 	virtual task write_cycle();
-	    sq_item tr;
+	    xgmii_seq_item tr;
 	    static bit collecting = 0;  // keep track across cycles
 	    static logic [63:0] data_q[$];
 	    static logic [63:0] ctrl_q[$];
@@ -52,10 +52,10 @@ class xgmii_monitor extends uvm_monitor;
 		                8'hFD: begin
 		                    `uvm_info("MONITOR_WRITE", "Received END character", UVM_HIGH);
 		                    collecting = 0;
-					        data_q.push_back(vif.data);
-					        ctrl_q.push_back(vif.ctrl);
+      					        data_q.push_back(vif.data);
+      					        ctrl_q.push_back(vif.ctrl);
 		                    // Create transaction once per frame
-		                    tr = sq_item::type_id::create("tr", this);
+		                    tr = xgmii_seq_item::type_id::create("tr", this);
 		                    tr.data_out = new[data_q.size()];
 		                    tr.ctrl_out = new[ctrl_q.size()];
 
@@ -84,7 +84,7 @@ class xgmii_monitor extends uvm_monitor;
 
 	
 	virtual task read_cycle();
-	    sq_item tr;
+	    xgmii_seq_item tr;
 	    static bit collecting = 0;    // keep track of frame
 	    static logic [63:0] data_q[$];
 	    static logic [63:0] ctrl_q[$];
@@ -116,7 +116,7 @@ class xgmii_monitor extends uvm_monitor;
 	                        ctrl_q.push_back(vif.tctrl);
 
 	                        // Build transaction once frame ends
-	                        tr = sq_item::type_id::create("tr", this);
+	                        tr = xgmii_seq_item::type_id::create("tr", this);
 	                        tr.data_out = new[data_q.size()];
 	                        tr.ctrl_out = new[ctrl_q.size()];
 	                        for (int j = 0; j < data_q.size(); j++) begin

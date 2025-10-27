@@ -83,8 +83,9 @@ class udp_monitor extends uvm_monitor;
         // Wait for header valid & ready handshake
         tr = udp_seq_item::type_id::create("tr");
         while (!vif.m_udp_hdr_valid ) begin
-          @(negedge vif.clk);
-          `uvm_info("MONITOR-M-UDP", "WAITING", UVM_DEBUG)
+          @(negedge vif.clk)begin
+            `uvm_info("MONITOR-M-UDP", "WAITING", UVM_DEBUG)
+          end
         end
 
 
@@ -120,8 +121,9 @@ class udp_monitor extends uvm_monitor;
         do begin
           // Wait until payload valid is seen
           while (!vif.m_udp_payload_axis_tvalid) begin
-            @(posedge vif.clk);
-            `uvm_info("MONITOR-M-UDP", "Waiting for UDP payload valid...", UVM_DEBUG)
+            @(posedge vif.clk)begin
+              `uvm_info("MONITOR-M-UDP", "Waiting for UDP payload valid...", UVM_DEBUG)
+            end
           end
 
           // Sample payload data when valid & ready

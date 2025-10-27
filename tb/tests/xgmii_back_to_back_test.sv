@@ -20,17 +20,18 @@ class xgmii_back_to_back_test extends base_test;
         phase.raise_objection(this);
 
         `uvm_info(get_type_name(), "Starting arp_handshake_seq...", UVM_LOW)
+
         xseq.start(env.virtual_seqr);
 
         `uvm_info(get_type_name(), "Starting xgmii_back_to_back_seq...", UVM_LOW)
+
         // Configure back-to-back sequence knobs
         b2b_xgmii.num_packets = 12;   // total number of frames
         b2b_xgmii.rp          = 2;    // repeat count per frame
         b2b_xgmii.delay       = 1000; // gap between frames (cycles or time)
 
-        b2b_xgmii.start(env.xgmii_agent_inst.sqr);
+        b2b_xgmii.start(env.xgmii_agent_inst.seqr);
 
-        // #1ns;
         phase.drop_objection(this);
     endtask
 
