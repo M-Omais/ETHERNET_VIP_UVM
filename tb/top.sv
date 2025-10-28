@@ -99,9 +99,13 @@ module top;
       uvm_config_db#(uvm_active_passive_enum)::set(null, "uvm_test_top.env.xgmii_agent_inst", "is_active", UVM_ACTIVE); // or UVM_PASSIVE
       uvm_config_db#(uvm_active_passive_enum)::set(null, "uvm_test_top.env.udp_agent_inst", "is_active", UVM_ACTIVE); // or UVM_PASSIVE
 
+      uvm_config_db#(virtual xgmii_if)::set(null, "uvm_test_top.env.xgmii_agent_inst.*", "vif", xgmii_i);
+
       uvm_config_db#(int)            ::set(null, "", "recording_detail", 0);
       uvm_config_db#(uvm_bitstream_t)::set(null, "", "recording_detail", 0);
 
+      uvm_config_db#(bit [63:0])::set(null, "uvm_test_top.env.xgmii_agent_inst.mon", "XGMII_DATA_IDLE", 64'h0707070707070707);
+      uvm_config_db#(bit [7:0])::set(null, "uvm_test_top.env.xgmii_agent_inst.mon", "XGMII_CTRL_IDLE", 8'hFF);
       // Run the default test
       run_test("base_test");
     end

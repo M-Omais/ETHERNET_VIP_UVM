@@ -44,62 +44,6 @@ class xgmii_seq_item extends uvm_sequence_item;
 	    payload.size() == 0;
 	}
 
-	virtual function int data_create(bit req=0);
-	    longint   mac_src;
-      longint   mac_dst;
-	    longint   dataout[64];
-	    longint   ctrlout[64];
-	    int       ip_src;
-	    int       ip_dst;
-	    int       sport;
-      int       dport;
-	    int       payload_len;
-	    int       ret_size;
-	    shortint  eth_type_s;
-      shortint  op;
-	    byte      payload_bytes[];
-
-	    // Map class fields
-	    mac_src     = src_addr;
-	    mac_dst     = dst_addr;
-	    ip_src      = src_ip;
-	    ip_dst      = dst_ip;
-	    sport       = src_port;
-	    dport       = dst_port;
-	    payload_len = payload.size();
-	    eth_type_s  = eth_type;
-
-		if (req) 
-		  op = 1; // ARP request
-		else   
-		  op = 2; // ARP reply or normal UDP frame
-
-	    // Copy payload
-    payload_bytes = new[payload_len];
-    foreach (payload[i]) begin
-        payload_bytes[i] = payload[i];
-    end
-
-    // Call frame creation function
-    ret_size = xgmii_eth_frame_c(mac_src, mac_dst, ip_src, ip_dst, eth_type_s,
-                            sport, dport, payload_bytes, dataout, ctrlout, op);
-
-		if (ret_size < 2)
-			`uvm_error(get_type_name(), "DPI function xgmii_eth_frame_c failed")
-		else 
-		begin	
-			`uvm_info(get_type_name(), "DPI function xgmii_eth_frame_c succeeded", UVM_LOW);
-			// Copy output data to class fields
-			data_out = new[ret_size];
-			ctrl_out = new[ret_size];
-			for (int i = 0; i < ret_size; i++) begin
-			    data_out[i] = dataout[i];
-			    ctrl_out[i] = ctrlout[i];
-			end
-		end
-	    return ret_size;
-	endfunction
-
 	virtual function string print_data();
 		string s = "\nData Output:\t\t";
 		foreach (data_out[i]) begin

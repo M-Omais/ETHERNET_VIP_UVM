@@ -31,7 +31,7 @@ CPP_LINK_FLAGS = /link /LIBPATH:"$(PY_LIBDIR)" python313.lib "$(MTI_HOME)\win64\
 
 VLOG_FLAGS = -sv +acc -lint +define+UVM_REPORT_DISABLE_FILE_LINE
 VSIM_FLAGS = -classdebug -uvmcontrol=all -voptargs=+acc +UVM_NO_RELNOTES +UVM_NO_MSG=PHASESEQ +UVM_NO_MSG=PH_READY_TO_END +UVM_VERBOSITY=UVM_LOW
-TEST_NAME = +UVM_TESTNAME=variable_ip_test
+TEST_NAME = +UVM_TESTNAME=udp_back_to_back_test
 # udp_xgmii_parallel_test
 # handshake_test
 # udp_test
