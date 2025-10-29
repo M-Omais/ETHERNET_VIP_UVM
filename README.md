@@ -1,6 +1,6 @@
 # ETHERNET_VIP_UVM
 
-UVM-based Ethernet Verification IP for simulating and verifying Ethernet protocols.  
+UVM-based Ethernet Verification IP for simulating and verifying Ethernet Stack.  
 Provides reusable, configurable testbench components to accelerate functional verification.
 
 ---
@@ -14,9 +14,8 @@ Provides reusable, configurable testbench components to accelerate functional ve
 │   ├── RTL understanding docs.md
 │   ├── Ethernet VIP Presentation.pptx
 │   ├── UVM hierarchy.drawio
-│   ├── HVP_Ethernet.docx #(High-level verification plan)
+│   ├── HVP_Ethernet.docx #(Hardware verification plan)
 │   └── Sequences codeflows.drawio
-│
 ├── rtl/
 │   ├── arbiter.v
 │   ├── arp.v
