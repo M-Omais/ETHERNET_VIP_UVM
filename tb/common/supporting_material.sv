@@ -5,17 +5,17 @@ parameter master_mac = 48'h5a5152535455; // Master MAC address
 
 // UDP -> XGMII frame conversion function
 import "DPI-C" context function int xgmii_eth_frame_c(
-        input longint src_mac,
-        input longint dst_mac,
-        input int src_ip,
-        input int dst_ip,
-        input shortint eth_type,   
-        input int sport,
-        input int dport,
-        input byte payload[],      // input payload bytes
-        output longint data_ray[],     // output frame bytes
-        output longint ctrl_ray[],
-        input shortint op     // output frame bytes
+        input  longint  src_mac,
+        input  longint  dst_mac,
+        input  int      src_ip,
+        input  int      dst_ip,
+        input  shortint eth_type,   
+        input  int      sport,
+        input  int      dport,
+        input  byte     payload[],      // input payload bytes
+        output longint  data_ray[],     // output frame bytes
+        output longint  ctrl_ray[],
+        input  shortint op     // output frame bytes
     );
 
 // XGMII -> UDP frame conversion function

@@ -1,4 +1,4 @@
-//Fields required to generate the stimulus are declared in the sequence_item.
+//Sequence item: Fields required to generate the stimulus are declared in the sequence_item.
 
 `include "uvm_macros.svh" // Include UVM Macros
 

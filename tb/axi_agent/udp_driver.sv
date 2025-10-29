@@ -1,4 +1,4 @@
-// Driver receives the stimulus from sequence via sequencer and drives on interface signals.
+// Driver: receives the stimulus from sequence via sequencer and drives on interface signals.
 class udp_driver extends uvm_driver #(udp_seq_item);
 
   `uvm_component_utils(udp_driver)
@@ -29,36 +29,33 @@ class udp_driver extends uvm_driver #(udp_seq_item);
     `uvm_info("DRIVER", "Reset deasserted, starting driver", UVM_LOW);
 
     // Initialize outputs safe (avoid X-propagation)
-    vif.s_udp_hdr_valid          <= 0;
-    vif.s_udp_ip_dscp            <= '0;
-    vif.s_udp_ip_ecn             <= '0;
-    vif.s_udp_ip_ttl             <= '0;
-    vif.s_udp_ip_source_ip       <= '0;
-    vif.s_udp_ip_dest_ip         <= '0;
-    vif.s_udp_source_port        <= '0;
-    vif.s_udp_dest_port          <= '0;
-    vif.s_udp_length             <= '0;
-    vif.s_udp_checksum           <= '0;
-
-    vif.s_udp_payload_axis_tdata  <= '0;
-    vif.s_udp_payload_axis_tvalid <= 0;
-    vif.s_udp_payload_axis_tkeep  <= 0;
-    vif.s_udp_payload_axis_tlast  <= 0;
-    vif.s_udp_payload_axis_tuser  <= 0;
+    vif.s_udp_hdr_valid                    <= 1'b0;
+    vif.s_udp_ip_dscp                      <= 6'b0;
+    vif.s_udp_ip_ecn                       <= 2'b0;
+    vif.s_udp_ip_ttl                       <= 8'b0;
+    vif.s_udp_ip_source_ip                 <= 32'b0;
+    vif.s_udp_ip_dest_ip                   <= 32'b0;
+    vif.s_udp_source_port                  <= 16'b0;
+    vif.s_udp_dest_port                    <= 16'b0;
+    vif.s_udp_length                       <= 16'b0;
+    vif.s_udp_checksum                     <= 16'b0;
+      
+    vif.s_udp_payload_axis_tvalid          <= 1'b0;
+    vif.s_udp_payload_axis_tlast           <= 1'b0;
+    vif.s_udp_payload_axis_tuser           <= 1'b0;
+    vif.s_udp_payload_axis_tdata           <= '0;
+    vif.s_udp_payload_axis_tkeep           <= '0;
 
     forever begin
       // Block until we get a new transaction
-      seq_item_port.get_next_item(item); //seq_item_port:TLM port in driver that connects to sequencer, to let driver pull transactions
+      //seq_item_port:TLM port in driver that connects to sequencer, to let driver pull transactions
+      seq_item_port.get_next_item(item); 
 
       `uvm_info("DRIVER",$sformatf("Driving UDP packet: src_port=%0d dst_port=%0d len=%0d",
                    item.s_udp_source_port, item.s_udp_dest_port, item.s_udp_length),UVM_LOW)
 
       drive_task(item);
-      // #1ns;
       seq_item_port.item_done();
-
-      // Random idle cycles between packets (simulate realistic gaps)
-      // repeat($urandom_range(0,3)) @(posedge vif.clk);
     end
   endtask
 
@@ -66,32 +63,34 @@ class udp_driver extends uvm_driver #(udp_seq_item);
   virtual task drive_task(udp_seq_item tr); 
 
     // Drive header first
-    @(posedge vif.clk);
-    vif.s_udp_hdr_valid      <= 1'b1;
-    vif.s_udp_ip_dscp        <= tr.s_udp_ip_dscp;
-    vif.s_udp_ip_ecn         <= tr.s_udp_ip_ecn;
-    vif.s_udp_ip_ttl         <= tr.s_udp_ip_ttl;
-    vif.s_udp_ip_source_ip   <= tr.s_udp_ip_source_ip;
-    vif.s_udp_ip_dest_ip     <= tr.s_udp_ip_dest_ip;
-    vif.s_udp_source_port    <= tr.s_udp_source_port;
-    vif.s_udp_dest_port      <= tr.s_udp_dest_port;
-    vif.s_udp_length         <= tr.s_udp_length;
-    vif.s_udp_checksum       <= tr.s_udp_checksum;
-
+    @(posedge vif.clk)
+    begin
+      vif.s_udp_hdr_valid      <= 1'b1;
+      vif.s_udp_ip_dscp        <= tr.s_udp_ip_dscp;
+      vif.s_udp_ip_ecn         <= tr.s_udp_ip_ecn;
+      vif.s_udp_ip_ttl         <= tr.s_udp_ip_ttl;
+      vif.s_udp_ip_source_ip   <= tr.s_udp_ip_source_ip;
+      vif.s_udp_ip_dest_ip     <= tr.s_udp_ip_dest_ip;
+      vif.s_udp_source_port    <= tr.s_udp_source_port;
+      vif.s_udp_dest_port      <= tr.s_udp_dest_port;
+      vif.s_udp_length         <= tr.s_udp_length;
+      vif.s_udp_checksum       <= tr.s_udp_checksum;
+    end
     // Wait for DUT ready
     wait(vif.s_udp_hdr_ready);
-    @(posedge vif.clk);
-    vif.s_udp_hdr_valid <= 0;
+    @(posedge vif.clk)
+    vif.s_udp_hdr_valid <= 1'b0;
 
     // Drive payload byte by byte
     foreach (tr.s_udp_payload_data[i]) begin
-      @(posedge vif.clk);
-      vif.s_udp_payload_axis_tdata  <= tr.s_udp_payload_data[i];
-      vif.s_udp_payload_axis_tvalid <= 1;
-      vif.s_udp_payload_axis_tuser  <= tr.s_udp_payload_user;
-      vif.s_udp_payload_axis_tkeep  <= tr.s_udp_payload_keep[i];
-      vif.s_udp_payload_axis_tlast  <= (i == tr.s_udp_payload_data.size()-1);
-
+      @(posedge vif.clk)
+      begin
+        vif.s_udp_payload_axis_tdata  <= tr.s_udp_payload_data[i];
+        vif.s_udp_payload_axis_tvalid <= 1'b1;
+        vif.s_udp_payload_axis_tuser  <= tr.s_udp_payload_user;
+        vif.s_udp_payload_axis_tkeep  <= tr.s_udp_payload_keep[i];
+        vif.s_udp_payload_axis_tlast  <= (i == tr.s_udp_payload_data.size()-1);
+      end
       `uvm_info("DRIVER", $sformatf("Payload[%0d] = 0x%0h", i, tr.s_udp_payload_data[i]), UVM_HIGH)
 
       // Wait until DUT accepts (tready high)
@@ -99,13 +98,13 @@ class udp_driver extends uvm_driver #(udp_seq_item);
     end
 
     // Deassert after last beat
-    @(posedge vif.clk);
-    vif.s_udp_payload_axis_tvalid <= 0;
-    vif.s_udp_payload_axis_tlast  <= 0;
-    vif.s_udp_payload_axis_tkeep  <= 0;
-    vif.s_udp_payload_axis_tuser  <= 0;
-    vif.s_udp_payload_axis_tdata  <='0;
-
+    @(posedge vif.clk)
+    begin
+      vif.s_udp_payload_axis_tvalid <= 1'b0;
+      vif.s_udp_payload_axis_tlast  <= 1'b0;
+      vif.s_udp_payload_axis_tuser  <= 1'b0;
+      vif.s_udp_payload_axis_tkeep  <= '0;
+      vif.s_udp_payload_axis_tdata  <= '0;
+    end
   endtask : drive_task
-
 endclass : udp_driver

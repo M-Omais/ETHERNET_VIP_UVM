@@ -1,5 +1,5 @@
 // Monitor is a passive component that observes DUT signals via virtual interface (vif)
-// and converts them into transactions, which are sent out via analysis port to scoreboard, coverage,
+// and converts them into transactions, which are sent out via analysis port to scoreboard & coverage
 
 class udp_monitor extends uvm_monitor;
 
@@ -37,8 +37,8 @@ class udp_monitor extends uvm_monitor;
   virtual task monitor_s_udp();
     udp_seq_item tr;
     forever begin
-       // DUT Input observation (s_udp_*)
-       tr = udp_seq_item::type_id::create("tr");
+      // DUT Input observation (s_udp_*)
+      tr = udp_seq_item::type_id::create("tr");
 
       // Wait for header valid & ready handshake
       @(posedge vif.clk iff (vif.s_udp_hdr_valid && vif.s_udp_hdr_ready));
@@ -62,7 +62,8 @@ class udp_monitor extends uvm_monitor;
         tr.s_udp_payload_last = vif.s_udp_payload_axis_tlast;
         tr.s_udp_payload_user = vif.s_udp_payload_axis_tuser;
         tr.s_udp_payload_keep.push_back(vif.s_udp_payload_axis_tkeep);
-      end while (!vif.s_udp_payload_axis_tlast);
+      end 
+      while (!vif.s_udp_payload_axis_tlast);
 
       
 
@@ -82,10 +83,10 @@ class udp_monitor extends uvm_monitor;
         // DUT Output observation (m_udp_*)
         // Wait for header valid & ready handshake
         tr = udp_seq_item::type_id::create("tr");
-        while (!vif.m_udp_hdr_valid ) begin
-          @(negedge vif.clk)begin
-            `uvm_info("MONITOR-M-UDP", "WAITING", UVM_DEBUG)
-          end
+        while (!vif.m_udp_hdr_valid ) 
+        begin
+          @(negedge vif.clk)
+          `uvm_info("MONITOR-M-UDP", "WAITING", UVM_DEBUG)
         end
 
 
@@ -120,19 +121,21 @@ class udp_monitor extends uvm_monitor;
 
         do begin
           // Wait until payload valid is seen
-          while (!vif.m_udp_payload_axis_tvalid) begin
-            @(posedge vif.clk)begin
-              `uvm_info("MONITOR-M-UDP", "Waiting for UDP payload valid...", UVM_DEBUG)
-            end
+          while (!vif.m_udp_payload_axis_tvalid) 
+          begin
+            @(posedge vif.clk)
+            `uvm_info("MONITOR-M-UDP", "Waiting for UDP payload valid...", UVM_DEBUG)
           end
 
           // Sample payload data when valid & ready
-          if (vif.m_udp_payload_axis_tvalid) begin
+          if (vif.m_udp_payload_axis_tvalid) 
+          begin
             tr.m_udp_payload_data.push_back(vif.m_udp_payload_axis_tdata);
           end
           `uvm_info("MONITOR-M-UDP", $sformatf("PAYLOAD CAPTURE: valid=%0b ready=%0b last=%0b data=%h",vif.m_udp_payload_axis_tvalid, vif.m_udp_payload_axis_tready,vif.m_udp_payload_axis_tlast, vif.m_udp_payload_axis_tdata), UVM_MEDIUM)
           @(posedge vif.clk);
-        end while (!vif.m_udp_payload_axis_tlast);
+        end 
+        while (!vif.m_udp_payload_axis_tlast);
         tr.m_udp_payload_data.push_back(vif.m_udp_payload_axis_tdata);
 
         tr.m_udp_payload_last = vif.m_udp_payload_axis_tlast;
