@@ -43,6 +43,5 @@ package tx_pkg;
     `include "../tests/xgmii_back_to_back_test.sv"
     `include "../tests/udp_xgmii_parallel_test.sv"
     `include "../tests/variable_ip_test.sv"
-    // `include "../axi_agent/udp_env.sv"
 
 endpackage
