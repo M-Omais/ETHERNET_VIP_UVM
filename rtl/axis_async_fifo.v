@@ -141,9 +141,7 @@ module axis_async_fifo #
     output wire                   m_status_bad_frame,
     output wire                   m_status_good_frame
 );
-// always @(posedge m_clk) begin
-// 	$display("m_axis_tvalid_pipe = %0d\t%0t",m_axis_tvalid_pipe,$time);
-// end
+
 parameter ADDR_WIDTH = (KEEP_ENABLE && KEEP_WIDTH > 1) ? $clog2(DEPTH/KEEP_WIDTH) : $clog2(DEPTH);
 
 parameter OUTPUT_FIFO_ADDR_WIDTH = RAM_PIPELINE < 2 ? 3 : $clog2(RAM_PIPELINE*2+7);

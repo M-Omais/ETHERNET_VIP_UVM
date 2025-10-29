@@ -104,8 +104,8 @@ module top;
       uvm_config_db#(int)            ::set(null, "", "recording_detail", 0);
       uvm_config_db#(uvm_bitstream_t)::set(null, "", "recording_detail", 0);
 
-      uvm_config_db#(bit [63:0])::set(null, "uvm_test_top.env.xgmii_agent_inst.mon", "XGMII_DATA_IDLE", 64'h0707070707070707);
-      uvm_config_db#(bit [7:0])::set(null, "uvm_test_top.env.xgmii_agent_inst.mon", "XGMII_CTRL_IDLE", 8'hFF);
+      uvm_config_db#(bit [63:0])::set(null, "uvm_test_top.env.xgmii_agent_inst.drv", "XGMII_DATA_IDLE", 64'h0707070707070707);
+      uvm_config_db#(bit [7:0])::set(null, "uvm_test_top.env.xgmii_agent_inst.drv", "XGMII_CTRL_IDLE", 8'hFF);
       // Run the default test
       run_test("base_test");
     end

@@ -34,6 +34,7 @@ package tx_pkg;
     `include "../env/virtual_sequences/arp_handshake_seq.sv"
     `include "../env/virtual_sequences/variable_arp_seq.sv"
     `include "../env/virtual_sequences/variable_ip_seq.sv"
+    `include "../env/virtual_sequences/udp_back_to_back_vseq.sv"
 
     `include "../tests/base_test.sv"
     `include "../tests/udp_test.sv"

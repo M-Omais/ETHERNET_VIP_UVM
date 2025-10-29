@@ -72,65 +72,66 @@ class scoreboard extends uvm_scoreboard;
     end
   endfunction
 
-
-  
-
   virtual function void write_actual_xgmii(xgmii_seq_item tr);
-    xgmii_seq_item exp_tr;
-    bit correct;
-    int checking_size;
-    bit checking_start;
-    static bit collecting;
-    static bit [63:0] data_q[$];
-           bit [63:0] data_64_in;
-    static bit [7:0]  ctrl_q[$];
-           bit [7:0]  ctrl_8_in;
+    xgmii_seq_item     exp_tr;
+           bit         correct;
+           int         checking_size;
+           bit         checking_start;
+    static bit         collecting;
+    static bit  [63:0] data_q[$];
+           bit  [63:0] data_64_in;
+           bit [63:0] data_lane;
+    static bit  [7:0]  ctrl_q[$];
+           bit  [7:0]  ctrl_8_in;
+           bit         ctrl_lane;
+
     correct = 1;
     checking_start = 0;
     data_64_in = tr.data_out[0];
     ctrl_8_in  = tr.ctrl_out[0];
+
     for (int i = 0; i < 8; i++) begin
-            byte data_lane = data_64_in[8*i +: 8];
-            bit  ctrl_lane = ctrl_8_in[i];
+      data_lane = data_64_in[8*i +: 8];
+      ctrl_lane = ctrl_8_in[i];
 
-            if (ctrl_lane) begin
-              case (data_lane)
-                  8'h07: begin
-                    `uvm_info("MONITOR_READ", "Received IDLE character", UVM_DEBUG);
-                  end
-                  8'hFB: begin
-                    `uvm_info("MONITOR_READ", "Received START character", UVM_HIGH);
-                    collecting = 1;
-                    data_q.delete();
-                    ctrl_q.delete();
-                  end
-                  8'hFD: begin
-                    `uvm_info("MONITOR_READ", "Received END character", UVM_HIGH);
-                    collecting = 0;
-                    checking_start = 1;
-                    // push the last word
-                    data_q.push_back(data_64_in);
-                    ctrl_q.push_back(ctrl_8_in);
+      if (ctrl_lane) begin
+        case (data_lane)
+          8'h07: begin
+            `uvm_info("MONITOR_READ", "Received IDLE character", UVM_DEBUG);
+          end
+          8'hFB: begin
+            `uvm_info("MONITOR_READ", "Received START character", UVM_HIGH);
+            collecting = 1;
+            data_q.delete();
+            ctrl_q.delete();
+          end
+          8'hFD: begin
+            `uvm_info("MONITOR_READ", "Received END character", UVM_HIGH);
+            collecting = 0;
+            checking_start = 1;
+            // push the last word
+            data_q.push_back(data_64_in);
+            ctrl_q.push_back(ctrl_8_in);
 
-                    // Build transaction once frame ends
-                    xgmii_act = xgmii_seq_item::type_id::create("xgmii_act", this);
-                    xgmii_act.data_out = new[data_q.size()];
-                    xgmii_act.ctrl_out = new[ctrl_q.size()];
-                    for (int j = 0; j < data_q.size(); j++) begin
-                      xgmii_act.data_out[j] = data_q[j];
-                      xgmii_act.ctrl_out[j] = ctrl_q[j];
-                    end
-                  end
-              endcase
+            // Build transaction once frame ends
+            xgmii_act = xgmii_seq_item::type_id::create("xgmii_act", this);
+            xgmii_act.data_out = new[data_q.size()];
+            xgmii_act.ctrl_out = new[ctrl_q.size()];
+            for (int j = 0; j < data_q.size(); j++) begin
+              xgmii_act.data_out[j] = data_q[j];
+              xgmii_act.ctrl_out[j] = ctrl_q[j];
             end
-        end
+          end
+        endcase
+      end
+    end
 
         // Collect payload during active frame
-        if (collecting) begin
-          data_q.push_back(data_64_in);
-          ctrl_q.push_back(ctrl_8_in);
-          `uvm_info("MONITOR_READ", $sformatf("Captured tdata: %h", data_64_in), UVM_HIGH);
-        end
+    if (collecting) begin
+      data_q.push_back(data_64_in);
+      ctrl_q.push_back(ctrl_8_in);
+      `uvm_info("MONITOR_READ", $sformatf("Captured tdata: %h", data_64_in), UVM_HIGH);
+    end
 
 
 
@@ -164,15 +165,11 @@ class scoreboard extends uvm_scoreboard;
     end
   endfunction
 
-
-
-
   // Report final statistics
   virtual function void report_phase(uvm_phase phase);
     real error_pct = (match + mis_match) ? (100.0 * mis_match / (match + mis_match)) : 0.0;
     `uvm_info("scoreboard_REPORT", $sformatf("Total Matches: %0d, Total Mismatches: %0d, Error Percentage: %.2f%%", match, mis_match, error_pct), UVM_LOW)
   endfunction
-
   
   function bit udp_pkt_compare(udp_seq_item act, udp_seq_item exp);
     bit status = 1; // assume match

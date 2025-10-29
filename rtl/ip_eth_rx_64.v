@@ -433,8 +433,7 @@ always @* begin
             end
 
             if (check_hdr_reg) begin
-				$display("DEBUG: Computed IPv4 checksum = 0x%h (hdr_sum_reg=0x%h, hdr_sum_low_reg=0x%h)", 
-							~hdr_sum_temp[15:0], hdr_sum_reg, hdr_sum_low_reg);
+
                 check_hdr_next = 1'b0;
 				
                 hdr_sum_temp = hdr_sum_reg[15:0] + hdr_sum_reg[19:16] + hdr_sum_low_reg;
@@ -453,7 +452,6 @@ always @* begin
                     end
                 end else begin
                     // good checksum; transfer header
-					$display("OH YEAH");
                     m_ip_hdr_valid_next = 1'b1;
                 end
             end
