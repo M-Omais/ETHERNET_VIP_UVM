@@ -4,7 +4,6 @@ UVM-based Ethernet Verification IP for simulating and verifying Ethernet protoco
 Provides reusable, configurable testbench components to accelerate functional verification.
 
 ---
-
 ## 📂 Project Structure
 
 ```bash
