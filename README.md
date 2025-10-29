@@ -8,8 +8,15 @@ Provides reusable, configurable testbench components to accelerate functional ve
 
 ```bash
 .
-├── docs/
-├── README.md
+├── documentation/
+│   ├── images/
+│   ├── RTL flow diagram.drawio.svg
+│   ├── RTL understanding docs.md
+│   ├── Ethernet VIP Presentation.pptx
+│   ├── UVM hierarchy.drawio
+│   ├── HVP_Ethernet.docx #(High-level verification plan)
+│   └── Sequences codeflows.drawio
+│
 ├── rtl/
 │   ├── arbiter.v
 │   ├── arp.v
@@ -93,6 +100,7 @@ Provides reusable, configurable testbench components to accelerate functional ve
 │       ├── requirements.txt
 │       ├── run.do
 │       ├── xgmii_frame.py
-│       └── work/ (gitignored)
+│       └── work/ #(gitignored)
 ├── .gitignore
+├── README.md
 ```
