@@ -369,12 +369,10 @@ always @(posedge clk) begin
             end
         end
     end
-	// $display("xgmii_rxc[0]=%b, xgmii_rxd[7:0]=%h, XGMII_START detected at time %t", xgmii_rxc[0], xgmii_rxd[7:0], $time);
 
     // start control character detection
     if (xgmii_rxc[0] && xgmii_rxd[7:0] == XGMII_START) begin
         lanes_swapped <= 1'b0;
-		$display("STARTED");
         xgmii_start_d0 <= 1'b1;
 
         term_lane_reg <= 0;

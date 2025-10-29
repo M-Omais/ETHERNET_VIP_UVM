@@ -242,7 +242,6 @@ if (M_BYTE_LANES > S_BYTE_LANES) begin : upsize_pre
 end else begin : bypass_pre
 	initial begin
 		
-		$display("DEBUG: Entered upsize_pre block in axis_async_fifo_adapter (instance %m)");
 	end    assign pre_fifo_axis_tdata = s_axis_tdata;
     assign pre_fifo_axis_tkeep = s_axis_tkeep;
     assign pre_fifo_axis_tvalid = s_axis_tvalid;

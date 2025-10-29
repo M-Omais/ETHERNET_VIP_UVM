@@ -294,8 +294,7 @@ always @* begin
 
 	// manage incoming frames
 	incoming_frame_ready = outgoing_frame_ready;
-				    // $display("ARP packet detected: eth_type=%h, htype=%h, ptype=%h, time=%0t",
-            //  incoming_eth_type, incoming_arp_htype, incoming_arp_ptype, $time);
+
 	if (incoming_frame_valid && incoming_frame_ready) begin
 		if (incoming_eth_type == 16'h0806 && incoming_arp_htype == 16'h0001 && incoming_arp_ptype == 16'h0800) begin
 			// store sender addresses in cache
@@ -342,7 +341,6 @@ always @* begin
 			arp_response_mac_next = cache_query_response_mac;
 		end
 		// timer timeout
-		// $display("T=%0t | Timer=0, Retries left=%0d -> sending ARP request", $time, arp_request_retry_cnt_reg);
 		if (arp_request_timer_reg == 0) begin
 			if (arp_request_retry_cnt_reg > 0) begin
 				// have more retries
@@ -367,11 +365,7 @@ always @* begin
 			end
 		end
 	end else begin
-		// $display("T=%0t | arp_request_operation_reg = %b", $time, arp_request_operation_reg);
 		arp_request_ready_next = !arp_response_valid_next;
-		// $display("T=%0t | cache_query_request_valid_reg = %b", $time, cache_query_request_valid_reg);
-		// $display("T=%0t | cache_query_response_valid = %b", $time, cache_query_response_valid);
-		// $display("T=%0t | cache_query_response_error = %b", $time, cache_query_response_error);
 
 		if (cache_query_request_valid_reg) begin
 			cache_query_request_valid_next = 1'b1;

@@ -205,7 +205,7 @@ class reference_model extends uvm_component;
             data_create(temp);
             xgmii_send.try_put(temp);
           end
-          `uvm_info("SCOREBOARD_EXPECTED", $sformatf("ARP Cache Update: IP %s -> MAC %012h",
+          `uvm_info("PROCESS_XGMII_FRAME", $sformatf("ARP Cache Update: IP %s -> MAC %012h",
                     ip_to_string(m_udp_ip_source_ip), m_udp_eth_src_mac), UVM_LOW)
           break;
         end
@@ -220,10 +220,10 @@ class reference_model extends uvm_component;
 
       for (int j = 0; j < (m_udp_length - 8)/8; j++) begin
         udp_tr.m_udp_payload_data.push_back(m_udp_payload[j]);
-        `uvm_info("SCOREBOARD_EXPECTED", $sformatf("Payload[%0d]: %h", j, m_udp_payload[j]), UVM_DEBUG);
+        `uvm_info("PROCESS_XGMII_FRAME", $sformatf("Payload[%0d]: %h", j, m_udp_payload[j]), UVM_DEBUG);
       end
 
-      `uvm_info("SCOREBOARD_EXPECTED", $sformatf("%s", udp_tr.convert2string_m_udp()), UVM_LOW);
+      `uvm_info("PROCESS_XGMII_FRAME", $sformatf("%s", udp_tr.convert2string_m_udp()), UVM_LOW);
 
       // Send expected UDP transaction to scoreboard
       udp_send.try_put(udp_tr);
@@ -241,7 +241,7 @@ class reference_model extends uvm_component;
     found = 0;
     idx = 0;
 
-		`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("INCOMING UDP Packet:\n%s", tr.convert2string_s_udp()), UVM_LOW)
+		`uvm_info("REF_MODEL_UDP", $sformatf("INCOMING UDP Packet:\n%s", tr.convert2string_s_udp()), UVM_LOW)
 
 		expec          = xgmii_seq_item::type_id::create("expec", this);
 		expec.src_addr = dut_mac;
@@ -260,7 +260,7 @@ class reference_model extends uvm_component;
 				foreach (tr.s_udp_payload_data[i]) begin
 					for (int b = 0; b < 8; b++) begin
 						expec.payload[idx] = tr.s_udp_payload_data[i][8*b +: 8];
-						`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Flattened Payload[%0d]: %h", idx, expec.payload[idx]), UVM_DEBUG);
+						`uvm_info("REF_MODEL_UDP", $sformatf("Flattened Payload[%0d]: %h", idx, expec.payload[idx]), UVM_DEBUG);
 						idx++;
 					end
 				end
@@ -268,7 +268,7 @@ class reference_model extends uvm_component;
 				// Flatten payload
 				xgmii_send.try_put(expec);
 				found = 1;
-				`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Resolved IP %sto MAC %012h",ip_to_string(tr.s_udp_ip_dest_ip), arp_table[i].mac), UVM_MEDIUM)
+				`uvm_info("REF_MODEL_UDP", $sformatf("Resolved IP %sto MAC %012h",ip_to_string(tr.s_udp_ip_dest_ip), arp_table[i].mac), UVM_MEDIUM)
 				break;
 			end
 		end
@@ -276,9 +276,9 @@ class reference_model extends uvm_component;
 		if (!found) begin
 			expec.eth_type = 16'h0806; // ARP
 			// expec.dst_addr =  {48{1'b1}};
-			`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("No ARP entry for IP %s -> sending ARP", ip_to_string(tr.s_udp_ip_dest_ip)), UVM_LOW)
+			`uvm_info("REF_MODEL_UDP", $sformatf("No ARP entry for IP %s -> sending ARP", ip_to_string(tr.s_udp_ip_dest_ip)), UVM_LOW)
 			arp_table.push_back('{ip: tr.s_udp_ip_dest_ip, mac: 48'h0, req: 1'b1, valid: 1'b0}); // add ARP request entry
-			idx = data_create(expec,1);
+			idx = data_create(expec, 1);
 			xgmii_send.try_put(expec);// send ARP request
 			// Create pending XGMII packet for later UDP send after ARP reply
 			pending.src_addr = dut_mac;
@@ -287,17 +287,17 @@ class reference_model extends uvm_component;
 			pending.dst_ip   = tr.s_udp_ip_dest_ip;
 			pending.src_port = tr.s_udp_source_port;
 			pending.dst_port = tr.s_udp_dest_port;
-			pending.payload = new[tr.s_udp_payload_data.size()*8];
+			pending.payload  = new[tr.s_udp_payload_data.size()*8];
 			pending.eth_type = 16'h0800;
 			idx=0;
 			foreach (tr.s_udp_payload_data[i]) begin
 				for (int b = 0; b < 8; b++) begin
 					pending.payload[idx] = tr.s_udp_payload_data[i][8*b +: 8];
-					`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("Flattened Payload[%0d]: %h", idx, pending.payload[idx]), UVM_DEBUG);
+					`uvm_info("REF_MODEL_UDP", $sformatf("Flattened Payload[%0d]: %h", idx, pending.payload[idx]), UVM_DEBUG);
 					idx++;
 				end
 			end
-			`uvm_info("SCOREBOARD_EXPECTED_UDP", $sformatf("PENDING XGMII Packet: \n%s", pending.print_data()), UVM_HIGH)
+			`uvm_info("REF_MODEL_UDP", $sformatf("PENDING XGMII Packet: \n%s", pending.print_data()), UVM_HIGH)
 			// Flatten payload
     end
   endfunction
