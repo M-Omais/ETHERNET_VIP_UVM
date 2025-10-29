@@ -16,6 +16,6 @@ class udp_back_to_back_vseq extends uvm_sequence#(uvm_sequence_item);
 
     `uvm_info(get_type_name(), "Starting back-to-back UDP seq...", UVM_LOW)
     b2b_seq.num_packets = 12;
-    b2b_seq.start(p_sequencer.udp_sequencer_inst);
+    b2b_seq.start(p_sequencer.axis_sequencer_inst);
   endtask
 endclass

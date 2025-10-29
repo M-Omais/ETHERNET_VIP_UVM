@@ -1,25 +1,25 @@
 // Agent = container for sequencer, driver, monitor
-class udp_agent extends uvm_agent;
+class axis_agent extends uvm_agent;
 
-  `uvm_component_utils(udp_agent)
+  `uvm_component_utils(axis_agent)
 
   // Components inside agent
-  udp_sequencer   seqr;
-  udp_driver      drv;
-  udp_monitor     mon;
+  axis_sequencer   seqr;
+  axis_driver      drv;
+  axis_monitor     mon;
 
   // Config knob: active or passive agent
   uvm_active_passive_enum is_active = UVM_ACTIVE;
 
   // Constructor
-  function new(string name = "udp_agent", uvm_component parent);
+  function new(string name = "axis_agent", uvm_component parent);
     super.new(name, parent);
   endfunction
 
   // Build: create components depending on active/passive
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    mon = udp_monitor::type_id::create("mon", this);
+    mon = axis_monitor::type_id::create("mon", this);
 
     if (!uvm_config_db#(uvm_active_passive_enum)::get(this, "", "is_active", is_active))
       begin
@@ -27,8 +27,8 @@ class udp_agent extends uvm_agent;
       end
     if (is_active == UVM_ACTIVE) 
       begin
-        seqr = udp_sequencer::type_id::create("seqr", this);
-        drv  = udp_driver   ::type_id::create("drv",  this);
+        seqr = axis_sequencer::type_id::create("seqr", this);
+        drv  = axis_driver   ::type_id::create("drv",  this);
       end
        
   endfunction
@@ -42,4 +42,4 @@ class udp_agent extends uvm_agent;
     end
   endfunction
 
-endclass : udp_agent
+endclass : axis_agent

@@ -49,12 +49,11 @@ Provides reusable, configurable testbench components to accelerate functional ve
 │   │   ├── axi_stream_if.sv
 │   │   ├── udp_if.sv
 │   │   └── xgmii_if.sv
-│   ├── axi_agent/
-│   │   ├── pkg_axi_agent.sv
-│   │   ├── udp_agent.sv
-│   │   ├── udp_driver.sv
-│   │   ├── udp_monitor.sv
-│   │   ├── udp_sequencer.sv
+│   ├── axis_agent/
+│   │   ├── axis_agent.sv
+│   │   ├── axis_driver.sv
+│   │   ├── axis_monitor.sv
+│   │   ├── axis_sequencer.sv
 │   │   ├── sequences/
 │   │   │   ├── back_to_back_seq.sv
 │   │   │   ├── no_payload_seq.sv

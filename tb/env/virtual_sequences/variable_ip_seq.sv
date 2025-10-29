@@ -52,7 +52,7 @@ class variable_ip_seq extends uvm_sequence;
       end
 
       foreach (udp[i]) begin
-          udp[i].start(p_sequencer.udp_sequencer_inst);
+          udp[i].start(p_sequencer.axis_sequencer_inst);
           #100;
       end
 

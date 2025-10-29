@@ -11,10 +11,10 @@ package tx_pkg;
     `include "../xgmii_agent/xgmii_monitor.sv"
     `include "../xgmii_agent/xgmii_agent.sv"
 
-    `include "../axi_agent/udp_sequencer.sv"
-    `include "../axi_agent/udp_driver.sv"
-    `include "../axi_agent/udp_monitor.sv"
-    `include "../axi_agent/udp_agent.sv"
+    `include "../axis_agent/axis_sequencer.sv"
+    `include "../axis_agent/axis_driver.sv"
+    `include "../axis_agent/axis_monitor.sv"
+    `include "../axis_agent/axis_agent.sv"
 
     // include agent & env files
     `include "../env/reference_model.sv"
@@ -26,11 +26,11 @@ package tx_pkg;
     `include "../xgmii_agent/sequences/xgmii_seq.sv"
     `include "../xgmii_agent/sequences/xgmii_back_to_back_seq.sv"
     `include "../xgmii_agent/sequences/variable_xgmii_seq.sv"
-    `include "../axi_agent/sequences/udp_seq.sv"
-    `include "../axi_agent/sequences/back_to_back_seq.sv"
-    `include "../axi_agent/sequences/variable_udp_seq.sv"
+    `include "../axis_agent/sequences/udp_seq.sv"
+    `include "../axis_agent/sequences/back_to_back_seq.sv"
+    `include "../axis_agent/sequences/variable_udp_seq.sv"
 
-    `include "../axi_agent/sequences/no_payload_seq.sv"
+    `include "../axis_agent/sequences/no_payload_seq.sv"
     `include "../env/virtual_sequences/arp_handshake_seq.sv"
     `include "../env/virtual_sequences/variable_arp_seq.sv"
     `include "../env/virtual_sequences/variable_ip_seq.sv"

@@ -21,7 +21,7 @@ class variable_hanshake_seq extends uvm_sequence #(uvm_sequence_item);
     // Step 1: Generate a UDP packet
     // -----------------------------
     udp_item = udp_seq_item::type_id::create("udp_item");
-    `uvm_do_on_with(udp_item,  p_sequencer.udp_sequencer_inst, {
+    `uvm_do_on_with(udp_item,  p_sequencer.axis_sequencer_inst, {
       s_udp_ip_dscp                                        == 0;
       s_udp_ip_ecn                                         == 0;
       s_udp_ip_ttl                                         == 8'd64;

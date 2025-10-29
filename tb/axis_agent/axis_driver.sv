@@ -1,13 +1,13 @@
 // Driver: receives the stimulus from sequence via sequencer and drives on interface signals.
-class udp_driver extends uvm_driver #(udp_seq_item);
+class axis_driver extends uvm_driver #(udp_seq_item);
 
-  `uvm_component_utils(udp_driver)
+  `uvm_component_utils(axis_driver)
 
   virtual udp_if    vif;   // Virtual interface handle
   udp_seq_item      item;  // Current sequence item
 
   // Constructor
-  function new(string name="udp_driver", uvm_component parent);
+  function new(string name="axis_driver", uvm_component parent);
     super.new(name, parent);
   endfunction
 
@@ -107,4 +107,4 @@ class udp_driver extends uvm_driver #(udp_seq_item);
       vif.s_udp_payload_axis_tdata  <= '0;
     end
   endtask : drive_task
-endclass : udp_driver
+endclass : axis_driver

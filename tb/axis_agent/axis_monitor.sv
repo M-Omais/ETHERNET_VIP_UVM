@@ -1,9 +1,9 @@
 // Monitor is a passive component that observes DUT signals via virtual interface (vif)
 // and converts them into transactions, which are sent out via analysis port to scoreboard & coverage
 
-class udp_monitor extends uvm_monitor;
+class axis_monitor extends uvm_monitor;
 
-  `uvm_component_utils(udp_monitor)  // Factory registration
+  `uvm_component_utils(axis_monitor)  // Factory registration
 
   virtual udp_if vif;   // Virtual interface to DUT signals
 
@@ -12,7 +12,7 @@ class udp_monitor extends uvm_monitor;
   uvm_analysis_port #(udp_seq_item) ap_m_udp;
 
   // Constructor
-  function new(string name = "udp_monitor", uvm_component parent);
+  function new(string name = "axis_monitor", uvm_component parent);
     super.new(name, parent);
     ap_s_udp = new("ap_s_udp", this);
     ap_m_udp = new("ap_m_udp", this);
@@ -148,4 +148,4 @@ class udp_monitor extends uvm_monitor;
       end
       endtask
 
-endclass : udp_monitor
+endclass : axis_monitor

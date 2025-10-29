@@ -25,7 +25,7 @@ class udp_test extends base_test;
 		xseq.start(env.virtual_seqr);
 
 		`uvm_info(get_type_name(), "Starting udp_seq...", UVM_LOW)
-		seq.start(env.udp_agent_inst.seqr); //define which sequencer the sequence should run on.
+		seq.start(env.axis_agent_inst.seqr); //define which sequencer the sequence should run on.
 
 		phase.drop_objection(this);
 	endtask

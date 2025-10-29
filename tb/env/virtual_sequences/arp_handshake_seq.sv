@@ -12,7 +12,7 @@ class arp_handshake_seq extends uvm_sequence;
 
 		udp_send = no_payload_seq::type_id::create("udp_send");
 		xgmii_send = arp_seq::type_id::create("xgmii_send");
-		udp_send.start(p_sequencer.udp_sequencer_inst);
+		udp_send.start(p_sequencer.axis_sequencer_inst);
 		#500;
 		xgmii_send.start(p_sequencer.xgmii_sequencer_inst);
 		#500;
